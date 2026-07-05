@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Portfolio | Premium Video Showcase</title>
+  <title>JAYDEEP | Professional Video Editor & Designer</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
 
@@ -13,6 +13,7 @@
       --bg: #07070a;
       --panel-bg: rgba(15, 15, 23, 0.65);
       --accent: #94a3b8;
+      --accent-glow: rgba(148, 163, 184, 0.08);
       --text-main: #f8fafc;
       --text-muted: #64748b;
       --border-glass: rgba(255, 255, 255, 0.04);
@@ -31,7 +32,7 @@
     }
     a { text-decoration: none; color: inherit; }
 
-    /* Fixed Header Navigation */
+    /* Fixed Header Navigation with Drag-to-Select Mechanics */
     header {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -51,6 +52,8 @@
       padding: 5px;
       border-radius: 40px;
       box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+      position: relative;
+      touch-action: none; /* intercepts touches manually */
     }
     nav a {
       color: var(--text-muted);
@@ -58,11 +61,13 @@
       font-size: 0.85rem;
       padding: 8px 20px;
       border-radius: 30px;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: color 0.2s ease, background 0.2s ease;
+      user-select: none;
+      -webkit-user-select: none;
     }
-    nav a:hover, nav a.active { 
+    nav a.active, nav a.touch-hover { 
       color: #fff; 
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.07);
     }
 
     /* Landing Hero Wrapper */
@@ -72,22 +77,25 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 160px 24px 80px;
+      padding: 140px 24px 60px;
       text-align: center;
     }
     
     .pre-title {
-      font-size: 0.75rem;
-      font-weight: 500;
+      font-size: 0.65rem;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 10px;
+      letter-spacing: 6px;
       color: var(--text-muted);
       margin-bottom: 14px;
       opacity: 0;
+      white-space: nowrap;
       animation: fadeUp 1s ease forwards;
     }
 
-    .brand-wrapper { margin-bottom: 8px; }
+    .brand-wrapper {
+      margin-bottom: 4px;
+    }
     .brand {
       font-weight: 900;
       font-size: 6rem;
@@ -103,21 +111,29 @@
       transform: translateY(20px);
       animation: revealLetter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    .brand span:nth-child(n+4) { color: var(--accent); }
-    @keyframes revealLetter { to { opacity: 1; transform: translateY(0); } }
+    .brand span:nth-child(n+4) {
+      color: var(--accent);
+    }
+    @keyframes revealLetter {
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     .subtitle {
-      font-size: 0.85rem;
+      font-size: 0.7rem;
       font-weight: 600;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 6px;
+      letter-spacing: 4px;
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 20px;
+      white-space: nowrap;
+      margin-top: 16px;
     }
-    .subtitle span { display: inline-block; opacity: 0; animation: fadeUp 0.6s ease forwards; }
+    .subtitle span {
+      display: inline-block;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+    }
     @keyframes fadeUp { to { opacity: 1; } }
 
     /* Skills Panel Layout */
@@ -219,6 +235,8 @@
       transform: scaleX(1);
       transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
+    .mid-blueprint-zone:hover .flow-node:nth-child(2)::after { transition-delay: 0.15s; }
+    .mid-blueprint-zone:hover .flow-node:nth-child(3)::after { transition-delay: 0.3s; }
 
     .bp-cta {
       margin-top: 16px;
@@ -237,9 +255,13 @@
       gap: 6px;
       transition: all 0.3s;
     }
-    .bp-cta:hover { background: #fff; color: #000; }
+    .bp-cta:hover {
+      background: #fff;
+      color: #000;
+      box-shadow: 0 10px 30px rgba(255,255,255,0.05);
+    }
 
-    /* --- MINIMALIST CHANNELS INFINITE TICKER --- */
+    /* --- CHANNELS INFINITE TICKER --- */
     .ticker-section {
       background: #050507;
       padding: 35px 0;
@@ -277,7 +299,10 @@
       transition: transform 0.25s ease, filter 0.25s ease;
       filter: grayscale(20%) opacity(0.8);
     }
-    .partner-link:hover { transform: scale(1.1); filter: grayscale(0%) opacity(1); }
+    .partner-link:hover {
+      transform: scale(1.1);
+      filter: grayscale(0%) opacity(1);
+    }
     .partner-avatar {
       width: 52px;
       height: 52px;
@@ -296,7 +321,7 @@
     section { padding: 100px 0; width: 100%; max-width: 100vw; overflow: hidden; }
     section h2 { text-align: center; color: #fff; font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 35px; }
 
-    /* HIGH SPEED DRAG ZONE */
+    /* HIGH MOMENTUM INFINITE DRAG WRAPPER */
     .carousel-container { 
       position: relative; 
       width: 100%; 
@@ -311,7 +336,6 @@
     }
     .carousel-wrapper:active { cursor: grabbing; }
     
-    /* Global track swipe interception layer */
     .drag-overlay {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -332,8 +356,7 @@
     }
     .carousel-item.active { transform: scale(1); opacity: 1; filter: blur(0px); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6); }
     
-    /* 100% CUSTOM STERILE CONTAINER - ZERO YOUTUBE CODE TOUCHES THIS VIEW */
-    .custom-clean-container {
+    .video-container-box {
       position: relative;
       width: 100%;
       aspect-ratio: 16/9;
@@ -342,30 +365,19 @@
       overflow: hidden;
     }
     
-    /* Native video tags have absolutely zero third party elements, icons, or logos */
-    .custom-clean-container video {
-      width: 100%;
+    .carousel-item iframe, .carousel-item img, .yt-player { 
+      width: 100%; 
       height: 100%;
-      object-fit: cover;
-      display: block;
-      pointer-events: none; /* Block native context menus */
+      border: none; 
+      display: block; 
     }
 
-    /* Interactive touch overlay layer to play/pause individual elements */
-    .custom-touch-shield {
+    .video-interaction-shield {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
       z-index: 8;
       background: transparent;
       cursor: pointer;
-    }
-
-    /* Completely Isolated YouTube Parser Engine - Invisible to the viewport */
-    #hidden-yt-sandbox {
-      position: absolute;
-      width: 1px; height: 1px;
-      top: -9999px; left: -9999px;
-      opacity: 0; pointer-events: none;
     }
 
     .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 25px; }
@@ -378,7 +390,8 @@
     .contact-container { display: flex; justify-content: center; gap: 14px; margin-top: 30px; flex-wrap: wrap; }
     .contact-btn { display: inline-flex; align-items: center; padding: 14px 28px; border-radius: 40px; font-weight: 600; font-size: 0.85rem; transition: all 0.25s; border: 1px solid var(--border-glass); background: rgba(255, 255, 255, 0.01); }
     .btn-prime { background: #fff; color: #000; border-color: #fff; }
-    .btn-secondary:hover { background: rgba(255, 255, 255, 0.04); color: #fff; }
+    .btn-prime:hover { background: #e2e8f0; box-shadow: 0 10px 30px rgba(255,255,255,0.05); }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.04); color: #fff; border-color: rgba(255, 255, 255, 0.12); }
 
     @media(max-width: 900px) {
       .brand { font-size: 4rem; }
@@ -387,6 +400,8 @@
     @media(max-width: 600px) {
       .brand { font-size: 3.2rem; }
       .carousel-item { width: 310px; margin: 0 8px; }
+      .pre-title { font-size: 0.58rem; letter-spacing: 4px; }
+      .subtitle { font-size: 0.6rem; letter-spacing: 2.5px; }
       .blueprint-tabs { flex-direction: column; gap: 4px; }
     }
   </style>
@@ -405,9 +420,12 @@
   <main>
     <div class="landing" id="home">
       <div class="pre-title">a professional editor</div>
-      <div class="brand-wrapper"><div class="brand" id="brand"></div></div>
+      <div class="brand-wrapper">
+        <div class="brand" id="brand"></div>
+      </div>
       <div class="subtitle" id="subtitle"></div>
 
+      <!-- Skills Section -->
       <div class="skills" id="skills">
         <div class="skill">
           <div class="title"><span>Video Editing & Retention Strategy</span><span>90%</span></div>
@@ -423,6 +441,7 @@
         </div>
       </div>
 
+      <!-- Workflow Block -->
       <div class="mid-blueprint-zone">
         <div class="blueprint-header">
           <h4>Production Blueprint</h4>
@@ -435,8 +454,15 @@
         <div class="blueprint-body">
           <div class="bp-title" id="bp-title">Hook & Retention Strategy</div>
           <div class="bp-desc" id="bp-desc">Cutting the boring bits in the first 30 seconds to lock people in, using smart sound effects and fast cuts to keep viewers from clicking away.</div>
+          <div class="flow-line">
+            <div class="flow-node"></div>
+            <div class="flow-node"></div>
+            <div class="flow-node"></div>
+          </div>
         </div>
-        <button class="bp-cta" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Let's discuss your project <span>→</span></button>
+        <button class="bp-cta" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+          Let's discuss your next project <span>→</span>
+        </button>
       </div>
     </div>
 
@@ -448,31 +474,37 @@
           <a class="partner-link" href="https://www.youtube.com/@TheVideoNerd" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/TheVideoNerd" alt="TheVideoNerd"></a>
           <a class="partner-link" href="https://www.youtube.com/@caitlinerinoneill" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/caitlinerinoneill" alt="caitlinerinoneill"></a>
           <a class="partner-link" href="https://www.youtube.com/@SuzieTaylor" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/SuzieTaylor" alt="SuzieTaylor"></a>
-          <a class="partner-link" href="https://www.youtube.com/@inishutiwari" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/inishutiwari" alt="inishutiwari"></a>
           <a class="partner-link" href="https://www.youtube.com/@RimoravVlogs" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/RimoravVlogs" alt="RimoravVlogs"></a>
         </div>
         <div class="ticker-track">
           <a class="partner-link" href="https://www.youtube.com/@TheVideoNerd" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/TheVideoNerd" alt="TheVideoNerd"></a>
           <a class="partner-link" href="https://www.youtube.com/@caitlinerinoneill" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/caitlinerinoneill" alt="caitlinerinoneill"></a>
           <a class="partner-link" href="https://www.youtube.com/@SuzieTaylor" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/SuzieTaylor" alt="SuzieTaylor"></a>
-          <a class="partner-link" href="https://www.youtube.com/@inishutiwari" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/inishutiwari" alt="inishutiwari"></a>
           <a class="partner-link" href="https://www.youtube.com/@RimoravVlogs" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/RimoravVlogs" alt="RimoravVlogs"></a>
         </div>
       </div>
     </div>
 
-    <!-- Featured Videos Showcase -->
+    <!-- Videos Showcase -->
     <section id="videos">
       <h2>Featured Video Projects</h2>
       <div class="carousel-container">
         <div class="carousel-wrapper">
           <div class="drag-overlay"></div>
           <div class="carousel-track">
-            <!-- Every single card below uses a pure, sterile HTML5 element. Absolutely no YT layouts can load inside here. -->
-            <div class="carousel-item"><div class="custom-clean-container"><div class="custom-touch-shield" onclick="handleCleanPlayPause(this)"></div><video src="https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-32155-large.mp4" loop muted playsinline></video></div></div>
-            <div class="carousel-item"><div class="custom-clean-container"><div class="custom-touch-shield" onclick="handleCleanPlayPause(this)"></div><video src="https://assets.mixkit.co/videos/preview/mixkit-futuristic-subway-station-with-neon-lights-42281-large.mp4" loop muted playsinline></video></div></div>
-            <div class="carousel-item"><div class="custom-clean-container"><div class="custom-touch-shield" onclick="handleCleanPlayPause(this)"></div><video src="https://assets.mixkit.co/videos/preview/mixkit-gaming-pc-with-blue-neon-lights-41865-large.mp4" loop muted playsinline></video></div></div>
-            <div class="carousel-item"><div class="custom-clean-container"><div class="custom-touch-shield" onclick="handleCleanPlayPause(this)"></div><video src="https://assets.mixkit.co/videos/preview/mixkit-retro-futuristic-y2k-background-51419-large.mp4" loop muted playsinline></video></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="QGE7i0dVs5w"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="eXJf7LGnIk4"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="vlWlgg2Laj8"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="cUngFXNXoeo"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="5LRTlWHOQaE"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="kDdrgZ0C5Gc"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="Zp1cyXXW92I"></div></div></div> 
+            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="RutDI0yMFI8"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="ds4wMZ1mgCg"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="WhcMlzhcslA"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="V00KiVl3qPk"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="pW8xFxPDQgk"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="z99KBCAivKs"></div></div></div> 
           </div>
         </div>
         <div class="carousel-dots"></div>
@@ -486,10 +518,17 @@
         <div class="carousel-wrapper">
           <div class="drag-overlay"></div>
           <div class="carousel-track">
-            <div class="carousel-item"><div class="custom-clean-container"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/1.jpg?raw=true" alt="t1"></div></div>
-            <div class="carousel-item"><div class="custom-clean-container"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/2.jpg?raw=true" alt="t2"></div></div>
-            <div class="carousel-item"><div class="custom-clean-container"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/3.jpg?raw=true" alt="t3"></div></div>
-            <div class="carousel-item"><div class="custom-clean-container"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/4.jpg?raw=true" alt="t4"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/1.jpg?raw=true" alt="t1"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/2.jpg?raw=true" alt="t2"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/3.jpg?raw=true" alt="t3"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/4.jpg?raw=true" alt="t4"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/mc10new1.png?raw=true" alt="t5"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/6.jpg?raw=true" alt="t6"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/7.jpg?raw=true" alt="t7"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/8.jpg?raw=true" alt="t8"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/9.jpg?raw=true" alt="t9"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/10.jpg?raw=true" alt="t10"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/11.jpg?raw=true" alt="t11"></div></div>
           </div>
         </div>
         <div class="carousel-dots"></div>
@@ -497,25 +536,64 @@
     </section>
   </main>
 
-  <!-- ISOLATED YT REPRODUCTION LAYER (Hidden background container) -->
-  <div id="hidden-yt-sandbox"></div>
-
   <footer id="contact">
     <h2>Let's Make Videos Worth Finishing</h2>
+    <p style="color:var(--text-muted)">Get in touch directly through Email or Discord.</p>
     <div class="contact-container">
       <a class="contact-btn btn-prime" href="mailto:jaydeepkumawat4114@gmail.com">Send an Email</a>
+      <a class="contact-btn btn-secondary" href="http://discordapp.com/users/609626785889648642" target="_blank">Message via Discord</a>
     </div>
   </footer>
 
+  <script src="https://www.youtube.com/iframe_api"></script>
+
   <script>
-    // Native Media Shield Controller
-    function handleCleanPlayPause(shieldEl) {
-      const videoNode = shieldEl.parentNode.querySelector('video');
-      if (!videoNode) return;
-      if (videoNode.paused) {
-        videoNode.play();
-      } else {
-        videoNode.pause();
+    const ytPlayers = {};
+    window.activeVideoPlayer = null;
+
+    function onYouTubeIframeAPIReady() {
+      document.querySelectorAll('.yt-player').forEach((el, index) => {
+        const vidId = el.dataset.videoId;
+        const playerDomId = el.id || `player_${index}`;
+        el.id = playerDomId;
+
+        ytPlayers[playerDomId] = new YT.Player(playerDomId, {
+          videoId: vidId,
+          playerVars: {
+            'autoplay': 1,
+            'mute': 1,
+            'controls': 0, 
+            'rel': 0,
+            'playsinline': 1,
+            'showinfo': 0,
+            'modestbranding': 1,
+            'iv_load_policy': 3,
+            'enablejsapi': 1
+          },
+          events: {
+            'onReady': (e) => {
+              e.target.mute(); 
+              if (index === 0) {
+                window.activeVideoPlayer = playerDomId;
+                e.target.playVideo();
+              }
+            }
+          }
+        });
+      });
+    }
+
+    function toggleShieldPlay(shieldEl) {
+      const playerEl = shieldEl.parentNode.querySelector('.yt-player');
+      if (!playerEl) return;
+      const id = playerEl.id;
+      if (ytPlayers[id]) {
+        const state = ytPlayers[id].getPlayerState();
+        if (state === YT.PlayerState.PLAYING) {
+          ytPlayers[id].pauseVideo();
+        } else {
+          ytPlayers[id].playVideo();
+        }
       }
     }
 
@@ -537,17 +615,16 @@
         const span = document.createElement("span");
         if (ch === " ") {
           span.innerHTML = "&nbsp;";
-          span.style.marginRight = "10px";
+          span.style.marginRight = "6px";
         } else {
           span.textContent = ch;
-          span.style.marginRight = "4px";
+          span.style.marginRight = "2px";
         }
-        span.style.animationDelay = (300 + (i * 15)) + "ms";
+        span.style.animationDelay = (300 + (i * 12)) + "ms";
         subEl.appendChild(span);
       });
     })();
 
-    // Initialize Skill Bars
     window.addEventListener('load', () => {
       document.querySelectorAll('.bar > i').forEach(bar => {
         bar.style.width = bar.dataset.target;
@@ -555,37 +632,95 @@
     });
 
     const bpData = [
-      { title: "Hook & Retention Strategy", desc: "Cutting the boring bits in the first 30 seconds to lock people in, using smart sound effects and fast cuts." },
-      { title: "High-Click Thumbnails", desc: "Designing thumbs that stop the scroll. Bold imagery, clear contrast, and smart spatial layouts." },
-      { title: "Storytelling Blocks", desc: "Structuring edits into clean progression curves so people watch clear until the very end." }
+      { title: "Hook & Retention Strategy", desc: "Cutting the boring bits in the first 30 seconds to lock people in, using smart sound effects and fast cuts to keep viewers from clicking away." },
+      { title: "High-Click Thumbnails", desc: "Designing thumbs that stop the scroll. Bold imagery, clear contrast, and smart layouts so the viewer instantly understands the story." },
+      { title: "Storytelling & Series Progression", desc: "Structuring long-form challenge edits (like 100 Days survival series) into chapters with clean ups and downs so people watch until the very end." }
     ];
 
     function switchBlueprint(index, tabEl) {
       document.querySelectorAll('.b-tab').forEach(t => t.classList.remove('active'));
       tabEl.classList.add('active');
-      document.getElementById('bp-title').innerText = bpData[index].title;
-      document.getElementById('bp-desc').innerText = bpData[index].desc;
+      const title = document.getElementById('bp-title');
+      const desc = document.getElementById('bp-desc');
+      title.style.opacity = 0;
+      desc.style.opacity = 0;
+      setTimeout(() => {
+        title.innerText = bpData[index].title;
+        desc.innerText = bpData[index].desc;
+        title.style.opacity = 1;
+        desc.style.opacity = 1;
+      }, 150);
     }
 
-    /* --- HYPER-VELOCITY KINETIC ENGINE (ZERO HARD SNAP BACKS) --- */
+    /* --- ADVANCED TOUCH DRAG SLIDE NAVIGATION (NO-LIFT HOVER TRACKING) --- */
+    (function() {
+      const nav = document.getElementById('nav-spy');
+      const links = [...nav.querySelectorAll('a')];
+      
+      nav.addEventListener('touchmove', (e) => {
+        const touch = e.touches[0];
+        const el = document.elementFromPoint(touch.clientX, touch.clientY);
+        
+        links.forEach(l => l.classList.remove('touch-hover'));
+        
+        if (el && links.includes(el)) {
+          el.classList.add('touch-hover');
+        }
+      }, { passive: true });
+
+      nav.addEventListener('touchend', (e) => {
+        const hoveredLink = nav.querySelector('a.touch-hover');
+        if (hoveredLink) {
+          hoveredLink.classList.remove('touch-hover');
+          const targetId = hoveredLink.getAttribute('href').substring(1);
+          const targetSection = document.getElementById(targetId);
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      });
+    })();
+
+    /* --- SYSTEMIC SEAMLESS INFINITE LOOP SLIDER ARCHITECTURE --- */
     document.querySelectorAll('.carousel-container').forEach(container => {
       const wrapper = container.querySelector('.carousel-wrapper');
       const overlay = container.querySelector('.drag-overlay');
       const track = container.querySelector('.carousel-track');
-      const items = [...track.children];
+      let originalItems = [...track.children];
+      const originalCount = originalItems.length;
       const dotsNav = container.querySelector('.carousel-dots');
       
-      let isDragging = false, startX = 0, currentTranslate = 0, prevTranslate = 0, currentIndex = 0;
+      // Clone sets to fill container space left and right for seamless looping
+      originalItems.forEach(item => {
+        const cloneBefore = item.cloneNode(true);
+        const cloneAfter = item.cloneNode(true);
+        track.insertBefore(cloneBefore, track.firstChild);
+        track.appendChild(cloneAfter);
+      });
+
+      // Update tracking state arrays
+      let allItems = [...track.children];
+      let itemWidth = originalItems[0].offsetWidth + 28; // Element base footprint width + total margin layout
+      
+      let isDragging = false, startX = 0, currentTranslate = 0, prevTranslate = 0, currentIndex = originalCount;
       let velocity = 0, lastX = 0, lastTime = 0, rafId = null;
 
-      items.forEach((_, i) => {
+      originalItems.forEach((_, i) => {
         const dot = document.createElement('span');
         dot.classList.add('dot');
         if(i === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => { snapToSlide(i); });
+        dot.addEventListener('click', () => { snapToSlide(originalCount + i); });
         dotsNav.appendChild(dot);
       });
       const dots = [...dotsNav.children];
+
+      // Setup uniquely generated domestic ID attributes on iframe components inside track trees
+      if (container.parentNode.id === 'videos') {
+        allItems.forEach((item, idx) => {
+          const p = item.querySelector('.yt-player');
+          if (p) p.id = `player_node_${idx}`;
+        });
+      }
 
       overlay.addEventListener('mousedown', dragStart);
       overlay.addEventListener('touchstart', dragStart, { passive: true });
@@ -601,17 +736,25 @@
         lastTime = performance.now();
         velocity = 0;
         if(rafId) cancelAnimationFrame(rafId);
+        
         track.style.transition = 'none';
+        wrapper.style.cursor = 'grabbing';
+        
+        // Instant teleport alignment layer check
+        checkBoundsAndTeleport();
       }
 
       function dragMove(e) {
         if (!isDragging) return;
         const currentX = getPositionX(e);
-        currentTranslate = prevTranslate + (currentX - startX);
+        const diff = currentX - startX;
+        currentTranslate = prevTranslate + diff;
         
         const now = performance.now();
         const deltaTime = now - lastTime;
-        if (deltaTime > 0) velocity = (currentX - lastX) / deltaTime;
+        if (deltaTime > 0) {
+          velocity = (currentX - lastX) / deltaTime;
+        }
         
         lastX = currentX;
         lastTime = now;
@@ -621,15 +764,16 @@
       function dragEnd() {
         if (!isDragging) return;
         isDragging = false;
+        wrapper.style.cursor = 'grab';
+        
         prevTranslate = currentTranslate;
         runInertiaDeceleration();
       }
 
       function runInertiaDeceleration() {
-        // High scalar multiplier (48) gives hyper fast glide speed on quick flicks
-        if (Math.abs(velocity) > 0.01) {
-          currentTranslate += velocity * 48; 
-          velocity *= 0.96; 
+        if (Math.abs(velocity) > 0.02) {
+          currentTranslate += velocity * 42; 
+          velocity *= 0.94; 
           setTrackPosition();
           rafId = requestAnimationFrame(runInertiaDeceleration);
         } else {
@@ -638,12 +782,27 @@
         }
       }
 
+      function checkBoundsAndTeleport() {
+        const wrapperWidth = wrapper.offsetWidth;
+        const leftLimit = -(originalCount * itemWidth);
+        const rightLimit = -((originalCount * 2 - 1) * itemWidth);
+
+        if (currentTranslate > -itemWidth) {
+          currentTranslate -= originalCount * itemWidth;
+        } else if (currentTranslate < -((originalCount * 2) * itemWidth)) {
+          currentTranslate += originalCount * itemWidth;
+        }
+        prevTranslate = currentTranslate;
+        track.style.transition = 'none';
+        setTrackPosition();
+      }
+
       function snapToClosest() {
         const wrapperCenter = wrapper.offsetWidth / 2;
-        let closestIndex = 0;
+        let closestIndex = originalCount;
         let minDistance = Infinity;
 
-        items.forEach((item, idx) => {
+        allItems.forEach((item, idx) => {
           const itemRect = item.getBoundingClientRect();
           const itemCenter = itemRect.left + (itemRect.width / 2);
           const distance = Math.abs(wrapperCenter - itemCenter);
@@ -666,53 +825,68 @@
 
       function updateActiveStates() {
         const wrapperCenter = wrapper.offsetWidth / 2;
-        items.forEach((item, idx) => {
+        allItems.forEach((item, idx) => {
           const itemRect = item.getBoundingClientRect();
           const itemCenter = itemRect.left + (itemRect.width / 2);
           const isNearCenter = Math.abs(wrapperCenter - itemCenter) < (itemRect.width * 0.5);
           item.classList.toggle('active', isNearCenter);
-          if(isNearCenter && currentIndex !== idx) {
+          
+          if(isNearCenter) {
+            let relativeIndex = (idx - originalCount) % originalCount;
+            if (relativeIndex < 0) relativeIndex += originalCount;
             currentIndex = idx;
-            dots.forEach((d, dIdx) => d.classList.toggle('active', dIdx === idx));
+            dots.forEach((d, dIdx) => d.classList.toggle('active', dIdx === relativeIndex));
           }
         });
       }
 
       function snapToSlide(idx) {
         currentIndex = idx;
-        const targetItem = items[currentIndex];
-        const targetOffset = targetItem.offsetLeft - (wrapper.offsetWidth / 2) + (targetItem.offsetWidth / 2);
+        const wrapperWidth = wrapper.offsetWidth;
+        const targetItem = allItems[currentIndex];
+        if(!targetItem) return;
+        const targetOffset = targetItem.offsetLeft - (wrapperWidth / 2) + (targetItem.offsetWidth / 2);
         
         currentTranslate = -targetOffset;
         prevTranslate = currentTranslate;
         
-        // Fluid linear-easing prevents reverse mechanical snap-back
         track.style.transition = 'transform 0.4s cubic-bezier(0.1, 0.8, 0.2, 1)';
         track.style.transform = `translateX(${currentTranslate}px)`;
         
-        items.forEach((item, i) => item.classList.toggle('active', i === currentIndex));
-        dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+        updateActiveStates();
+        handleVideoPlaybackControl(container, targetItem);
+      }
 
-        if (container.parentNode.id === 'videos') {
-          items.forEach((item, i) => {
-            const vid = item.querySelector('video');
-            if(vid) {
-              if(i === currentIndex) {
-                vid.muted = true;
-                vid.play().catch(()=>{});
-              } else {
-                vid.pause();
-              }
+      function handleVideoPlaybackControl(carouselContainer, activeItem) {
+        if (carouselContainer.parentNode.id !== 'videos') return;
+        
+        const videoContainer = activeItem.querySelector('.yt-player');
+        if (!videoContainer) return;
+        
+        const activePlayerId = videoContainer.id;
+        window.activeVideoPlayer = activePlayerId;
+
+        for (let id in ytPlayers) {
+          try {
+            if (id === activePlayerId) {
+              ytPlayers[id].mute(); 
+              ytPlayers[id].playVideo();
+            } else {
+              ytPlayers[id].pauseVideo();
             }
-          });
+          } catch(err) {}
         }
       }
 
-      window.addEventListener('resize', () => snapToSlide(currentIndex));
-      setTimeout(() => snapToSlide(0), 300);
+      window.addEventListener('resize', () => {
+        itemWidth = originalItems[0].offsetWidth + 28;
+        snapToSlide(currentIndex);
+      });
+      
+      setTimeout(() => snapToSlide(originalCount), 400);
     });
 
-    // Scrollspy Nav Track
+    // Scrollspy Implementation
     const links = document.querySelectorAll('#nav-spy a');
     const targetSections = document.querySelectorAll('main > div, section, footer');
     window.addEventListener('scroll', () => {
@@ -720,9 +894,14 @@
       targetSections.forEach(sec => {
         const top = window.scrollY;
         const offset = sec.offsetTop - 220;
-        if(top >= offset && top < offset + sec.offsetHeight) activeId = sec.getAttribute('id');
+        const height = sec.offsetHeight;
+        if(top >= offset && top < offset + height) {
+          activeId = sec.getAttribute('id');
+        }
       });
-      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${activeId}`));
+      links.forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === `#${activeId}`);
+      });
     });
   </script>
 </body>
