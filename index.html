@@ -2,13 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>JAYDEEP | Professional Video Editor & Designer</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
 
-    /* Reset & Deep Luxury Dark System */
-    * { margin:0; padding:0; box-sizing:border-box; }
+    /* Absolute Site-Wide Double-Tap Zoom Lockdown & Core Styles */
+    * { 
+      margin:0; 
+      padding:0; 
+      box-sizing:border-box; 
+      touch-action: manipulation; /* Completely removes the 300ms double tap zoom delay browser-wide */
+      -webkit-text-size-adjust: 100%;
+    }
+    
     :root {
       --bg: #07070a;
       --panel-bg: rgba(15, 15, 23, 0.65);
@@ -32,7 +39,7 @@
     }
     a { text-decoration: none; color: inherit; }
 
-    /* Fixed Header Navigation with iOS Liquid Drag-to-Select Mechanics */
+    /* Fixed Header Navigation with Rapid Sliding Mechanics */
     header {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -53,7 +60,6 @@
       border-radius: 40px;
       box-shadow: 0 20px 50px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05);
       position: relative;
-      touch-action: none;
     }
     nav a {
       position: relative;
@@ -62,7 +68,7 @@
       font-size: 0.85rem;
       padding: 8px 20px;
       border-radius: 30px;
-      transition: color 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      transition: color 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
       user-select: none;
       -webkit-user-select: none;
       z-index: 2;
@@ -71,7 +77,7 @@
       color: #fff; 
     }
     
-    /* iOS Interactive Fluid Background Pill */
+    /* Snappy Interactive Hover & Active Background Pill */
     .nav-dynamic-glow {
       position: absolute;
       top: 5px;
@@ -83,7 +89,7 @@
       border-radius: 30px;
       z-index: 1;
       pointer-events: none;
-      transition: all 0.35s cubic-bezier(0.25, 1, 0.4, 1);
+      transition: all 0.22s cubic-bezier(0.15, 0.85, 0.35, 1); /* Faster, snappier sliding action */
     }
 
     /* Landing Hero Wrapper */
@@ -152,7 +158,7 @@
     }
     @keyframes fadeUp { to { opacity: 1; } }
 
-    /* Skills Panel Layout with Live Flow Fluid Water Logic */
+    /* Skills Panel Layout with Mobile Optimized Filling Animations */
     .skills { 
       width: min(660px, 100%); 
       margin-top: 55px; 
@@ -181,24 +187,27 @@
       border-radius: 6px;
       overflow: hidden;
       position: relative;
+      will-change: transform;
     }
     .bar > i {
       display: block;
       height: 100%;
-      width: 0;
+      width: 0%; /* Adjusted via JavaScript for reliable, robust firing across cross-platform mobile engines */
       background: linear-gradient(90deg, #1e293b 0%, #94a3b8 50%, #f8fafc 100%);
       background-size: 200% 100%;
       border-radius: 6px;
       position: relative;
-      overflow: hidden; /* Added to keep water flow clipped only to filled boundary */
-      transition: width 2s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden; 
+      transition: width 1.8s cubic-bezier(0.1, 0.9, 0.2, 1);
+      will-change: width;
     }
-    /* Dynamic moving water overlay pulse - Confined perfectly within filled zone */
+    
+    /* Liquid Wave Overlay Shimmer Pulse Effect - Perfectly Framed Inside Filled Zone */
     .bar > i::after {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%);
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.22) 50%, rgba(255,255,255,0) 100%);
       animation: waterFlow 2s infinite linear;
     }
     @keyframes waterFlow {
@@ -206,7 +215,7 @@
       100% { transform: translateX(100%); }
     }
 
-    /* Workflow Blueprint */
+    /* Workflow Blueprint Section */
     .mid-blueprint-zone {
       width: min(660px, 100%);
       margin-top: 24px;
@@ -293,7 +302,7 @@
       box-shadow: 0 10px 30px rgba(255,255,255,0.05);
     }
 
-    /* --- CHANNELS INFINITE TICKER --- */
+    /* Infinite Ticker System */
     .ticker-section {
       background: #050507;
       padding: 35px 0;
@@ -353,11 +362,10 @@
     section { padding: 100px 0; width: 100%; max-width: 100vw; overflow: hidden; }
     section h2 { text-align: center; color: #fff; font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 35px; }
 
-    /* HIGH MOMENTUM INFINITE DRAG WRAPPER */
+    /* High Momentum Drag Loop System Containers */
     .carousel-container { 
       position: relative; 
-      width: 100%; 
-      touch-action: pan-y;
+      width: 100%;
     }
     .carousel-wrapper { 
       width: 100%; 
@@ -405,57 +413,11 @@
       object-fit: cover;
     }
 
-    /* Fast Light Load System Play Box Overlay Button Overlay */
-    .video-facade-box {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 5;
-      cursor: pointer;
-      transition: opacity 0.3s ease;
-    }
-    .video-facade-box::before {
-      content: '';
-      position: absolute;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.2);
-    }
-    .play-icon-shape {
-      width: 64px; height: 64px;
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 50%;
-      position: relative;
-      z-index: 6;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-    }
-    .play-icon-shape::after {
-      content: '';
-      width: 0; height: 0;
-      border-top: 10px solid transparent;
-      border-bottom: 10px solid transparent;
-      border-left: 18px solid #fff;
-      margin-left: 5px;
-    }
-    .carousel-item.active .video-facade-box:hover .play-icon-shape {
-      transform: scale(1.1);
-      background: rgba(255,255,255,0.3);
-    }
-
     .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 25px; }
     .dot { height: 3px; width: 16px; background: rgba(255, 255, 255, 0.08); border-radius: 1px; cursor: pointer; }
     .dot.active { background: #fff; transition: background 0.3s ease; }
 
-    /* Footer */
+    /* Footer Styles */
     footer { padding: 100px 24px; background: #040406; border-top: 1px solid var(--border-glass); text-align: center; }
     footer h2 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 12px; }
     .contact-container { display: flex; justify-content: center; gap: 14px; margin-top: 30px; flex-wrap: wrap; }
@@ -497,7 +459,7 @@
       </div>
       <div class="subtitle" id="subtitle"></div>
 
-      <!-- Skills Section -->
+      <!-- Skills Section Layout Matrix -->
       <div class="skills" id="skills">
         <div class="skill">
           <div class="title"><span>Video Editing & Retention Strategy</span><span>90%</span></div>
@@ -513,7 +475,7 @@
         </div>
       </div>
 
-      <!-- Workflow Block -->
+      <!-- Workflow Framework Block -->
       <div class="mid-blueprint-zone">
         <div class="blueprint-header">
           <h4>Production Blueprint</h4>
@@ -538,7 +500,7 @@
       </div>
     </div>
 
-    <!-- INFINITE TICKER TRACK -->
+    <!-- INFINITE CREATOR TICKER RUNNER -->
     <div class="ticker-section">
       <div class="ticker-title">Trusted By Creators</div>
       <div class="ticker-container">
@@ -557,33 +519,33 @@
       </div>
     </div>
 
-    <!-- Videos Showcase -->
+    <!-- Videos Showcase (Native Engine Loop Back) -->
     <section id="videos">
       <h2>Featured Video Projects</h2>
       <div class="carousel-container">
         <div class="carousel-wrapper">
           <div class="drag-overlay"></div>
           <div class="carousel-track">
-            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="QGE7i0dVs5w"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="eXJf7LGnIk4"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="vlWlgg2Laj8"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="cUngFXNXoeo"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="5LRTlWHOQaE"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="kDdrgZ0C5Gc"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="Zp1cyXXW92I"></div></div></div> 
-            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="RutDI0yMFI8"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="ds4wMZ1mgCg"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="WhcMlzhcslA"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="V00KiVl3qPk"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="pW8xFxPDQgk"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="z99KBCAivKs"></div></div></div> 
+            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/QGE7i0dVs5w?enablejsapi=1&autoplay=1&mute=1&playlist=QGE7i0dVs5w&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/eXJf7LGnIk4?enablejsapi=1&autoplay=1&mute=1&playlist=eXJf7LGnIk4&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/vlWlgg2Laj8?enablejsapi=1&autoplay=1&mute=1&playlist=vlWlgg2Laj8&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/cUngFXNXoeo?enablejsapi=1&autoplay=1&mute=1&playlist=cUngFXNXoeo&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/5LRTlWHOQaE?enablejsapi=1&autoplay=1&mute=1&playlist=5LRTlWHOQaE&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/kDdrgZ0C5Gc?enablejsapi=1&autoplay=1&mute=1&playlist=kDdrgZ0C5Gc&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/Zp1cyXXW92I?enablejsapi=1&autoplay=1&mute=1&playlist=Zp1cyXXW92I&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div> 
+            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/RutDI0yMFI8?enablejsapi=1&autoplay=1&mute=1&playlist=RutDI0yMFI8&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/ds4wMZ1mgCg?enablejsapi=1&autoplay=1&mute=1&playlist=ds4wMZ1mgCg&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/WhcMlzhcslA?enablejsapi=1&autoplay=1&mute=1&playlist=WhcMlzhcslA&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/V00KiVl3qPk?enablejsapi=1&autoplay=1&mute=1&playlist=V00KiVl3qPk&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/pW8xFxPDQgk?enablejsapi=1&autoplay=1&mute=1&playlist=pW8xFxPDQgk&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/z99KBCAivKs?enablejsapi=1&autoplay=1&mute=1&playlist=z99KBCAivKs&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div> 
           </div>
         </div>
         <div class="carousel-dots"></div>
       </div>
     </section>
 
-    <!-- Thumbnails Showcase -->
+    <!-- Thumbnails Showcase Grid Matrix -->
     <section id="thumbnails">
       <h2>Thumbnail Design</h2>
       <div class="carousel-container">
@@ -621,24 +583,46 @@
 
   <script>
     const ytPlayers = {};
-    let activePlayerId = null;
-    let isAutoScrolling = false; // Prevents nav conflicts during speed ramp jumps
+    let isAutoScrolling = false; // Internal semaphore locking layout events to prevent jumps from halting halfway
 
-    // Quintic Speed Ramping Smooth Scroll Engine
+    // Absolute Full Site Double-Tap Zoom Prevention Guard Layer
+    let lastTouchTime = 0;
+    document.addEventListener('touchstart', (e) => {
+      const now = performance.now();
+      if (now - lastTouchTime < 300) {
+        e.preventDefault(); // Intercepts browser default magnifying loop
+      }
+      lastTouchTime = now;
+    }, { passive: false });
+
+    // YouTube API System Setup
+    function onYouTubeIframeAPIReady() {
+      document.querySelectorAll('.yt-mount').forEach((iframe) => {
+        const id = `player_${Math.random().toString(36).substr(2, 9)}`;
+        iframe.id = id;
+        ytPlayers[id] = new YT.Player(id, {
+          events: {
+            'onReady': (e) => {
+              e.target.mute(); // Required by modern mobile engine privacy rules to authorize autoplay
+              e.target.playVideo();
+            }
+          }
+        });
+      });
+    }
+
+    // High Velocity Speed-Ramping Navigation Engine
     function smoothRampScroll(targetElement) {
       if (!targetElement) return;
-      isAutoScrolling = true;
+      isAutoScrolling = true; // Hard-lock scrollspy triggers from crossing lines
       
       const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY;
       const startPosition = window.scrollY;
       const distance = targetPosition - startPosition;
-      const duration = 950; // Optimized time matrix in ms
+      const duration = 850; // Calibrated speed index to clear jumps quickly
       let startTime = null;
 
-      // Quintic Easing Formula for extreme velocity changes (Fast burst -> Cushioned settling)
-      function easeOutQuint(t) {
-        return 1 - Math.pow(1 - t, 5);
-      }
+      function easeOutQuint(t) { return 1 - Math.pow(1 - t, 5); }
 
       function scrollAnimation(currentTime) {
         if (!startTime) startTime = currentTime;
@@ -650,67 +634,21 @@
         if (progress < 1) {
           requestAnimationFrame(scrollAnimation);
         } else {
-          setTimeout(() => { isAutoScrolling = false; }, 50);
+          // Sync header visual pill explicitly after arrival
+          const targetId = targetElement.getAttribute('id');
+          const matchLink = document.querySelector(`#nav-spy a[href="#${targetId}"]`);
+          if(matchLink) {
+            document.querySelectorAll('#nav-spy a').forEach(l => l.classList.remove('active'));
+            matchLink.classList.add('active');
+            repositionNavPill(matchLink);
+          }
+          setTimeout(() => { isAutoScrolling = false; }, 80);
         }
       }
       requestAnimationFrame(scrollAnimation);
     }
 
-    // Fast facade build for videos to optimize loading speed
-    document.querySelectorAll('.yt-mount').forEach((mount, idx) => {
-      const vidId = mount.dataset.videoId;
-      const box = mount.parentNode;
-      
-      const facade = document.createElement('div');
-      facade.className = 'video-facade-box';
-      facade.style.backgroundImage = `url('https://img.youtube.com/vi/${vidId}/maxresdefault.jpg')`;
-      
-      const playBtn = document.createElement('div');
-      playBtn.className = 'play-icon-shape';
-      facade.appendChild(playBtn);
-      box.appendChild(facade);
-
-      facade.addEventListener('click', () => {
-        if (!box.parentNode.classList.contains('active')) return;
-        injectRealYoutubePlayer(mount, vidId, facade);
-      });
-    });
-
-    function injectRealYoutubePlayer(mountElement, videoId, facadeElement) {
-      const playerDomId = `yt_player_${Math.random().toString(36).substr(2, 9)}`;
-      mountElement.id = playerDomId;
-      
-      if(facadeElement) facadeElement.style.opacity = '0';
-      setTimeout(() => facadeElement?.remove(), 300);
-
-      ytPlayers[playerDomId] = new YT.Player(playerDomId, {
-        videoId: videoId,
-        playerVars: {
-          'autoplay': 1,
-          'controls': 1,
-          'rel': 0,
-          'playsinline': 1,
-          'modestbranding': 1
-        },
-        events: {
-          'onReady': (e) => {
-            stopAllOtherVideos(playerDomId);
-            e.target.playVideo();
-          }
-        }
-      });
-    }
-
-    function stopAllOtherVideos(currentId) {
-      activePlayerId = currentId;
-      for (let id in ytPlayers) {
-        if (id !== currentId && ytPlayers[id] && typeof ytPlayers[id].pauseVideo === 'function') {
-          try { ytPlayers[id].pauseVideo(); } catch(e){}
-        }
-      }
-    }
-
-    // Lettering Reveal Trigger
+    // Text Animations Build Layer
     const brandEl = document.getElementById("brand");
     const nameStr = "JAYDEEP";
     [...nameStr].forEach((ch, i) => {
@@ -720,7 +658,6 @@
       brandEl.appendChild(span);
     });
 
-    // Subtitle Character Builder
     (function(){
       const subText = "Videos & Thumbnails As You Want";
       const subEl = document.getElementById("subtitle");
@@ -738,11 +675,13 @@
       });
     })();
 
-    window.addEventListener('load', () => {
-      document.querySelectorAll('.bar > i').forEach(bar => {
-        bar.style.width = bar.dataset.target;
-      });
-      repositionNavPill(document.querySelector('#nav-spy a.active'));
+    // Force Cross-Platform Mobile Initialization of Skill Progress Layer
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        document.querySelectorAll('.bar > i').forEach(bar => {
+          bar.style.width = bar.dataset.target;
+        });
+      }, 150); // Small cycle buffer ensures mobile layout rendering context has finalized
     });
 
     const bpData = [
@@ -756,17 +695,15 @@
       tabEl.classList.add('active');
       const title = document.getElementById('bp-title');
       const desc = document.getElementById('bp-desc');
-      title.style.opacity = 0;
-      desc.style.opacity = 0;
+      title.style.opacity = 0; desc.style.opacity = 0;
       setTimeout(() => {
         title.innerText = bpData[index].title;
         desc.innerText = bpData[index].desc;
-        title.style.opacity = 1;
-        desc.style.opacity = 1;
+        title.style.opacity = 1; desc.style.opacity = 1;
       }, 150);
     }
 
-    /* --- iOS LIQUID GLASS NAVIGATION SLIDER MOTOR --- */
+    // iOS Micro-Velocity Navigation Bar Pill Logic
     const navSpy = document.getElementById('nav-spy');
     const pill = document.getElementById('nav-pill');
     const navLinks = [...navSpy.querySelectorAll('a')];
@@ -775,37 +712,10 @@
       if (!element) return;
       pill.style.left = `${element.offsetLeft}px`;
       pill.style.width = `${element.offsetWidth}px`;
-      pill.style.transform = 'scaleX(1)';
     }
 
-    navSpy.addEventListener('touchmove', (e) => {
-      const touch = e.touches[0];
-      const targetEl = document.elementFromPoint(touch.clientX, touch.clientY);
-      
-      if (targetEl && navLinks.includes(targetEl)) {
-        const currentLeft = parseFloat(pill.style.left) || 0;
-        const targetLeft = targetEl.offsetLeft;
-        const delta = targetLeft - currentLeft;
-        
-        pill.style.width = `${targetEl.offsetWidth + Math.min(Math.abs(delta) * 0.3, 35)}px`;
-        pill.style.left = `${delta > 0 ? currentLeft + (delta * 0.4) : targetLeft}px`;
-        
-        navLinks.forEach(l => l.classList.remove('active'));
-        targetEl.classList.add('active');
-      }
-    }, { passive: true });
-
-    navSpy.addEventListener('touchend', (e) => {
-      const activeLink = navSpy.querySelector('a.active');
-      if (activeLink) {
-        repositionNavPill(activeLink);
-        const targetId = activeLink.getAttribute('href').substring(1);
-        smoothRampScroll(document.getElementById(targetId));
-      }
-    });
-
     navLinks.forEach(link => {
-      link.addEventListener('mouseenter', () => repositionNavPill(link));
+      link.addEventListener('mouseenter', () => { if(!isAutoScrolling) repositionNavPill(link); });
       link.addEventListener('click', (e) => {
         e.preventDefault();
         navLinks.forEach(l => l.classList.remove('active'));
@@ -815,7 +725,12 @@
       });
     });
 
-    /* --- CAROUSEL REBOUND LOOPS --- */
+    navSpy.addEventListener('mouseleave', () => {
+      const activeLink = navSpy.querySelector('a.active');
+      repositionNavPill(activeLink);
+    });
+
+    /* --- SWIPE CAROUSEL SYSTEM MATRIX --- */
     document.querySelectorAll('.carousel-container').forEach(container => {
       const wrapper = container.querySelector('.carousel-wrapper');
       const overlay = container.querySelector('.drag-overlay');
@@ -881,8 +796,8 @@
 
       function runInertiaDeceleration() {
         if (Math.abs(velocity) > 0.02) {
-          currentTranslate += velocity * 42; 
-          velocity *= 0.94; 
+          currentTranslate += velocity * 38; 
+          velocity *= 0.93; 
           setTrackPosition();
           rafId = requestAnimationFrame(runInertiaDeceleration);
         } else {
@@ -920,11 +835,27 @@
           const itemCenter = item.getBoundingClientRect().left + (item.offsetWidth / 2);
           const isNear = Math.abs(wrapperCenter - itemCenter) < (item.offsetWidth * 0.5);
           item.classList.toggle('active', isNear);
+          
           if(isNear) {
             let rel = (idx - originalCount) % originalCount;
             if (rel < 0) rel += originalCount;
             currentIndex = idx;
             dots.forEach((d, dIdx) => d.classList.toggle('active', dIdx === rel));
+            
+            // Native Autoplay/Auto-Muted Content Management Layer
+            const iframe = item.querySelector('iframe');
+            if (iframe && ytPlayers[iframe.id] && typeof ytPlayers[iframe.id].playVideo === 'function') {
+              try {
+                ytPlayers[iframe.id].mute();
+                ytPlayers[iframe.id].playVideo();
+              } catch(e){}
+            }
+          } else {
+            // Auto-pause inactive instances on track swipe
+            const iframe = item.querySelector('iframe');
+            if (iframe && ytPlayers[iframe.id] && typeof ytPlayers[iframe.id].pauseVideo === 'function') {
+              try { ytPlayers[iframe.id].pauseVideo(); } catch(e){}
+            }
           }
         });
       }
@@ -935,24 +866,16 @@
         if(!targetItem) return;
         currentTranslate = -(targetItem.offsetLeft - (wrapper.offsetWidth / 2) + (targetItem.offsetWidth / 2));
         prevTranslate = currentTranslate;
-        track.style.transition = 'transform 0.4s cubic-bezier(0.1, 0.8, 0.2, 1)';
+        track.style.transition = 'transform 0.45s cubic-bezier(0.15, 0.85, 0.2, 1)';
         track.style.transform = `translateX(${currentTranslate}px)`;
         updateActiveStates();
-
-        if (activePlayerId && !targetItem.querySelector(`#${activePlayerId}`)) {
-          for (let id in ytPlayers) {
-            if (ytPlayers[id] && typeof ytPlayers[id].pauseVideo === 'function') {
-              try { ytPlayers[id].pauseVideo(); } catch(err){}
-            }
-          }
-        }
       }
 
       window.addEventListener('resize', () => { itemWidth = originalItems[0].offsetWidth + 28; snapToSlide(currentIndex); });
-      setTimeout(() => snapToSlide(originalCount), 400);
+      setTimeout(() => { snapToSlide(originalCount); repositionNavPill(document.querySelector('#nav-spy a.active')); }, 400);
     });
 
-    // Scrollspy Matrix Connection (Only tracking when user manually scrolls)
+    // Native Passive Scroll Monitor Core
     window.addEventListener('scroll', () => {
       if (isAutoScrolling) return; 
       let activeId = 'home';
