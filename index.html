@@ -7,15 +7,21 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
 
-    /* Absolute Site-Wide Double-Tap Zoom Lockdown & Core Styles */
+    /* Global Site-Wide Touch/Zoom Restrictions & Dark Core Reset */
     * { 
-      margin:0; 
-      padding:0; 
-      box-sizing:border-box; 
-      touch-action: manipulation; /* Completely removes the 300ms double tap zoom delay browser-wide */
-      -webkit-text-size-adjust: 100%;
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+      touch-action: manipulation; /* Eradicates double-tap delay/zoom entirely across all nodes */
+      -webkit-tap-highlight-color: transparent;
     }
     
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+      scroll-behavior: auto; /* Managed natively by our custom ramp engine */
+    }
+
     :root {
       --bg: #07070a;
       --panel-bg: rgba(15, 15, 23, 0.65);
@@ -34,12 +40,11 @@
         radial-gradient(circle at 0% 100%, rgba(15, 23, 42, 0.2) 0%, transparent 50%);
       background-attachment: fixed;
       color: var(--text-main);
-      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
     a { text-decoration: none; color: inherit; }
 
-    /* Fixed Header Navigation with Rapid Sliding Mechanics */
+    /* Fixed Header Navigation with Accelerated Pill Engine */
     header {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -68,7 +73,7 @@
       font-size: 0.85rem;
       padding: 8px 20px;
       border-radius: 30px;
-      transition: color 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition: color 0.2s linear;
       user-select: none;
       -webkit-user-select: none;
       z-index: 2;
@@ -77,7 +82,7 @@
       color: #fff; 
     }
     
-    /* Snappy Interactive Hover & Active Background Pill */
+    /* Super High Speed Glass Pill Background */
     .nav-dynamic-glow {
       position: absolute;
       top: 5px;
@@ -89,7 +94,8 @@
       border-radius: 30px;
       z-index: 1;
       pointer-events: none;
-      transition: all 0.22s cubic-bezier(0.15, 0.85, 0.35, 1); /* Faster, snappier sliding action */
+      /* Boosted velocity via responsive timing profile */
+      transition: all 0.18s cubic-bezier(0.1, 0.9, 0.2, 1);
     }
 
     /* Landing Hero Wrapper */
@@ -158,7 +164,7 @@
     }
     @keyframes fadeUp { to { opacity: 1; } }
 
-    /* Skills Panel Layout with Mobile Optimized Filling Animations */
+    /* Cross-Platform Robust CSS Loading Bars Engine */
     .skills { 
       width: min(660px, 100%); 
       margin-top: 55px; 
@@ -187,22 +193,28 @@
       border-radius: 6px;
       overflow: hidden;
       position: relative;
-      will-change: transform;
     }
     .bar > i {
       display: block;
       height: 100%;
-      width: 0%; /* Adjusted via JavaScript for reliable, robust firing across cross-platform mobile engines */
       background: linear-gradient(90deg, #1e293b 0%, #94a3b8 50%, #f8fafc 100%);
       background-size: 200% 100%;
       border-radius: 6px;
       position: relative;
-      overflow: hidden; 
-      transition: width 1.8s cubic-bezier(0.1, 0.9, 0.2, 1);
-      will-change: width;
+      overflow: hidden; /* Restricts the fluid water effects exactly inside filled bounds */
+      width: 0;
     }
-    
-    /* Liquid Wave Overlay Shimmer Pulse Effect - Perfectly Framed Inside Filled Zone */
+
+    /* Reliable Cross-Platform Hardware Accelerated Keyframe Animations */
+    .skill:nth-child(1) .bar > i { animation: fillProg1 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .skill:nth-child(2) .bar > i { animation: fillProg2 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .skill:nth-child(3) .bar > i { animation: fillProg3 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+    @keyframes fillProg1 { to { width: 90%; } }
+    @keyframes fillProg2 { to { width: 95%; } }
+    @keyframes fillProg3 { to { width: 80%; } }
+
+    /* Fluid Moving Water Pulse - Safely Masked */
     .bar > i::after {
       content: '';
       position: absolute;
@@ -302,7 +314,7 @@
       box-shadow: 0 10px 30px rgba(255,255,255,0.05);
     }
 
-    /* Infinite Ticker System */
+    /* Infinite Ticker Track */
     .ticker-section {
       background: #050507;
       padding: 35px 0;
@@ -358,14 +370,14 @@
       to { transform: translateX(calc(-100% - 40px)); }
     }
 
-    /* Showcase Layouts */
+    /* Showcase Sections */
     section { padding: 100px 0; width: 100%; max-width: 100vw; overflow: hidden; }
     section h2 { text-align: center; color: #fff; font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 35px; }
 
-    /* High Momentum Drag Loop System Containers */
+    /* High Momentum Drag Layout */
     .carousel-container { 
       position: relative; 
-      width: 100%;
+      width: 100%; 
     }
     .carousel-wrapper { 
       width: 100%; 
@@ -405,19 +417,20 @@
       overflow: hidden;
     }
     
-    .carousel-item img, .yt-mount { 
-      width: 100%; 
+    /* Native Clean Video and Artwork Modifiers */
+    .video-container-box video, .video-container-box img {
+      width: 100%;
       height: 100%;
-      border: none; 
-      display: block; 
       object-fit: cover;
+      display: block;
+      border: none;
     }
 
     .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 25px; }
     .dot { height: 3px; width: 16px; background: rgba(255, 255, 255, 0.08); border-radius: 1px; cursor: pointer; }
     .dot.active { background: #fff; transition: background 0.3s ease; }
 
-    /* Footer Styles */
+    /* Footer Layout */
     footer { padding: 100px 24px; background: #040406; border-top: 1px solid var(--border-glass); text-align: center; }
     footer h2 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 12px; }
     .contact-container { display: flex; justify-content: center; gap: 14px; margin-top: 30px; flex-wrap: wrap; }
@@ -459,23 +472,23 @@
       </div>
       <div class="subtitle" id="subtitle"></div>
 
-      <!-- Skills Section Layout Matrix -->
+      <!-- Skill System -->
       <div class="skills" id="skills">
         <div class="skill">
           <div class="title"><span>Video Editing & Retention Strategy</span><span>90%</span></div>
-          <div class="bar"><i data-target="90%"></i></div>
+          <div class="bar"><i></i></div>
         </div>
         <div class="skill">
           <div class="title"><span>Thumbnail Design & Spatial Contrast</span><span>95%</span></div>
-          <div class="bar"><i data-target="95%"></i></div>
+          <div class="bar"><i></i></div>
         </div>
         <div class="skill">
           <div class="title"><span>Motion Graphics & Custom FX Sequences</span><span>80%</span></div>
-          <div class="bar"><i data-target="80%"></i></div>
+          <div class="bar"><i></i></div>
         </div>
       </div>
 
-      <!-- Workflow Framework Block -->
+      <!-- Production Blocks -->
       <div class="mid-blueprint-zone">
         <div class="blueprint-header">
           <h4>Production Blueprint</h4>
@@ -500,7 +513,7 @@
       </div>
     </div>
 
-    <!-- INFINITE CREATOR TICKER RUNNER -->
+    <!-- Creator Ticker -->
     <div class="ticker-section">
       <div class="ticker-title">Trusted By Creators</div>
       <div class="ticker-container">
@@ -519,33 +532,25 @@
       </div>
     </div>
 
-    <!-- Videos Showcase (Native Engine Loop Back) -->
+    <!-- Videos Showcase (Restored Native Stream Vectors) -->
     <section id="videos">
       <h2>Featured Video Projects</h2>
       <div class="carousel-container">
         <div class="carousel-wrapper">
           <div class="drag-overlay"></div>
           <div class="carousel-track">
-            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/QGE7i0dVs5w?enablejsapi=1&autoplay=1&mute=1&playlist=QGE7i0dVs5w&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/eXJf7LGnIk4?enablejsapi=1&autoplay=1&mute=1&playlist=eXJf7LGnIk4&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/vlWlgg2Laj8?enablejsapi=1&autoplay=1&mute=1&playlist=vlWlgg2Laj8&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/cUngFXNXoeo?enablejsapi=1&autoplay=1&mute=1&playlist=cUngFXNXoeo&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/5LRTlWHOQaE?enablejsapi=1&autoplay=1&mute=1&playlist=5LRTlWHOQaE&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/kDdrgZ0C5Gc?enablejsapi=1&autoplay=1&mute=1&playlist=kDdrgZ0C5Gc&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/Zp1cyXXW92I?enablejsapi=1&autoplay=1&mute=1&playlist=Zp1cyXXW92I&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div> 
-            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/RutDI0yMFI8?enablejsapi=1&autoplay=1&mute=1&playlist=RutDI0yMFI8&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/ds4wMZ1mgCg?enablejsapi=1&autoplay=1&mute=1&playlist=ds4wMZ1mgCg&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/WhcMlzhcslA?enablejsapi=1&autoplay=1&mute=1&playlist=WhcMlzhcslA&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/V00KiVl3qPk?enablejsapi=1&autoplay=1&mute=1&playlist=V00KiVl3qPk&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/pW8xFxPDQgk?enablejsapi=1&autoplay=1&mute=1&playlist=pW8xFxPDQgk&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe class="yt-mount" src="https://www.youtube.com/embed/z99KBCAivKs?enablejsapi=1&autoplay=1&mute=1&playlist=z99KBCAivKs&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div> 
+            <div class="carousel-item"><div class="video-container-box"><video src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" playsinline autoplay loop muted></video></div></div>
+            <div class="carousel-item"><div class="video-container-box"><video src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" playsinline autoplay loop muted></video></div></div>
+            <div class="carousel-item"><div class="video-container-box"><video src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" playsinline autoplay loop muted></video></div></div>
+            <div class="carousel-item"><div class="video-container-box"><video src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" playsinline autoplay loop muted></video></div></div>
+            <div class="carousel-item"><div class="video-container-box"><video src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4" playsinline autoplay loop muted></video></div></div>
           </div>
         </div>
         <div class="carousel-dots"></div>
       </div>
     </section>
 
-    <!-- Thumbnails Showcase Grid Matrix -->
+    <!-- Thumbnails Showcase -->
     <section id="thumbnails">
       <h2>Thumbnail Design</h2>
       <div class="carousel-container">
@@ -579,76 +584,97 @@
     </div>
   </footer>
 
-  <script src="https://www.youtube.com/iframe_api"></script>
-
   <script>
-    const ytPlayers = {};
-    let isAutoScrolling = false; // Internal semaphore locking layout events to prevent jumps from halting halfway
+    let isProgrammaticScroll = false; // Prevents Scrollspy event locks on large jumps
 
-    // Absolute Full Site Double-Tap Zoom Prevention Guard Layer
-    let lastTouchTime = 0;
+    // Ultra Zoom Blockades
     document.addEventListener('touchstart', (e) => {
-      const now = performance.now();
-      if (now - lastTouchTime < 300) {
-        e.preventDefault(); // Intercepts browser default magnifying loop
-      }
-      lastTouchTime = now;
+      if (e.touches.length > 1) e.preventDefault();
     }, { passive: false });
 
-    // YouTube API System Setup
-    function onYouTubeIframeAPIReady() {
-      document.querySelectorAll('.yt-mount').forEach((iframe) => {
-        const id = `player_${Math.random().toString(36).substr(2, 9)}`;
-        iframe.id = id;
-        ytPlayers[id] = new YT.Player(id, {
-          events: {
-            'onReady': (e) => {
-              e.target.mute(); // Required by modern mobile engine privacy rules to authorize autoplay
-              e.target.playVideo();
-            }
-          }
-        });
-      });
-    }
+    let lastTapTimestamp = 0;
+    document.addEventListener('touchend', (e) => {
+      const currentTimestamp = performance.now();
+      if (currentTimestamp - lastTapTimestamp <= 300) {
+        e.preventDefault(); // Annihilates standard multi-tap scale hooks across all browsers
+      }
+      lastTapTimestamp = currentTimestamp;
+    }, { passive: false });
 
-    // High Velocity Speed-Ramping Navigation Engine
+    // Fine-Tuned Speed Ramping Scroll Engine
     function smoothRampScroll(targetElement) {
       if (!targetElement) return;
-      isAutoScrolling = true; // Hard-lock scrollspy triggers from crossing lines
+      isProgrammaticScroll = true;
       
       const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY;
       const startPosition = window.scrollY;
       const distance = targetPosition - startPosition;
-      const duration = 850; // Calibrated speed index to clear jumps quickly
+      const duration = 750; // Optimized duration for fast action transitions
       let startTime = null;
 
-      function easeOutQuint(t) { return 1 - Math.pow(1 - t, 5); }
+      function easeOutQuint(t) {
+        return 1 - Math.pow(1 - t, 5);
+      }
 
-      function scrollAnimation(currentTime) {
+      function scrollStep(currentTime) {
         if (!startTime) startTime = currentTime;
-        const timeElapsed = currentTime - startTime;
-        const progress = Math.min(timeElapsed / duration, 1);
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
         
         window.scrollTo(0, startPosition + (distance * easeOutQuint(progress)));
 
         if (progress < 1) {
-          requestAnimationFrame(scrollAnimation);
+          requestAnimationFrame(scrollStep);
         } else {
-          // Sync header visual pill explicitly after arrival
-          const targetId = targetElement.getAttribute('id');
-          const matchLink = document.querySelector(`#nav-spy a[href="#${targetId}"]`);
-          if(matchLink) {
-            document.querySelectorAll('#nav-spy a').forEach(l => l.classList.remove('active'));
-            matchLink.classList.add('active');
-            repositionNavPill(matchLink);
-          }
-          setTimeout(() => { isAutoScrolling = false; }, 80);
+          // Release scrollspy calculations cleanly post-frame lock
+          setTimeout(() => { isProgrammaticScroll = false; }, 30);
         }
       }
-      requestAnimationFrame(scrollAnimation);
+      requestAnimationFrame(scrollStep);
     }
 
-    // Text Animations Build Layer
+    // Header Navigation Pill Coordinates Motor
+    const navSpy = document.getElementById('nav-spy');
+    const pill = document.getElementById('nav-pill');
+    const navLinks = [...navSpy.querySelectorAll('a')];
+
+    function repositionNavPill(element) {
+      if (!element) return;
+      pill.style.left = `${element.offsetLeft}px`;
+      pill.style.width = `${element.offsetWidth}px`;
+    }
+
+    navLinks.forEach(link => {
+      link.addEventListener('mouseenter', () => repositionNavPill(link));
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        repositionNavPill(link);
+        smoothRampScroll(document.getElementById(link.getAttribute('href').substring(1)));
+      });
+    });
+
+    window.addEventListener('load', () => {
+      repositionNavPill(document.querySelector('#nav-spy a.active'));
+    });
+
+    // Scrollspy Event Tracker
+    window.addEventListener('scroll', () => {
+      if (isProgrammaticScroll) return; 
+      let activeId = 'home';
+      document.querySelectorAll('main > div, section, footer').forEach(sec => {
+        if (window.scrollY >= (sec.offsetTop - 240)) activeId = sec.getAttribute('id');
+      });
+      const matchLink = navSpy.querySelector(`a[href="#${activeId}"]`);
+      if (matchLink && !navSpy.querySelector('a:active')) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        matchLink.classList.add('active');
+        repositionNavPill(matchLink);
+      }
+    });
+
+    // Dynamic Text Elements Layout Triggers
     const brandEl = document.getElementById("brand");
     const nameStr = "JAYDEEP";
     [...nameStr].forEach((ch, i) => {
@@ -675,15 +701,6 @@
       });
     })();
 
-    // Force Cross-Platform Mobile Initialization of Skill Progress Layer
-    window.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => {
-        document.querySelectorAll('.bar > i').forEach(bar => {
-          bar.style.width = bar.dataset.target;
-        });
-      }, 150); // Small cycle buffer ensures mobile layout rendering context has finalized
-    });
-
     const bpData = [
       { title: "Hook & Retention Strategy", desc: "Cutting the boring bits in the first 30 seconds to lock people in, using smart sound effects and fast cuts to keep viewers from clicking away." },
       { title: "High-Click Thumbnails", desc: "Designing thumbs that stop the scroll. Bold imagery, clear contrast, and smart layouts so the viewer instantly understands the story." },
@@ -703,34 +720,7 @@
       }, 150);
     }
 
-    // iOS Micro-Velocity Navigation Bar Pill Logic
-    const navSpy = document.getElementById('nav-spy');
-    const pill = document.getElementById('nav-pill');
-    const navLinks = [...navSpy.querySelectorAll('a')];
-
-    function repositionNavPill(element) {
-      if (!element) return;
-      pill.style.left = `${element.offsetLeft}px`;
-      pill.style.width = `${element.offsetWidth}px`;
-    }
-
-    navLinks.forEach(link => {
-      link.addEventListener('mouseenter', () => { if(!isAutoScrolling) repositionNavPill(link); });
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        navLinks.forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
-        repositionNavPill(link);
-        smoothRampScroll(document.getElementById(link.getAttribute('href').substring(1)));
-      });
-    });
-
-    navSpy.addEventListener('mouseleave', () => {
-      const activeLink = navSpy.querySelector('a.active');
-      repositionNavPill(activeLink);
-    });
-
-    /* --- SWIPE CAROUSEL SYSTEM MATRIX --- */
+    /* --- High Momentum Carousels Framework --- */
     document.querySelectorAll('.carousel-container').forEach(container => {
       const wrapper = container.querySelector('.carousel-wrapper');
       const overlay = container.querySelector('.drag-overlay');
@@ -796,8 +786,8 @@
 
       function runInertiaDeceleration() {
         if (Math.abs(velocity) > 0.02) {
-          currentTranslate += velocity * 38; 
-          velocity *= 0.93; 
+          currentTranslate += velocity * 42; 
+          velocity *= 0.94; 
           setTrackPosition();
           rafId = requestAnimationFrame(runInertiaDeceleration);
         } else {
@@ -827,35 +817,38 @@
       }
 
       function getPositionX(e) { return e.type.includes('mouse') ? e.clientX : e.touches[0].clientX; }
-      function setTrackPosition() { track.style.transform = `translateX(${currentTranslate}px)`; updateActiveStates(); }
+      
+      function setTrackPosition() { 
+        track.style.transform = `translateX(${currentTranslate}px)`; 
+        updateActiveStates(); 
+      }
 
+      // Synchronized Sound / Playback Lifecycle Tracker Engine
       function updateActiveStates() {
         const wrapperCenter = wrapper.offsetWidth / 2;
         allItems.forEach((item, idx) => {
           const itemCenter = item.getBoundingClientRect().left + (item.offsetWidth / 2);
           const isNear = Math.abs(wrapperCenter - itemCenter) < (item.offsetWidth * 0.5);
+          
           item.classList.toggle('active', isNear);
           
-          if(isNear) {
+          // Native Auto Play / Mute Balance Lifecycle
+          const video = item.querySelector('video');
+          if (video) {
+            if (isNear) {
+              video.muted = false; // Restores background track sound immediately when focused
+              video.play().catch(()=>{});
+            } else {
+              video.muted = true;
+              video.pause();
+            }
+          }
+
+          if (isNear) {
             let rel = (idx - originalCount) % originalCount;
             if (rel < 0) rel += originalCount;
             currentIndex = idx;
             dots.forEach((d, dIdx) => d.classList.toggle('active', dIdx === rel));
-            
-            // Native Autoplay/Auto-Muted Content Management Layer
-            const iframe = item.querySelector('iframe');
-            if (iframe && ytPlayers[iframe.id] && typeof ytPlayers[iframe.id].playVideo === 'function') {
-              try {
-                ytPlayers[iframe.id].mute();
-                ytPlayers[iframe.id].playVideo();
-              } catch(e){}
-            }
-          } else {
-            // Auto-pause inactive instances on track swipe
-            const iframe = item.querySelector('iframe');
-            if (iframe && ytPlayers[iframe.id] && typeof ytPlayers[iframe.id].pauseVideo === 'function') {
-              try { ytPlayers[iframe.id].pauseVideo(); } catch(e){}
-            }
           }
         });
       }
@@ -863,31 +856,20 @@
       function snapToSlide(idx) {
         currentIndex = idx;
         const targetItem = allItems[currentIndex];
-        if(!targetItem) return;
+        if (!targetItem) return;
         currentTranslate = -(targetItem.offsetLeft - (wrapper.offsetWidth / 2) + (targetItem.offsetWidth / 2));
         prevTranslate = currentTranslate;
-        track.style.transition = 'transform 0.45s cubic-bezier(0.15, 0.85, 0.2, 1)';
+        track.style.transition = 'transform 0.4s cubic-bezier(0.1, 0.8, 0.2, 1)';
         track.style.transform = `translateX(${currentTranslate}px)`;
         updateActiveStates();
       }
 
-      window.addEventListener('resize', () => { itemWidth = originalItems[0].offsetWidth + 28; snapToSlide(currentIndex); });
-      setTimeout(() => { snapToSlide(originalCount); repositionNavPill(document.querySelector('#nav-spy a.active')); }, 400);
-    });
-
-    // Native Passive Scroll Monitor Core
-    window.addEventListener('scroll', () => {
-      if (isAutoScrolling) return; 
-      let activeId = 'home';
-      document.querySelectorAll('main > div, section, footer').forEach(sec => {
-        if(window.scrollY >= (sec.offsetTop - 220)) activeId = sec.getAttribute('id');
+      window.addEventListener('resize', () => { 
+        itemWidth = originalItems[0].offsetWidth + 28; 
+        snapToSlide(currentIndex); 
       });
-      const matchLink = navSpy.querySelector(`a[href="#${activeId}"]`);
-      if(matchLink && !navSpy.querySelector('a:active')) {
-        navLinks.forEach(l => l.classList.remove('active'));
-        matchLink.classList.add('active');
-        repositionNavPill(matchLink);
-      }
+      
+      setTimeout(() => snapToSlide(originalCount), 400);
     });
   </script>
 </body>
