@@ -32,7 +32,7 @@
     }
     a { text-decoration: none; color: inherit; }
 
-    /* Fixed Header Navigation with Drag-to-Select Mechanics */
+    /* Fixed Header Navigation with iOS Liquid Drag-to-Select Mechanics */
     header {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -45,29 +45,45 @@
     nav { 
       display: flex; 
       gap: 4px; 
-      background: rgba(10, 10, 14, 0.5);
+      background: rgba(15, 15, 25, 0.4);
       border: 1px solid var(--border-glass);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
       padding: 5px;
       border-radius: 40px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05);
       position: relative;
-      touch-action: none; /* intercepts touches manually */
+      touch-action: none;
     }
     nav a {
+      position: relative;
       color: var(--text-muted);
       font-weight: 500;
       font-size: 0.85rem;
       padding: 8px 20px;
       border-radius: 30px;
-      transition: color 0.2s ease, background 0.2s ease;
+      transition: color 0.3s cubic-bezier(0.25, 1, 0.5, 1);
       user-select: none;
       -webkit-user-select: none;
+      z-index: 2;
     }
-    nav a.active, nav a.touch-hover { 
+    nav a.active { 
       color: #fff; 
-      background: rgba(255, 255, 255, 0.07);
+    }
+    
+    /* iOS Interactive Fluid Background Pill */
+    .nav-dynamic-glow {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      height: calc(100% - 10px);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.1);
+      border-radius: 30px;
+      z-index: 1;
+      pointer-events: none;
+      transition: all 0.35s cubic-bezier(0.25, 1, 0.4, 1);
     }
 
     /* Landing Hero Wrapper */
@@ -136,7 +152,7 @@
     }
     @keyframes fadeUp { to { opacity: 1; } }
 
-    /* Skills Panel Layout */
+    /* Skills Panel Layout with Live Flow Fluid Water Logic */
     .skills { 
       width: min(660px, 100%); 
       margin-top: 55px; 
@@ -160,18 +176,33 @@
     }
     .skill .title span:last-child { color: #fff; font-weight: 600; }
     .bar {
-      height: 4px;
+      height: 6px;
       background: rgba(255, 255, 255, 0.02);
       border-radius: 6px;
       overflow: hidden;
+      position: relative;
     }
-    .bar>i {
+    .bar > i {
       display: block;
       height: 100%;
       width: 0;
-      background: linear-gradient(90deg, #334155, #cbd5e1);
+      background: linear-gradient(90deg, #1e293b 0%, #94a3b8 50%, #f8fafc 100%);
+      background-size: 200% 100%;
       border-radius: 6px;
+      position: relative;
       transition: width 2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    /* Dynamic moving water overlay pulse */
+    .bar > i::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%);
+      animation: waterFlow 2s infinite linear;
+    }
+    @keyframes waterFlow {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
     }
 
     /* Workflow Blueprint */
@@ -365,19 +396,58 @@
       overflow: hidden;
     }
     
-    .carousel-item iframe, .carousel-item img, .yt-player { 
+    .carousel-item img, .yt-mount { 
       width: 100%; 
       height: 100%;
       border: none; 
       display: block; 
+      object-fit: cover;
     }
 
-    .video-interaction-shield {
+    /* Fast Light Load System Play Box Overlay Button Overlay */
+    .video-facade-box {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 8;
-      background: transparent;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
       cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+    .video-facade-box::before {
+      content: '';
+      position: absolute;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.2);
+    }
+    .play-icon-shape {
+      width: 64px; height: 64px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      position: relative;
+      z-index: 6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+    .play-icon-shape::after {
+      content: '';
+      width: 0; height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 18px solid #fff;
+      margin-left: 5px;
+    }
+    .carousel-item.active .video-facade-box:hover .play-icon-shape {
+      transform: scale(1.1);
+      background: rgba(255,255,255,0.3);
     }
 
     .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 25px; }
@@ -410,6 +480,7 @@
 
   <header>
     <nav id="nav-spy">
+      <div class="nav-dynamic-glow" id="nav-pill"></div>
       <a href="#home" class="active">Home</a>
       <a href="#videos">Videos</a>
       <a href="#thumbnails">Thumbnails</a>
@@ -492,19 +563,19 @@
         <div class="carousel-wrapper">
           <div class="drag-overlay"></div>
           <div class="carousel-track">
-            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="QGE7i0dVs5w"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="eXJf7LGnIk4"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="vlWlgg2Laj8"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="cUngFXNXoeo"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="5LRTlWHOQaE"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="kDdrgZ0C5Gc"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="Zp1cyXXW92I"></div></div></div> 
-            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="RutDI0yMFI8"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="ds4wMZ1mgCg"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="WhcMlzhcslA"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="V00KiVl3qPk"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="pW8xFxPDQgk"></div></div></div>
-            <div class="carousel-item"><div class="video-container-box"><div class="video-interaction-shield" onclick="toggleShieldPlay(this)"></div><div class="yt-player" data-video-id="z99KBCAivKs"></div></div></div> 
+            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="QGE7i0dVs5w"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="eXJf7LGnIk4"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="vlWlgg2Laj8"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="cUngFXNXoeo"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="5LRTlWHOQaE"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="kDdrgZ0C5Gc"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="Zp1cyXXW92I"></div></div></div> 
+            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="RutDI0yMFI8"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="ds4wMZ1mgCg"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="WhcMlzhcslA"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="V00KiVl3qPk"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="pW8xFxPDQgk"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="yt-mount" data-video-id="z99KBCAivKs"></div></div></div> 
           </div>
         </div>
         <div class="carousel-dots"></div>
@@ -549,50 +620,58 @@
 
   <script>
     const ytPlayers = {};
-    window.activeVideoPlayer = null;
+    let activePlayerId = null;
 
-    function onYouTubeIframeAPIReady() {
-      document.querySelectorAll('.yt-player').forEach((el, index) => {
-        const vidId = el.dataset.videoId;
-        const playerDomId = el.id || `player_${index}`;
-        el.id = playerDomId;
+    // Fast facade build for videos to optimize loading speed
+    document.querySelectorAll('.yt-mount').forEach((mount, idx) => {
+      const vidId = mount.dataset.videoId;
+      const box = mount.parentNode;
+      
+      const facade = document.createElement('div');
+      facade.className = 'video-facade-box';
+      facade.style.backgroundImage = `url('https://img.youtube.com/vi/${vidId}/maxresdefault.jpg')`;
+      
+      const playBtn = document.createElement('div');
+      playBtn.className = 'play-icon-shape';
+      facade.appendChild(playBtn);
+      box.appendChild(facade);
 
-        ytPlayers[playerDomId] = new YT.Player(playerDomId, {
-          videoId: vidId,
-          playerVars: {
-            'autoplay': 1,
-            'mute': 1,
-            'controls': 0, 
-            'rel': 0,
-            'playsinline': 1,
-            'showinfo': 0,
-            'modestbranding': 1,
-            'iv_load_policy': 3,
-            'enablejsapi': 1
-          },
-          events: {
-            'onReady': (e) => {
-              e.target.mute(); 
-              if (index === 0) {
-                window.activeVideoPlayer = playerDomId;
-                e.target.playVideo();
-              }
-            }
+      facade.addEventListener('click', () => {
+        if (!box.parentNode.classList.contains('active')) return;
+        injectRealYoutubePlayer(mount, vidId, facade);
+      });
+    });
+
+    function injectRealYoutubePlayer(mountElement, videoId, facadeElement) {
+      const playerDomId = `yt_player_${Math.random().toString(36).substr(2, 9)}`;
+      mountElement.id = playerDomId;
+      
+      if(facadeElement) facadeElement.style.opacity = '0';
+      setTimeout(() => facadeElement?.remove(), 300);
+
+      ytPlayers[playerDomId] = new YT.Player(playerDomId, {
+        videoId: videoId,
+        playerVars: {
+          'autoplay': 1,
+          'controls': 1,
+          'rel': 0,
+          'playsinline': 1,
+          'modestbranding': 1
+        },
+        events: {
+          'onReady': (e) => {
+            stopAllOtherVideos(playerDomId);
+            e.target.playVideo();
           }
-        });
+        }
       });
     }
 
-    function toggleShieldPlay(shieldEl) {
-      const playerEl = shieldEl.parentNode.querySelector('.yt-player');
-      if (!playerEl) return;
-      const id = playerEl.id;
-      if (ytPlayers[id]) {
-        const state = ytPlayers[id].getPlayerState();
-        if (state === YT.PlayerState.PLAYING) {
-          ytPlayers[id].pauseVideo();
-        } else {
-          ytPlayers[id].playVideo();
+    function stopAllOtherVideos(currentId) {
+      activePlayerId = currentId;
+      for (let id in ytPlayers) {
+        if (id !== currentId && ytPlayers[id] && typeof ytPlayers[id].pauseVideo === 'function') {
+          try { ytPlayers[id].pauseVideo(); } catch(e){}
         }
       }
     }
@@ -629,6 +708,7 @@
       document.querySelectorAll('.bar > i').forEach(bar => {
         bar.style.width = bar.dataset.target;
       });
+      repositionNavPill(document.querySelector('#nav-spy a.active'));
     });
 
     const bpData = [
@@ -652,36 +732,58 @@
       }, 150);
     }
 
-    /* --- ADVANCED TOUCH DRAG SLIDE NAVIGATION (NO-LIFT HOVER TRACKING) --- */
-    (function() {
-      const nav = document.getElementById('nav-spy');
-      const links = [...nav.querySelectorAll('a')];
+    /* --- iOS LIQUID GLASS NAVIGATION SLIDER MOTOR --- */
+    const navSpy = document.getElementById('nav-spy');
+    const pill = document.getElementById('nav-pill');
+    const navLinks = [...navSpy.querySelectorAll('a')];
+
+    function repositionNavPill(element) {
+      if (!element) return;
+      pill.style.left = `${element.offsetLeft}px`;
+      pill.style.width = `${element.offsetWidth}px`;
+      pill.style.transform = 'scaleX(1)';
+    }
+
+    navSpy.addEventListener('touchmove', (e) => {
+      const touch = e.touches[0];
+      const targetEl = document.elementFromPoint(touch.clientX, touch.clientY);
       
-      nav.addEventListener('touchmove', (e) => {
-        const touch = e.touches[0];
-        const el = document.elementFromPoint(touch.clientX, touch.clientY);
+      if (targetEl && navLinks.includes(targetEl)) {
+        // Compute stretch velocity factor based on current position differential
+        const currentLeft = parseFloat(pill.style.left) || 0;
+        const targetLeft = targetEl.offsetLeft;
+        const delta = targetLeft - currentLeft;
         
-        links.forEach(l => l.classList.remove('touch-hover'));
+        // Stretch pill element organically while shifting position coordinates
+        pill.style.width = `${targetEl.offsetWidth + Math.min(Math.abs(delta) * 0.3, 35)}px`;
+        pill.style.left = `${delta > 0 ? currentLeft + (delta * 0.4) : targetLeft}px`;
         
-        if (el && links.includes(el)) {
-          el.classList.add('touch-hover');
-        }
-      }, { passive: true });
+        navLinks.forEach(l => l.classList.remove('active'));
+        targetEl.classList.add('active');
+      }
+    }, { passive: true });
 
-      nav.addEventListener('touchend', (e) => {
-        const hoveredLink = nav.querySelector('a.touch-hover');
-        if (hoveredLink) {
-          hoveredLink.classList.remove('touch-hover');
-          const targetId = hoveredLink.getAttribute('href').substring(1);
-          const targetSection = document.getElementById(targetId);
-          if (targetSection) {
-            targetSection.scrollIntoView({ behavior: 'smooth' });
-          }
-        }
+    navSpy.addEventListener('touchend', (e) => {
+      const activeLink = navSpy.querySelector('a.active');
+      if (activeLink) {
+        repositionNavPill(activeLink);
+        const targetId = activeLink.getAttribute('href').substring(1);
+        document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.addEventListener('mouseenter', () => repositionNavPill(link));
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        repositionNavPill(link);
+        document.getElementById(link.getAttribute('href').substring(1))?.scrollIntoView({ behavior: 'smooth' });
       });
-    })();
+    });
 
-    /* --- SYSTEMIC SEAMLESS INFINITE LOOP SLIDER ARCHITECTURE --- */
+    /* --- CAROUSEL REBOUND LOOPS --- */
     document.querySelectorAll('.carousel-container').forEach(container => {
       const wrapper = container.querySelector('.carousel-wrapper');
       const overlay = container.querySelector('.drag-overlay');
@@ -690,18 +792,13 @@
       const originalCount = originalItems.length;
       const dotsNav = container.querySelector('.carousel-dots');
       
-      // Clone sets to fill container space left and right for seamless looping
       originalItems.forEach(item => {
-        const cloneBefore = item.cloneNode(true);
-        const cloneAfter = item.cloneNode(true);
-        track.insertBefore(cloneBefore, track.firstChild);
-        track.appendChild(cloneAfter);
+        track.insertBefore(item.cloneNode(true), track.firstChild);
+        track.appendChild(item.cloneNode(true));
       });
 
-      // Update tracking state arrays
       let allItems = [...track.children];
-      let itemWidth = originalItems[0].offsetWidth + 28; // Element base footprint width + total margin layout
-      
+      let itemWidth = originalItems[0].offsetWidth + 28;
       let isDragging = false, startX = 0, currentTranslate = 0, prevTranslate = 0, currentIndex = originalCount;
       let velocity = 0, lastX = 0, lastTime = 0, rafId = null;
 
@@ -713,14 +810,6 @@
         dotsNav.appendChild(dot);
       });
       const dots = [...dotsNav.children];
-
-      // Setup uniquely generated domestic ID attributes on iframe components inside track trees
-      if (container.parentNode.id === 'videos') {
-        allItems.forEach((item, idx) => {
-          const p = item.querySelector('.yt-player');
-          if (p) p.id = `player_node_${idx}`;
-        });
-      }
 
       overlay.addEventListener('mousedown', dragStart);
       overlay.addEventListener('touchstart', dragStart, { passive: true });
@@ -736,26 +825,16 @@
         lastTime = performance.now();
         velocity = 0;
         if(rafId) cancelAnimationFrame(rafId);
-        
         track.style.transition = 'none';
-        wrapper.style.cursor = 'grabbing';
-        
-        // Instant teleport alignment layer check
         checkBoundsAndTeleport();
       }
 
       function dragMove(e) {
         if (!isDragging) return;
         const currentX = getPositionX(e);
-        const diff = currentX - startX;
-        currentTranslate = prevTranslate + diff;
-        
+        currentTranslate = prevTranslate + (currentX - startX);
         const now = performance.now();
-        const deltaTime = now - lastTime;
-        if (deltaTime > 0) {
-          velocity = (currentX - lastX) / deltaTime;
-        }
-        
+        if (now - lastTime > 0) velocity = (currentX - lastX) / (now - lastTime);
         lastX = currentX;
         lastTime = now;
         setTrackPosition();
@@ -764,8 +843,6 @@
       function dragEnd() {
         if (!isDragging) return;
         isDragging = false;
-        wrapper.style.cursor = 'grab';
-        
         prevTranslate = currentTranslate;
         runInertiaDeceleration();
       }
@@ -777,131 +854,85 @@
           setTrackPosition();
           rafId = requestAnimationFrame(runInertiaDeceleration);
         } else {
-          prevTranslate = currentTranslate;
           snapToClosest();
         }
       }
 
       function checkBoundsAndTeleport() {
-        const wrapperWidth = wrapper.offsetWidth;
-        const leftLimit = -(originalCount * itemWidth);
-        const rightLimit = -((originalCount * 2 - 1) * itemWidth);
-
         if (currentTranslate > -itemWidth) {
           currentTranslate -= originalCount * itemWidth;
         } else if (currentTranslate < -((originalCount * 2) * itemWidth)) {
           currentTranslate += originalCount * itemWidth;
         }
         prevTranslate = currentTranslate;
-        track.style.transition = 'none';
         setTrackPosition();
       }
 
       function snapToClosest() {
         const wrapperCenter = wrapper.offsetWidth / 2;
-        let closestIndex = originalCount;
-        let minDistance = Infinity;
-
+        let closestIndex = originalCount, minDistance = Infinity;
         allItems.forEach((item, idx) => {
-          const itemRect = item.getBoundingClientRect();
-          const itemCenter = itemRect.left + (itemRect.width / 2);
-          const distance = Math.abs(wrapperCenter - itemCenter);
-          if (distance < minDistance) {
-            minDistance = distance;
-            closestIndex = idx;
-          }
+          const itemCenter = item.getBoundingClientRect().left + (item.offsetWidth / 2);
+          const dist = Math.abs(wrapperCenter - itemCenter);
+          if (dist < minDistance) { minDistance = dist; closestIndex = idx; }
         });
         snapToSlide(closestIndex);
       }
 
-      function getPositionX(e) {
-        return e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-      }
-
-      function setTrackPosition() {
-        track.style.transform = `translateX(${currentTranslate}px)`;
-        updateActiveStates();
-      }
+      function getPositionX(e) { return e.type.includes('mouse') ? e.clientX : e.touches[0].clientX; }
+      function setTrackPosition() { track.style.transform = `translateX(${currentTranslate}px)`; updateActiveStates(); }
 
       function updateActiveStates() {
         const wrapperCenter = wrapper.offsetWidth / 2;
         allItems.forEach((item, idx) => {
-          const itemRect = item.getBoundingClientRect();
-          const itemCenter = itemRect.left + (itemRect.width / 2);
-          const isNearCenter = Math.abs(wrapperCenter - itemCenter) < (itemRect.width * 0.5);
-          item.classList.toggle('active', isNearCenter);
-          
-          if(isNearCenter) {
-            let relativeIndex = (idx - originalCount) % originalCount;
-            if (relativeIndex < 0) relativeIndex += originalCount;
+          const itemCenter = item.getBoundingClientRect().left + (item.offsetWidth / 2);
+          const isNear = Math.abs(wrapperCenter - itemCenter) < (item.offsetWidth * 0.5);
+          item.classList.toggle('active', isNear);
+          if(isNear) {
+            let rel = (idx - originalCount) % originalCount;
+            if (rel < 0) rel += originalCount;
             currentIndex = idx;
-            dots.forEach((d, dIdx) => d.classList.toggle('active', dIdx === relativeIndex));
+            dots.forEach((d, dIdx) => d.classList.toggle('active', dIdx === rel));
           }
         });
       }
 
       function snapToSlide(idx) {
         currentIndex = idx;
-        const wrapperWidth = wrapper.offsetWidth;
         const targetItem = allItems[currentIndex];
         if(!targetItem) return;
-        const targetOffset = targetItem.offsetLeft - (wrapperWidth / 2) + (targetItem.offsetWidth / 2);
-        
-        currentTranslate = -targetOffset;
+        currentTranslate = -(targetItem.offsetLeft - (wrapper.offsetWidth / 2) + (targetItem.offsetWidth / 2));
         prevTranslate = currentTranslate;
-        
         track.style.transition = 'transform 0.4s cubic-bezier(0.1, 0.8, 0.2, 1)';
         track.style.transform = `translateX(${currentTranslate}px)`;
-        
         updateActiveStates();
-        handleVideoPlaybackControl(container, targetItem);
-      }
 
-      function handleVideoPlaybackControl(carouselContainer, activeItem) {
-        if (carouselContainer.parentNode.id !== 'videos') return;
-        
-        const videoContainer = activeItem.querySelector('.yt-player');
-        if (!videoContainer) return;
-        
-        const activePlayerId = videoContainer.id;
-        window.activeVideoPlayer = activePlayerId;
-
-        for (let id in ytPlayers) {
-          try {
-            if (id === activePlayerId) {
-              ytPlayers[id].mute(); 
-              ytPlayers[id].playVideo();
-            } else {
-              ytPlayers[id].pauseVideo();
+        // Pause off-screen video playbacks automatically when cards rotate out
+        if (activePlayerId && !targetItem.querySelector(`#${activePlayerId}`)) {
+          for (let id in ytPlayers) {
+            if (ytPlayers[id] && typeof ytPlayers[id].pauseVideo === 'function') {
+              try { ytPlayers[id].pauseVideo(); } catch(err){}
             }
-          } catch(err) {}
+          }
         }
       }
 
-      window.addEventListener('resize', () => {
-        itemWidth = originalItems[0].offsetWidth + 28;
-        snapToSlide(currentIndex);
-      });
-      
+      window.addEventListener('resize', () => { itemWidth = originalItems[0].offsetWidth + 28; snapToSlide(currentIndex); });
       setTimeout(() => snapToSlide(originalCount), 400);
     });
 
-    // Scrollspy Implementation
-    const links = document.querySelectorAll('#nav-spy a');
-    const targetSections = document.querySelectorAll('main > div, section, footer');
+    // Scrollspy Matrix Connection
     window.addEventListener('scroll', () => {
       let activeId = 'home';
-      targetSections.forEach(sec => {
-        const top = window.scrollY;
-        const offset = sec.offsetTop - 220;
-        const height = sec.offsetHeight;
-        if(top >= offset && top < offset + height) {
-          activeId = sec.getAttribute('id');
-        }
+      document.querySelectorAll('main > div, section, footer').forEach(sec => {
+        if(window.scrollY >= (sec.offsetTop - 220)) activeId = sec.getAttribute('id');
       });
-      links.forEach(l => {
-        l.classList.toggle('active', l.getAttribute('href') === `#${activeId}`);
-      });
+      const matchLink = navSpy.querySelector(`a[href="#${activeId}"]`);
+      if(matchLink && !navSpy.querySelector('a:active')) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        matchLink.classList.add('active');
+        repositionNavPill(matchLink);
+      }
     });
   </script>
 </body>
