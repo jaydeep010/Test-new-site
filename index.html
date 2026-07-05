@@ -1,1 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JAYDEEP | Professional Video Editor & Designer</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
 
+    /* Reset & Deep Luxury Dark System */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    
+    /* ENABLE SMOOTH SCROLLING */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --bg: #07070a;
+      --panel-bg: rgba(15, 15, 23, 0.65);
+      --accent: #94a3b8;
+      --accent-glow: rgba(148, 163, 184, 0.08);
+      --text-main: #f8fafc;
+      --text-muted: #64748b;
+      --border-glass: rgba(255, 255, 255, 0.04);
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(30, 41, 59, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 0% 100%, rgba(15, 23, 42, 0.2) 0%, transparent 50%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* Fixed Header Navigation */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+      background: linear-gradient(to bottom, #07070a 50%, rgba(7, 7, 10, 0) 100%);
+    }
+    nav { 
+      display: flex; 
+      gap: 4px; 
+      background: rgba(10, 10, 14, 0.5);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      padding: 5px;
+      border-radius: 40px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+    }
+    nav a {
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 0.85rem;
+      padding: 8px 20px;
+      border-radius: 30px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    nav a:hover, nav a.active { 
+      color: #fff; 
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Landing Hero Wrapper */
+    .landing {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 160px 24px 80px;
+      text-align: center;
+    }
+    
+    .pre-title {
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 10px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .brand-wrapper {
+      margin-bottom: 8px;
+    }
+    .brand {
+      font-weight: 900;
+      font-size: 6rem;
+      letter-spacing: -4px;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      line-height: 1;
+    }
+    .brand span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: revealLetter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .brand span:nth-child(n+4) {
+      color: var(--accent);
+    }
+    @keyframes revealLetter {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 6px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .subtitle span {
+      display: inline-block;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+    }
+    @keyframes fadeUp { to { opacity: 1; } }
+
+    /* Skills Panel Layout */
+    .skills { 
+      width: min(660px, 100%); 
+      margin-top: 55px; 
+      background: var(--panel-bg);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 28px;
+      border-radius: 20px;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+    }
+    .skill { margin-bottom: 16px; }
+    .skill:last-child { margin-bottom: 0; }
+    .skill .title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    .skill .title span:last-child { color: #fff; font-weight: 600; }
+    .bar {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .bar>i {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #334155, #cbd5e1);
+      border-radius: 6px;
+      transition: width 2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Workflow Blueprint */
+    .mid-blueprint-zone {
+      width: min(660px, 100%);
+      margin-top: 24px;
+      background: linear-gradient(180deg, rgba(20,25,35,0.2) 0%, rgba(10,10,14,0.4) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 20px;
+      padding: 24px;
+      text-align: left;
+    }
+    .blueprint-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .blueprint-header h4 { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+    
+    .blueprint-tabs { display: flex; gap: 6px; }
+    .b-tab {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-glass);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.25s ease;
+    }
+    .b-tab.active {
+      background: #f1f5f9;
+      color: #0f172a;
+      border-color: #f1f5f9;
+      font-weight: 600;
+    }
+
+    .blueprint-body {
+      background: rgba(0,0,0,0.15);
+      border-radius: 12px;
+      padding: 20px;
+      min-height: 105px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,0.01);
+    }
+    .bp-title { font-size: 1rem; font-weight: 600; margin-bottom: 6px; color: #fff; }
+    .bp-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px; }
+    
+    .flow-line { display: flex; gap: 6px; align-items: center; }
+    .flow-node { height: 2px; flex: 1; background: rgba(255,255,255,0.06); border-radius: 1px; position: relative; overflow: hidden; }
+    .flow-node::after {
+      content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 100%;
+      background: #fff;
+      transform: scaleX(0); transform-origin: left;
+    }
+    .mid-blueprint-zone:hover .flow-node::after {
+      transform: scaleX(1);
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mid-blueprint-zone:hover .flow-node:nth-child(2)::after { transition-delay: 0.15s; }
+    .mid-blueprint-zone:hover .flow-node:nth-child(3)::after { transition-delay: 0.3s; }
+
+    .bp-cta {
+      margin-top: 16px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 14px;
+      border-radius: 12px;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.3s;
+    }
+    .bp-cta:hover {
+      background: #fff;
+      color: #000;
+      box-shadow: 0 10px 30px rgba(255,255,255,0.05);
+    }
+
+    /* --- MINIMALIST CHANNELS INFINITE TICKER --- */
+    .ticker-section {
+      background: #050507;
+      padding: 35px 0;
+      border-top: 1px solid var(--border-glass);
+      border-bottom: 1px solid var(--border-glass);
+      width: 100vw;
+      position: relative;
+    }
+    .ticker-title {
+      text-align: center;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    .ticker-container {
+      display: flex;
+      overflow: hidden;
+      user-select: none;
+      gap: 40px;
+      mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
+    }
+    .ticker-track {
+      display: flex;
+      flex-shrink: 0;
+      gap: 40px;
+      align-items: center;
+      animation: scrollTicker 25s linear infinite;
+    }
+    .partner-link {
+      display: block;
+      transition: transform 0.25s ease, filter 0.25s ease;
+      filter: grayscale(20%) opacity(0.8);
+    }
+    .partner-link:hover {
+      transform: scale(1.1);
+      filter: grayscale(0%) opacity(1);
+    }
+    .partner-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      object-fit: cover;
+      background: #111;
+      display: block;
+    }
+    @keyframes scrollTicker {
+      from { transform: translateX(0); }
+      to { transform: translateX(calc(-100% - 40px)); }
+    }
+
+    /* Showcase Layouts */
+    section { padding: 100px 0; width: 100%; max-width: 100vw; overflow: hidden; }
+    section h2 { text-align: center; color: #fff; font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 35px; }
+
+    /* HIGH INTENSITY SMOOTH DRAG SYSTEM */
+    .carousel-container { 
+      position: relative; 
+      width: 100%; 
+      touch-action: pan-y;
+    }
+    .carousel-wrapper { 
+      width: 100%; 
+      overflow: hidden; 
+      padding: 15px 0; 
+      cursor: grab;
+      position: relative;
+    }
+    .carousel-wrapper:active { cursor: grabbing; }
+    
+    /* Transparent Overlay allows full dragging from absolute any coordinate inside zone */
+    .drag-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 5;
+    }
+    
+    .carousel-track { 
+      display: flex; 
+      will-change: transform; 
+      user-select: none;
+    }
+    .carousel-item {
+      width: 660px; max-width: 80vw; flex-shrink: 0; margin: 0 14px;
+      transform: scale(0.93); opacity: 0.2; filter: blur(4px);
+      transition: transform 0.5s cubic-bezier(0.1, 0.8, 0.2, 1), opacity 0.5s, filter 0.5s;
+      position: relative; border-radius: 16px; overflow: hidden; background: #000;
+    }
+    .carousel-item.active { transform: scale(1); opacity: 1; filter: blur(0px); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6); }
+    
+    .carousel-item iframe, .carousel-item img { width: 100%; height: 370px; border: none; object-fit: cover; display: block; pointer-events: none; }
+    
+    .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 25px; flex-wrap: wrap; padding: 0 20px;}
+    .dot { height: 3px; width: 16px; background: rgba(255, 255, 255, 0.08); border-radius: 1px; cursor: pointer; }
+    .dot.active { background: #fff; transition: background 0.3s ease; }
+
+    /* Footer */
+    footer { padding: 100px 24px; background: #040406; border-top: 1px solid var(--border-glass); text-align: center; }
+    footer h2 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 12px; }
+    .contact-container { display: flex; justify-content: center; gap: 14px; margin-top: 30px; flex-wrap: wrap; }
+    .contact-btn { display: inline-flex; align-items: center; padding: 14px 28px; border-radius: 40px; font-weight: 600; font-size: 0.85rem; transition: all 0.25s; border: 1px solid var(--border-glass); background: rgba(255, 255, 255, 0.01); }
+    .btn-prime { background: #fff; color: #000; border-color: #fff; }
+    .btn-prime:hover { background: #e2e8f0; box-shadow: 0 10px 30px rgba(255,255,255,0.05); }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.04); color: #fff; border-color: rgba(255, 255, 255, 0.12); }
+
+    @media(max-width: 900px) {
+      .brand { font-size: 4rem; }
+      .carousel-item { width: 480px; }
+      .carousel-item iframe, .carousel-item img { height: 270px; }
+    }
+    @media(max-width: 600px) {
+      .brand { font-size: 3.2rem; }
+      .carousel-item { width: 290px; margin: 0 6px; }
+      .carousel-item iframe, .carousel-item img { height: 175px; }
+      .blueprint-tabs { flex-direction: column; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav id="nav-spy">
+      <a href="#home" class="active">Home</a>
+      <a href="#videos">Videos</a>
+      <a href="#thumbnails">Thumbnails</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Landing Shell Frame -->
+    <div class="landing" id="home">
+      <div class="pre-title">a professional editor</div>
+      <div class="brand-wrapper">
+        <div class="brand" id="brand"></div>
+      </div>
+      <div class="subtitle" id="subtitle"></div>
+
+      <!-- Skills Section -->
+      <div class="skills" id="skills">
+        <div class="skill">
+          <div class="title"><span>Video Editing & Retention Strategy</span><span>90%</span></div>
+          <div class="bar"><i data-target="90%"></i></div>
+        </div>
+        <div class="skill">
+          <div class="title"><span>Thumbnail Design & Spatial Contrast</span><span>95%</span></div>
+          <div class="bar"><i data-target="95%"></i></div>
+        </div>
+        <div class="skill">
+          <div class="title"><span>Motion Graphics & Custom FX Sequences</span><span>80%</span></div>
+          <div class="bar"><i data-target="80%"></i></div>
+        </div>
+      </div>
+
+      <!-- Workflow Block -->
+      <div class="mid-blueprint-zone">
+        <div class="blueprint-header">
+          <h4>Production Blueprint</h4>
+          <div class="blueprint-tabs">
+            <span class="b-tab active" onclick="switchBlueprint(0, this)">Retention Pacing</span>
+            <span class="b-tab" onclick="switchBlueprint(1, this)">Thumb Concept</span>
+            <span class="b-tab" onclick="switchBlueprint(2, this)">Story Blocks</span>
+          </div>
+        </div>
+        <div class="blueprint-body">
+          <div class="bp-title" id="bp-title">Hook & Retention Strategy</div>
+          <div class="bp-desc" id="bp-desc">Cutting the boring bits in the first 30 seconds to lock people in, using smart sound effects and fast cuts to keep viewers from clicking away.</div>
+          <div class="flow-line">
+            <div class="flow-node"></div>
+            <div class="flow-node"></div>
+            <div class="flow-node"></div>
+          </div>
+        </div>
+        <button class="bp-cta" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+          Let's discuss your next project <span>→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- CLEAN HIGH-END TRUSTED TICKER TRACK -->
+    <div class="ticker-section">
+      <div class="ticker-title">Trusted By Creators</div>
+      <div class="ticker-container">
+        <!-- Track 1 -->
+        <div class="ticker-track">
+          <a class="partner-link" href="https://www.youtube.com/@TheVideoNerd" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/TheVideoNerd" alt="TheVideoNerd"></a>
+          <a class="partner-link" href="https://www.youtube.com/@caitlinerinoneill" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/caitlinerinoneill" alt="caitlinerinoneill"></a>
+          <a class="partner-link" href="https://www.youtube.com/@SuzieTaylor" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/SuzieTaylor" alt="SuzieTaylor"></a>
+          <a class="partner-link" href="https://www.youtube.com/@inishutiwari" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/inishutiwari" alt="inishutiwari"></a>
+          <a class="partner-link" href="https://www.youtube.com/@RimoravVlogs" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/RimoravVlogs" alt="RimoravVlogs"></a>
+          <a class="partner-link" href="https://www.youtube.com/@onroadindian" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/onroadindian" alt="onroadindian"></a>
+        </div>
+        <!-- Track 2 -->
+        <div class="ticker-track">
+          <a class="partner-link" href="https://www.youtube.com/@TheVideoNerd" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/TheVideoNerd" alt="TheVideoNerd"></a>
+          <a class="partner-link" href="https://www.youtube.com/@caitlinerinoneill" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/caitlinerinoneill" alt="caitlinerinoneill"></a>
+          <a class="partner-link" href="https://www.youtube.com/@SuzieTaylor" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/SuzieTaylor" alt="SuzieTaylor"></a>
+          <a class="partner-link" href="https://www.youtube.com/@inishutiwari" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/inishutiwari" alt="inishutiwari"></a>
+          <a class="partner-link" href="https://www.youtube.com/@RimoravVlogs" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/RimoravVlogs" alt="RimoravVlogs"></a>
+          <a class="partner-link" href="https://www.youtube.com/@onroadindian" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/onroadindian" alt="onroadindian"></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Videos Showcase -->
+    <section id="videos">
+      <h2>Featured Video Projects</h2>
+      <div class="carousel-container">
+        <div class="carousel-wrapper">
+          <div class="drag-overlay"></div>
+          <div class="carousel-track">
+            <!-- Added yt-player tags inside class to handle individual control -->
+            <div class="carousel-item"><div class="yt-player" data-video-id="QGE7i0dVs5w"></div></div>
+            <div class="carousel-item"><div class="yt-player" data-video-id="eXJf7LGnIk4"></div></div>
+            <div class="carousel-item"><div class="yt-player" data-video-id="vlWlgg2Laj8"></div></div>
+            <div class="carousel-item"><div class="yt-player" data-video-id="cUngFXNXoeo"></div></div>
+            <div class="carousel-item"><div class="yt-player" data-video-id="5LRTlWHOQaE"></div></div>
+            <div class="carousel-item"><div class="yt-player" data-video-id="kDdrgZ0C5Gc"></div></div>
+            <div class="carousel-item"><div class="yt-player" data-video-id="Zp1cyXXW92I"></div></div> 
+            <div class="carousel-item"><div class="yt-player" data-video-id="RutDI0yMFI8"></div></div>
+            <div class="carousel-item"><div class="yt-player" data-video-id="ds4wMZ1mgCg"></div></div>
+            <div class="carousel-item"><div class="yt-player" data-video-id="WhcMlzhcslA"></div></div>
+            <div class="carousel-item"><div class="yt-player" data-video-id="V00KiVl3qPk"></div></div>
+            <div class="carousel-item"><div class="yt-player" data-video-id="pW8xFxPDQgk"></div></div>
+            <div class="carousel-item"><div class="yt-player" data-video-id="z99KBCAivKs"></div></div> 
+          </div>
+        </div>
+        <div class="carousel-dots"></div>
+      </div>
+    </section>
+
+    <!-- Thumbnails Showcase -->
+    <section id="thumbnails">
+      <h2>Thumbnail Design</h2>
+      <div class="carousel-container">
+        <div class="carousel-wrapper">
+          <div class="drag-overlay"></div>
+          <div class="carousel-track">
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/1.jpg?raw=true" alt="t1"></div>
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/2.jpg?raw=true" alt="t2"></div>
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/3.jpg?raw=true" alt="t3"></div>
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/4.jpg?raw=true" alt="t4"></div>
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/mc10new1.png?raw=true" alt="t5"></div>
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/6.jpg?raw=true" alt="t6"></div>
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/7.jpg?raw=true" alt="t7"></div>
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/8.jpg?raw=true" alt="t8"></div>
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/9.jpg?raw=true" alt="t9"></div>
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/10.jpg?raw=true" alt="t10"></div>
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/11.jpg?raw=true" alt="t11"></div>
+          </div>
+        </div>
+        <div class="carousel-dots"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <h2>Let's Make Videos Worth Finishing</h2>
+    <p style="color:var(--text-muted)">Get in touch directly through Email or Discord.</p>
+    <div class="contact-container">
+      <a class="contact-btn btn-prime" href="mailto:jaydeepkumawat4114@gmail.com">Send an Email</a>
+      <a class="contact-btn btn-secondary" href="http://discordapp.com/users/609626785889648642" target="_blank">Message via Discord</a>
+    </div>
+  </footer>
+
+  <!-- YouTube Iframe Player API Loader -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <script>
+    // Global player tracking object
+    const ytPlayers = {};
+
+    function onYouTubeIframeAPIReady() {
+      document.querySelectorAll('.yt-player').forEach((el, index) => {
+        const vidId = el.dataset.videoId;
+        const playerDomId = `player_${index}`;
+        el.id = playerDomId;
+
+        ytPlayers[playerDomId] = new YT.Player(playerDomId, {
+          height: '370',
+          width: '100%',
+          videoId: vidId,
+          playerVars: {
+            'autoplay': 0,
+            'mute': 1,
+            'controls': 1,
+            'rel': 0,
+            'playsinline': 1,
+            'enablejsapi': 1
+          },
+          events: {
+            'onReady': (e) => {
+              // Once scripts configure, verify initial playback sync state
+              if (index === 0 && window.activeVideoPlayer === playerDomId) {
+                 e.target.unMute();
+                 e.target.playVideo();
+              }
+            }
+          }
+        });
+      });
+    }
+
+    // Lettering Reveal Trigger
+    const brandEl = document.getElementById("brand");
+    const nameStr = "JAYDEEP";
+    [...nameStr].forEach((ch, i) => {
+      const span = document.createElement("span");
+      span.textContent = ch;
+      span.style.animationDelay = (i * 0.05) + "s";
+      brandEl.appendChild(span);
+    });
+
+    // Subtitle Character Builder
+    (function(){
+      const subText = "Videos & Thumbnails As You Want";
+      const subEl = document.getElementById("subtitle");
+      [...subText].forEach((ch, i) => {
+        const span = document.createElement("span");
+        if (ch === " ") {
+          span.innerHTML = "&nbsp;";
+          span.style.marginRight = "10px";
+        } else {
+          span.textContent = ch;
+          span.style.marginRight = "4px";
+        }
+        span.style.animationDelay = (300 + (i * 15)) + "ms";
+        subEl.appendChild(span);
+      });
+    })();
+
+    // Initialize Skill Bars purely on Scroll (Perfect for Phone)
+    window.addEventListener('DOMContentLoaded', () => {
+      const skillsSection = document.getElementById('skills');
+      const skillBars = document.querySelectorAll('.bar > i');
+      
+      const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            skillBars.forEach(bar => {
+              bar.style.width = bar.dataset.target;
+            });
+            skillObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+
+      if (skillsSection) {
+        skillObserver.observe(skillsSection);
+      }
+    });
+
+    // Workflow Swapping Matrices Data
+    const bpData = [
+      { title: "Hook & Retention Strategy", desc: "Cutting the boring bits in the first 30 seconds to lock people in, using smart sound effects and fast cuts to keep viewers from clicking away." },
+      { title: "High-Click Thumbnails", desc: "Designing thumbs that stop the scroll. Bold imagery, clear contrast, and smart layouts so the viewer instantly understands the story." },
+      { title: "Storytelling & Series Progression", desc: "Structuring long-form challenge edits (like 100 Days survival series) into chapters with clean ups and downs so people watch until the very end." }
+    ];
+
+    function switchBlueprint(index, tabEl) {
+      document.querySelectorAll('.b-tab').forEach(t => t.classList.remove('active'));
+      tabEl.classList.add('active');
+      const title = document.getElementById('bp-title');
+      const desc = document.getElementById('bp-desc');
+      title.style.opacity = 0;
+      desc.style.opacity = 0;
+      setTimeout(() => {
+        title.innerText = bpData[index].title;
+        desc.innerText = bpData[index].desc;
+        title.style.opacity = 1;
+        desc.style.opacity = 1;
+      }, 150);
+    }
+
+    /* --- HIGH-PERFORMANCE KINETIC DRAG, AUTO-SCROLL & DYNAMIC PLAYBACK ENGINE --- */
+    document.querySelectorAll('.carousel-container').forEach(container => {
+      const wrapper = container.querySelector('.carousel-wrapper');
+      const overlay = container.querySelector('.drag-overlay');
+      const track = container.querySelector('.carousel-track');
+      const items = [...track.children];
+      const dotsNav = container.querySelector('.carousel-dots');
+      
+      let isDragging = false;
+      let startX = 0;
+      let currentTranslate = 0;
+      let prevTranslate = 0;
+      let currentIndex = 0;
+      let autoAdvanceTimer; // Controls the infinite continuous loop
+      
+      // Kinetic Swipe Properties
+      let velocity = 0;
+      let lastX = 0;
+      let lastTime = 0;
+      let rafId = null;
+
+      items.forEach((_, i) => {
+        const dot = document.createElement('span');
+        dot.classList.add('dot');
+        if(i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => { 
+          snapToSlide(i); 
+          resetAutoAdvance(); 
+        });
+        dotsNav.appendChild(dot);
+      });
+      const dots = [...dotsNav.children];
+
+      // Drag overlay triggers to capture all drag zones smoothly across desktop & mobile
+      overlay.addEventListener('mousedown', dragStart);
+      overlay.addEventListener('touchstart', dragStart, { passive: true });
+      window.addEventListener('mouseup', dragEnd);
+      window.addEventListener('touchend', dragEnd);
+      window.addEventListener('mousemove', dragMove);
+      window.addEventListener('touchmove', dragMove, { passive: true });
+
+      // Pause Auto-Scroll when hovering over the carousel wrapper so users can watch/click in peace
+      wrapper.addEventListener('mouseenter', () => clearInterval(autoAdvanceTimer));
+      wrapper.addEventListener('mouseleave', resetAutoAdvance);
+
+      function resetAutoAdvance() {
+        clearInterval(autoAdvanceTimer);
+        autoAdvanceTimer = setInterval(() => {
+          if (!isDragging) {
+            let nextIdx = currentIndex + 1;
+            if (nextIdx >= items.length) {
+              nextIdx = 0; // Infinite Loop back to start
+            }
+            snapToSlide(nextIdx);
+          }
+        }, 4000); // Transitions automatically every 4 seconds
+      }
+
+      function dragStart(e) {
+        isDragging = true;
+        clearInterval(autoAdvanceTimer); // Stop auto-scrolling during drag
+        startX = getPositionX(e);
+        lastX = startX;
+        lastTime = performance.now();
+        velocity = 0;
+        if(rafId) cancelAnimationFrame(rafId);
+        
+        track.style.transition = 'none';
+        wrapper.style.cursor = 'grabbing';
+      }
+
+      function dragMove(e) {
+        if (!isDragging) return;
+        const currentX = getPositionX(e);
+        const diff = currentX - startX;
+        currentTranslate = prevTranslate + diff;
+        
+        // Instant speed delta computation
+        const now = performance.now();
+        const deltaTime = now - lastTime;
+        if (deltaTime > 0) {
+          velocity = (currentX - lastX) / deltaTime;
+        }
+        
+        lastX = currentX;
+        lastTime = now;
+        setTrackPosition();
+      }
+
+      function dragEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        wrapper.style.cursor = 'grab';
+        
+        // Physics Deceleration Fallback
+        prevTranslate = currentTranslate;
+        runInertiaDeceleration();
+        resetAutoAdvance(); // Resume auto-scroll after drag finishes
+      }
+
+      function runInertiaDeceleration() {
+        if (Math.abs(velocity) > 0.1) {
+          currentTranslate += velocity * 16; 
+          velocity *= 0.88; // Friction factor
+          setTrackPosition();
+          rafId = requestAnimationFrame(runInertiaDeceleration);
+        } else {
+          prevTranslate = currentTranslate;
+          snapToClosest();
+        }
+      }
+
+      function snapToClosest() {
+        const wrapperCenter = wrapper.offsetWidth / 2;
+        let closestIndex = 0;
+        let minDistance = Infinity;
+
+        items.forEach((item, idx) => {
+          const itemRect = item.getBoundingClientRect();
+          const itemCenter = itemRect.left + (itemRect.width / 2);
+          const distance = Math.abs(wrapperCenter - itemCenter);
+          if (distance < minDistance) {
+            minDistance = distance;
+            closestIndex = idx;
+          }
+        });
+        snapToSlide(closestIndex);
+      }
+
+      function getPositionX(e) {
+        return e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+      }
+
+      function setTrackPosition() {
+        track.style.transform = `translateX(${currentTranslate}px)`;
+        updateActiveStates();
+      }
+
+      function updateActiveStates() {
+        const wrapperCenter = wrapper.offsetWidth / 2;
+        items.forEach((item, idx) => {
+          const itemRect = item.getBoundingClientRect();
+          const itemCenter = itemRect.left + (itemRect.width / 2);
+          const isNearCenter = Math.abs(wrapperCenter - itemCenter) < (itemRect.width * 0.45);
+          item.classList.toggle('active', isNearCenter);
+          if(isNearCenter && currentIndex !== idx) {
+            currentIndex = idx;
+            dots.forEach((d, dIdx) => d.classList.toggle('active', dIdx === idx));
+          }
+        });
+      }
+
+      function snapToSlide(idx) {
+        currentIndex = idx;
+        const wrapperWidth = wrapper.offsetWidth;
+        const targetItem = items[currentIndex];
+        const targetOffset = targetItem.offsetLeft - (wrapperWidth / 2) + (targetItem.offsetWidth / 2);
+        
+        currentTranslate = -targetOffset;
+        prevTranslate = currentTranslate;
+        
+        track.style.transition = 'transform 0.6s cubic-bezier(0.1, 0.8, 0.2, 1)';
+        track.style.transform = `translateX(${currentTranslate}px)`;
+        
+        items.forEach((item, i) => item.classList.toggle('active', i === currentIndex));
+        dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+
+        // Media Autoplay/Pause coordination handling
+        handleVideoPlaybackControl(container, targetItem);
+      }
+
+      function handleVideoPlaybackControl(carouselContainer, activeItem) {
+        if (carouselContainer.parentNode.id !== 'videos') return;
+        
+        const videoContainer = activeItem.querySelector('.yt-player');
+        if (!videoContainer) return;
+        
+        const activePlayerId = videoContainer.id;
+        window.activeVideoPlayer = activePlayerId;
+
+        // Loop and cycle all players -> Play target, Pause sisters
+        for (let id in ytPlayers) {
+          try {
+            if (id === activePlayerId) {
+              ytPlayers[id].unMute();
+              ytPlayers[id].playVideo();
+            } else {
+              ytPlayers[id].pauseVideo();
+            }
+          } catch(err) {
+            // Ignore temporary setup state exceptions safely
+          }
+        }
+      }
+
+      window.addEventListener('resize', () => snapToSlide(currentIndex));
+      
+      // Initialize First Slide and Start Infinite Auto-Scroll
+      setTimeout(() => {
+        snapToSlide(0);
+        resetAutoAdvance();
+      }, 300);
+    });
+
+    // Scrollspy Implementation
+    const links = document.querySelectorAll('#nav-spy a');
+    const targetSections = document.querySelectorAll('main > div, section, footer');
+    window.addEventListener('scroll', () => {
+      let activeId = 'home';
+      targetSections.forEach(sec => {
+        const top = window.scrollY;
+        const offset = sec.offsetTop - 220;
+        const height = sec.offsetHeight;
+        if(top >= offset && top < offset + height) {
+          activeId = sec.getAttribute('id');
+        }
+      });
+      links.forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === `#${activeId}`);
+      });
+    });
+  </script>
+</body>
+</html>
