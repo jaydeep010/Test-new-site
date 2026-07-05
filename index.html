@@ -316,7 +316,7 @@
     section { padding: 100px 0; width: 100%; max-width: 100vw; overflow: hidden; }
     section h2 { text-align: center; color: #fff; font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 35px; }
 
-    /* HIGH INTENSITY SMOOTH DRAG SYSTEM */
+    /* HIGH INTENSITY SMOOTH DRAG SYSTEM WITH FULL BOUNDING ZONE OVERLAYS */
     .carousel-container { 
       position: relative; 
       width: 100%; 
@@ -331,7 +331,6 @@
     }
     .carousel-wrapper:active { cursor: grabbing; }
     
-    /* Transparent Overlay allows full dragging from absolute any coordinate inside zone */
     .drag-overlay {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -343,16 +342,49 @@
       will-change: transform; 
       user-select: none;
     }
+    
     .carousel-item {
       width: 660px; max-width: 80vw; flex-shrink: 0; margin: 0 14px;
       transform: scale(0.93); opacity: 0.2; filter: blur(4px);
-      transition: transform 0.5s cubic-bezier(0.1, 0.8, 0.2, 1), opacity 0.5s, filter 0.5s;
+      transition: transform 0.45s cubic-bezier(0.2, 0.85, 0.25, 1), opacity 0.45s, filter 0.45s;
       position: relative; border-radius: 16px; overflow: hidden; background: #000;
     }
     .carousel-item.active { transform: scale(1); opacity: 1; filter: blur(0px); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6); }
     
-    .carousel-item iframe, .carousel-item img { width: 100%; height: 370px; border: none; object-fit: cover; display: block; pointer-events: none; }
+    /* Elegant CSS Masking Technique to Crop YouTube Logo, Channel Names, and Interactivity Layouts */
+    .yt-wrapper-mask {
+      position: relative;
+      width: 100%;
+      height: 370px;
+      overflow: hidden;
+      border-radius: 16px;
+      /* Advanced CSS clip-path to crop 45px off top (title bar) and 50px off bottom (branding watermark) */
+      clip-path: inset(45px 0px 50px 0px round 0px);
+      margin-top: -45px;
+      margin-bottom: -50px;
+    }
     
+    .carousel-item iframe, .carousel-item img, .yt-player { 
+      width: 100%; 
+      height: 465px; /* Oversized to account for the cropped sections */
+      border: none; 
+      object-fit: cover; 
+      display: block; 
+      pointer-events: none; 
+    }
+    
+    .carousel-item img {
+      height: 370px;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    #thumbnails .yt-wrapper-mask {
+      clip-path: none;
+      margin-top: 0;
+      margin-bottom: 0;
+      height: 370px;
+    }
+
     .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 25px; }
     .dot { height: 3px; width: 16px; background: rgba(255, 255, 255, 0.08); border-radius: 1px; cursor: pointer; }
     .dot.active { background: #fff; transition: background 0.3s ease; }
@@ -369,12 +401,18 @@
     @media(max-width: 900px) {
       .brand { font-size: 4rem; }
       .carousel-item { width: 480px; }
-      .carousel-item iframe, .carousel-item img { height: 270px; }
+      .yt-wrapper-mask { height: 270px; clip-path: inset(40px 0px 45px 0px round 0px); margin-top: -40px; margin-bottom: -45px; }
+      .carousel-item iframe, .yt-player { height: 355px; }
+      .carousel-item img { height: 270px; }
+      #thumbnails .yt-wrapper-mask { height: 270px; clip-path: none; margin-top:0; margin-bottom:0; }
     }
     @media(max-width: 600px) {
       .brand { font-size: 3.2rem; }
       .carousel-item { width: 290px; margin: 0 6px; }
-      .carousel-item iframe, .carousel-item img { height: 175px; }
+      .yt-wrapper-mask { height: 175px; clip-path: inset(30px 0px 35px 0px round 0px); margin-top: -30px; margin-bottom: -35px; }
+      .carousel-item iframe, .yt-player { height: 240px; }
+      .carousel-item img { height: 175px; }
+      #thumbnails .yt-wrapper-mask { height: 175px; clip-path: none; margin-top:0; margin-bottom:0; }
       .blueprint-tabs { flex-direction: column; gap: 4px; }
     }
   </style>
@@ -451,7 +489,7 @@
           <a class="partner-link" href="https://www.youtube.com/@SuzieTaylor" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/SuzieTaylor" alt="SuzieTaylor"></a>
           <a class="partner-link" href="https://www.youtube.com/@inishutiwari" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/inishutiwari" alt="inishutiwari"></a>
           <a class="partner-link" href="https://www.youtube.com/@RimoravVlogs" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/RimoravVlogs" alt="RimoravVlogs"></a>
-          <a class="partner-link" href="https://www.youtube.com/@onroadindian" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/onroadindian" alt="onroadindian"></a>
+          <a class="partner-link" href="https://www.youtube.com/@onroadindian" target="_blank"><img class="partner-avatar" src="https://unroadindian" alt="onroadindian"></a>
         </div>
         <!-- Track 2 -->
         <div class="ticker-track">
@@ -460,7 +498,7 @@
           <a class="partner-link" href="https://www.youtube.com/@SuzieTaylor" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/SuzieTaylor" alt="SuzieTaylor"></a>
           <a class="partner-link" href="https://www.youtube.com/@inishutiwari" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/inishutiwari" alt="inishutiwari"></a>
           <a class="partner-link" href="https://www.youtube.com/@RimoravVlogs" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/RimoravVlogs" alt="RimoravVlogs"></a>
-          <a class="partner-link" href="https://www.youtube.com/@onroadindian" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/onroadindian" alt="onroadindian"></a>
+          <a class="partner-link" href="https://www.youtube.com/@onroadindian" target="_blank"><img class="partner-avatar" src="https://unroadindian" alt="onroadindian"></a>
         </div>
       </div>
     </div>
@@ -472,20 +510,19 @@
         <div class="carousel-wrapper">
           <div class="drag-overlay"></div>
           <div class="carousel-track">
-            <!-- Added yt-player tags inside class to handle individual control -->
-            <div class="carousel-item"><div class="yt-player" data-video-id="QGE7i0dVs5w"></div></div>
-            <div class="carousel-item"><div class="yt-player" data-video-id="eXJf7LGnIk4"></div></div>
-            <div class="carousel-item"><div class="yt-player" data-video-id="vlWlgg2Laj8"></div></div>
-            <div class="carousel-item"><div class="yt-player" data-video-id="cUngFXNXoeo"></div></div>
-            <div class="carousel-item"><div class="yt-player" data-video-id="5LRTlWHOQaE"></div></div>
-            <div class="carousel-item"><div class="yt-player" data-video-id="kDdrgZ0C5Gc"></div></div>
-            <div class="carousel-item"><div class="yt-player" data-video-id="Zp1cyXXW92I"></div></div> 
-            <div class="carousel-item"><div class="yt-player" data-video-id="RutDI0yMFI8"></div></div>
-            <div class="carousel-item"><div class="yt-player" data-video-id="ds4wMZ1mgCg"></div></div>
-            <div class="carousel-item"><div class="yt-player" data-video-id="WhcMlzhcslA"></div></div>
-            <div class="carousel-item"><div class="yt-player" data-video-id="V00KiVl3qPk"></div></div>
-            <div class="carousel-item"><div class="yt-player" data-video-id="pW8xFxPDQgk"></div></div>
-            <div class="carousel-item"><div class="yt-player" data-video-id="z99KBCAivKs"></div></div> 
+            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="QGE7i0dVs5w"></div></div></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="eXJf7LGnIk4"></div></div></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="vlWlgg2Laj8"></div></div></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="cUngFXNXoeo"></div></div></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="5LRTlWHOQaE"></div></div></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="kDdrgZ0C5Gc"></div></div></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="Zp1cyXXW92I"></div></div></div> 
+            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="RutDI0yMFI8"></div></div></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="ds4wMZ1mgCg"></div></div></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="WhcMlzhcslA"></div></div></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="V00KiVl3qPk"></div></div></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="pW8xFxPDQgk"></div></div></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="z99KBCAivKs"></div></div></div> 
           </div>
         </div>
         <div class="carousel-dots"></div>
@@ -499,17 +536,17 @@
         <div class="carousel-wrapper">
           <div class="drag-overlay"></div>
           <div class="carousel-track">
-            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/1.jpg?raw=true" alt="t1"></div>
-            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/2.jpg?raw=true" alt="t2"></div>
-            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/3.jpg?raw=true" alt="t3"></div>
-            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/4.jpg?raw=true" alt="t4"></div>
-            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/mc10new1.png?raw=true" alt="t5"></div>
-            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/6.jpg?raw=true" alt="t6"></div>
-            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/7.jpg?raw=true" alt="t7"></div>
-            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/8.jpg?raw=true" alt="t8"></div>
-            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/9.jpg?raw=true" alt="t9"></div>
-            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/10.jpg?raw=true" alt="t10"></div>
-            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/11.jpg?raw=true" alt="t11"></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/1.jpg?raw=true" alt="t1"></div></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/2.jpg?raw=true" alt="t2"></div></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/3.jpg?raw=true" alt="t3"></div></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/4.jpg?raw=true" alt="t4"></div></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/mc10new1.png?raw=true" alt="t5"></div></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/6.jpg?raw=true" alt="t6"></div></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/7.jpg?raw=true" alt="t7"></div></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/8.jpg?raw=true" alt="t8"></div></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/9.jpg?raw=true" alt="t9"></div></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/10.jpg?raw=true" alt="t10"></div></div>
+            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/11.jpg?raw=true" alt="t11"></div></div>
           </div>
         </div>
         <div class="carousel-dots"></div>
@@ -530,8 +567,8 @@
   <script src="https://www.youtube.com/iframe_api"></script>
 
   <script>
-    // Global player tracking object
     const ytPlayers = {};
+    window.activeVideoPlayer = null;
 
     function onYouTubeIframeAPIReady() {
       document.querySelectorAll('.yt-player').forEach((el, index) => {
@@ -540,23 +577,30 @@
         el.id = playerDomId;
 
         ytPlayers[playerDomId] = new YT.Player(playerDomId, {
-          height: '370',
-          width: '100%',
           videoId: vidId,
           playerVars: {
-            'autoplay': 0,
+            'autoplay': 1,
             'mute': 1,
-            'controls': 1,
+            'controls': 0, // Disable controls completely to remove native interface layers
             'rel': 0,
             'playsinline': 1,
+            'showinfo': 0,
+            'modestbranding': 1,
+            'iv_load_policy': 3,
             'enablejsapi': 1
           },
           events: {
             'onReady': (e) => {
-              // Once scripts configure, verify initial playback sync state
-              if (index === 0 && window.activeVideoPlayer === playerDomId) {
-                 e.target.unMute();
-                 e.target.playVideo();
+              e.target.mute(); // Mute strictly required for mobile force autoplay compliance
+              if (index === 0) {
+                window.activeVideoPlayer = playerDomId;
+                e.target.playVideo();
+              }
+            },
+            'onStateChange': (e) => {
+              // Loop backup layer ensuring active slide keeps playing if paused unexpectedly
+              if (e.data === YT.PlayerState.PAUSED && window.activeVideoPlayer === playerDomId) {
+                e.target.playVideo();
               }
             }
           }
@@ -621,7 +665,7 @@
       }, 150);
     }
 
-    /* --- HIGH-PERFORMANCE KINETIC DRAG & DYNAMIC PLAYBACK ENGINE --- */
+    /* --- HIGH-PERFORMANCE VELOCITY SWIPE & RAPID INERTIA ENGINE --- */
     document.querySelectorAll('.carousel-container').forEach(container => {
       const wrapper = container.querySelector('.carousel-wrapper');
       const overlay = container.querySelector('.drag-overlay');
@@ -629,17 +673,10 @@
       const items = [...track.children];
       const dotsNav = container.querySelector('.carousel-dots');
       
-      let isDragging = false;
-      let startX = 0;
-      let currentTranslate = 0;
-      let prevTranslate = 0;
-      let currentIndex = 0;
+      let isDragging = false, startX = 0, currentTranslate = 0, prevTranslate = 0, currentIndex = 0;
       
-      // Kinetic Swipe Properties
-      let velocity = 0;
-      let lastX = 0;
-      let lastTime = 0;
-      let rafId = null;
+      // Kinetic Velocity Engine Parameters
+      let velocity = 0, lastX = 0, lastTime = 0, rafId = null;
 
       items.forEach((_, i) => {
         const dot = document.createElement('span');
@@ -650,7 +687,6 @@
       });
       const dots = [...dotsNav.children];
 
-      // Drag overlay triggers to capture all drag zones smoothly across desktop & mobile
       overlay.addEventListener('mousedown', dragStart);
       overlay.addEventListener('touchstart', dragStart, { passive: true });
       window.addEventListener('mouseup', dragEnd);
@@ -676,10 +712,10 @@
         const diff = currentX - startX;
         currentTranslate = prevTranslate + diff;
         
-        // Instant speed delta computation
         const now = performance.now();
         const deltaTime = now - lastTime;
         if (deltaTime > 0) {
+          // Amplified velocity scale calculation to remove lag on phone swipes
           velocity = (currentX - lastX) / deltaTime;
         }
         
@@ -693,15 +729,15 @@
         isDragging = false;
         wrapper.style.cursor = 'grab';
         
-        // Physics Deceleration Fallback
         prevTranslate = currentTranslate;
         runInertiaDeceleration();
       }
 
       function runInertiaDeceleration() {
-        if (Math.abs(velocity) > 0.1) {
-          currentTranslate += velocity * 16; 
-          velocity *= 0.88; // Friction factor
+        // High momentum ramp simulation threshold checks
+        if (Math.abs(velocity) > 0.05) {
+          currentTranslate += velocity * 18; 
+          velocity *= 0.92; // Higher smooth friction factor for dynamic speed ramp
           setTrackPosition();
           rafId = requestAnimationFrame(runInertiaDeceleration);
         } else {
@@ -759,13 +795,12 @@
         currentTranslate = -targetOffset;
         prevTranslate = currentTranslate;
         
-        track.style.transition = 'transform 0.6s cubic-bezier(0.1, 0.8, 0.2, 1)';
+        track.style.transition = 'transform 0.5s cubic-bezier(0.15, 0.85, 0.2, 1)';
         track.style.transform = `translateX(${currentTranslate}px)`;
         
         items.forEach((item, i) => item.classList.toggle('active', i === currentIndex));
         dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
 
-        // Media Autoplay/Pause coordination handling
         handleVideoPlaybackControl(container, targetItem);
       }
 
@@ -778,18 +813,15 @@
         const activePlayerId = videoContainer.id;
         window.activeVideoPlayer = activePlayerId;
 
-        // Loop and cycle all players -> Play target, Pause sisters
         for (let id in ytPlayers) {
           try {
             if (id === activePlayerId) {
-              ytPlayers[id].unMute();
+              ytPlayers[id].mute(); // Required for reliable bypass on mobile devices
               ytPlayers[id].playVideo();
             } else {
               ytPlayers[id].pauseVideo();
             }
-          } catch(err) {
-            // Ignore temporary setup state exceptions safely
-          }
+          } catch(err) {}
         }
       }
 
