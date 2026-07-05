@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JAYDEEP | Professional Video Editor & Designer</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+
+    /* Reset & Deep Luxury Dark System */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --bg: #07070a;
+      --panel-bg: rgba(15, 15, 23, 0.65);
+      --accent: #94a3b8; /* Slate / Titanium Premium Gray */
+      --accent-glow: rgba(148, 163, 184, 0.08);
+      --text-main: #f8fafc;
+      --text-muted: #64748b;
+      --border-glass: rgba(255, 255, 255, 0.04);
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(30, 41, 59, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 0% 100%, rgba(15, 23, 42, 0.2) 0%, transparent 50%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* Minimalist Fixed Header Navigation */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+      background: linear-gradient(to bottom, #07070a 50%, rgba(7, 7, 10, 0) 100%);
+    }
+    nav { 
+      display: flex; 
+      gap: 4px; 
+      background: rgba(10, 10, 14, 0.5);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      padding: 5px;
+      border-radius: 40px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+    }
+    nav a {
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 0.85rem;
+      padding: 8px 20px;
+      border-radius: 30px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    nav a:hover, nav a.active { 
+      color: #fff; 
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Landing Hero Wrapper */
+    .landing {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 160px 24px 80px;
+      text-align: center;
+    }
+    
+    .pre-title {
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 10px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .brand-wrapper {
+      margin-bottom: 8px;
+    }
+    .brand {
+      font-weight: 900;
+      font-size: 6rem;
+      letter-spacing: -4px;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      line-height: 1;
+    }
+    .brand span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: revealLetter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .brand span:nth-child(n+4) {
+      color: var(--accent);
+      text-shadow: 0 0 40px rgba(255,255,255,0.05);
+    }
+    @keyframes revealLetter {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 6px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .subtitle span {
+      display: inline-block;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+    }
+    @keyframes fadeUp { to { opacity: 1; } }
+
+    /* Skills Panel Layout */
+    .skills { 
+      width: min(660px, 100%); 
+      margin-top: 55px; 
+      background: var(--panel-bg);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 28px;
+      border-radius: 20px;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+    }
+    .skill { margin-bottom: 16px; }
+    .skill:last-child { margin-bottom: 0; }
+    .skill .title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    .skill .title span:last-child { color: #fff; font-weight: 600; }
+    .bar {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .bar>i {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #334155, #cbd5e1);
+      border-radius: 6px;
+      transition: width 2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* --- PREMIUM INTERACTIVE WORKFLOW BLUEPRINT --- */
+    .mid-blueprint-zone {
+      width: min(660px, 100%);
+      margin-top: 24px;
+      background: linear-gradient(180deg, rgba(20,25,35,0.2) 0%, rgba(10,10,14,0.4) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 20px;
+      padding: 24px;
+      text-align: left;
+    }
+    .blueprint-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .blueprint-header h4 { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+    
+    .blueprint-tabs { display: flex; gap: 6px; }
+    .b-tab {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-glass);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.25s ease;
+    }
+    .b-tab.active {
+      background: #f1f5f9;
+      color: #0f172a;
+      border-color: #f1f5f9;
+      font-weight: 600;
+    }
+
+    .blueprint-body {
+      background: rgba(0,0,0,0.15);
+      border-radius: 12px;
+      padding: 20px;
+      min-height: 105px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,0.01);
+    }
+    .bp-title { font-size: 1rem; font-weight: 600; margin-bottom: 6px; color: #fff; }
+    .bp-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px; }
+    
+    .flow-line { display: flex; gap: 6px; align-items: center; }
+    .flow-node { height: 2px; flex: 1; background: rgba(255,255,255,0.06); border-radius: 1px; position: relative; overflow: hidden; }
+    .flow-node::after {
+      content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 100%;
+      background: #fff;
+      transform: scaleX(0); transform-origin: left;
+    }
+    .mid-blueprint-zone:hover .flow-node::after {
+      transform: scaleX(1);
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mid-blueprint-zone:hover .flow-node:nth-child(2)::after { transition-delay: 0.15s; }
+    .mid-blueprint-zone:hover .flow-node:nth-child(3)::after { transition-delay: 0.3s; }
+
+    .bp-cta {
+      margin-top: 16px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 14px;
+      border-radius: 12px;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.3s;
+    }
+    .bp-cta:hover {
+      background: #fff;
+      color: #000;
+      box-shadow: 0 10px 30px rgba(255,255,255,0.05);
+    }
+
+    /* --- AUTHENTIC CREATORS HORIZONTAL INF LOOP --- */
+    .ticker-section {
+      background: #050507;
+      padding: 40px 0;
+      border-top: 1px solid var(--border-glass);
+      border-bottom: 1px solid var(--border-glass);
+      width: 100vw;
+      position: relative;
+    }
+    .ticker-title {
+      text-align: center;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      font-weight: 600;
+    }
+    .ticker-container {
+      display: flex;
+      overflow: hidden;
+      user-select: none;
+      gap: 35px;
+      mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
+    }
+    .ticker-track {
+      display: flex;
+      flex-shrink: 0;
+      gap: 35px;
+      align-items: center;
+      animation: scrollTicker 32s linear infinite;
+    }
+    .partner-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid var(--border-glass);
+      padding: 8px 24px;
+      border-radius: 30px;
+    }
+    .partner-logo {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.65rem;
+      color: #94a3b8;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .partner-name {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: -0.2px;
+    }
+    @keyframes scrollTicker {
+      from { transform: translateX(0); }
+      to { transform: translateX(calc(-100% - 35px)); }
+    }
+
+    /* Showcase Containers Configuration */
+    section { padding: 100px 0; width: 100%; max-width: 100vw; overflow: hidden; }
+    section h2 { text-align: center; color: #fff; font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 35px; }
+
+    /* Touch & Drag Kinetic Carousel Layout Engine */
+    .carousel-container { position: relative; width: 100%; }
+    .carousel-wrapper { 
+      width: 100%; 
+      overflow: hidden; 
+      padding: 15px 0; 
+      cursor: grab;
+    }
+    .carousel-wrapper:active { cursor: grabbing; }
+    .carousel-track { 
+      display: flex; 
+      will-change: transform; 
+      user-select: none;
+    }
+    .carousel-item {
+      width: 660px; max-width: 80vw; flex-shrink: 0; margin: 0 14px;
+      transform: scale(0.93); opacity: 0.2; filter: blur(4px);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s, filter 0.6s;
+      position: relative; border-radius: 16px; overflow: hidden; background: #000;
+      pointer-events: none; /* Block click conflicts when dragging fields */
+    }
+    .carousel-item.active { transform: scale(1); opacity: 1; filter: blur(0px); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6); pointer-events: auto; }
+    
+    .carousel-item iframe, .carousel-item img { width: 100%; height: 370px; border: none; object-fit: cover; display: block; }
+    
+    .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 25px; }
+    .dot { height: 3px; width: 16px; background: rgba(255, 255, 255, 0.08); border-radius: 1px; cursor: pointer; }
+    .dot.active { background: #fff; transition: background 0.3s ease; }
+
+    /* Clean Studio Finish Footer */
+    footer { padding: 100px 24px; background: #040406; border-top: 1px solid var(--border-glass); text-align: center; }
+    footer h2 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 12px; }
+    .contact-container { display: flex; justify-content: center; gap: 14px; margin-top: 30px; flex-wrap: wrap; }
+    .contact-btn { display: inline-flex; align-items: center; padding: 14px 28px; border-radius: 40px; font-weight: 600; font-size: 0.85rem; transition: all 0.25s; border: 1px solid var(--border-glass); background: rgba(255, 255, 255, 0.01); }
+    .btn-prime { background: #fff; color: #000; border-color: #fff; }
+    .btn-prime:hover { background: #e2e8f0; box-shadow: 0 10px 30px rgba(255,255,255,0.05); }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.04); color: #fff; border-color: rgba(255, 255, 255, 0.12); }
+
+    /* Screen Matrices Adaptive Layers */
+    @media(max-width: 900px) {
+      .brand { font-size: 4rem; }
+      .carousel-item { width: 480px; }
+      .carousel-item iframe, .carousel-item img { height: 270px; }
+    }
+    @media(max-width: 600px) {
+      .brand { font-size: 3.2rem; }
+      .carousel-item { width: 290px; margin: 0 6px; }
+      .carousel-item iframe, .carousel-item img { height: 175px; }
+      .blueprint-tabs { flex-direction: column; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav id="nav-spy">
+      <a href="#home" class="active">Home</a>
+      <a href="#videos">Videos</a>
+      <a href="#thumbnails">Thumbnails</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Landing Shell Frame -->
+    <div class="landing" id="home">
+      <div class="pre-title">a professional editor</div>
+      <div class="brand-wrapper">
+        <div class="brand" id="brand"></div>
+      </div>
+      <div class="subtitle" id="subtitle"></div>
+
+      <!-- Skills Card Section -->
+      <div class="skills" id="skills">
+        <div class="skill">
+          <div class="title"><span>Video Editing & Retention Strategy</span><span>90%</span></div>
+          <div class="bar"><i data-target="90%"></i></div>
+        </div>
+        <div class="skill">
+          <div class="title"><span>Thumbnail Design & Spatial Contrast</span><span>95%</span></div>
+          <div class="bar"><i data-target="95%"></i></div>
+        </div>
+        <div class="skill">
+          <div class="title"><span>Motion Graphics & Custom FX Sequences</span><span>80%</span></div>
+          <div class="bar"><i data-target="80%"></i></div>
+        </div>
+      </div>
+
+      <!-- Dynamic Project Workflow Block -->
+      <div class="mid-blueprint-zone">
+        <div class="blueprint-header">
+          <h4>Production Blueprint</h4>
+          <div class="blueprint-tabs">
+            <span class="b-tab active" onclick="switchBlueprint(0, this)">Retention Pacing</span>
+            <span class="b-tab" onclick="switchBlueprint(1, this)">Thumb Concept</span>
+            <span class="b-tab" onclick="switchBlueprint(2, this)">Story Blocks</span>
+          </div>
+        </div>
+        <div class="blueprint-body">
+          <div class="bp-title" id="bp-title">Hook & Retention Strategy</div>
+          <div class="bp-desc" id="bp-desc">Cutting the boring bits in the first 30 seconds to lock people in, using smart sound effects and fast cuts to keep viewers from clicking away.</div>
+          <div class="flow-line">
+            <div class="flow-node"></div>
+            <div class="flow-node"></div>
+            <div class="flow-node"></div>
+          </div>
+        </div>
+        <button class="bp-cta" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+          Let's discuss your next project <span>→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- CREDIBLE CHANNELS WORKED PARTNERS LOGOMATRIX -->
+    <div class="ticker-section">
+      <div class="ticker-title">Trusted By Creators Across YouTube</div>
+      <div class="ticker-container">
+        <!-- Track 1 -->
+        <div class="ticker-track">
+          <div class="partner-card"><div class="partner-logo">VN</div><div class="partner-name">@TheVideoNerd</div></div>
+          <div class="partner-card"><div class="partner-logo">CO</div><div class="partner-name">@caitlinerinoneill</div></div>
+          <div class="partner-card"><div class="partner-logo">ST</div><div class="partner-name">@SuzieTaylor</div></div>
+          <div class="partner-card"><div class="partner-logo">IT</div><div class="partner-name">@inishutiwari</div></div>
+          <div class="partner-card"><div class="partner-logo">RV</div><div class="partner-name">@RimoravVlogs</div></div>
+          <div class="partner-card"><div class="partner-logo">OI</div><div class="partner-name">@onroadindian</div></div>
+        </div>
+        <!-- Track 2 (Clone for looping seamlessly) -->
+        <div class="ticker-track">
+          <div class="partner-card"><div class="partner-logo">VN</div><div class="partner-name">@TheVideoNerd</div></div>
+          <div class="partner-card"><div class="partner-logo">CO</div><div class="partner-name">@caitlinerinoneill</div></div>
+          <div class="partner-card"><div class="partner-logo">ST</div><div class="partner-name">@SuzieTaylor</div></div>
+          <div class="partner-card"><div class="partner-logo">IT</div><div class="partner-name">@inishutiwari</div></div>
+          <div class="partner-card"><div class="partner-logo">RV</div><div class="partner-name">@RimoravVlogs</div></div>
+          <div class="partner-card"><div class="partner-logo">OI</div><div class="partner-name">@onroadindian</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Videos Showcase Grid Shell -->
+    <section id="videos">
+      <h2>Featured Video Projects</h2>
+      <div class="carousel-container">
+        <div class="carousel-wrapper">
+          <div class="carousel-track">
+            <div class="carousel-item"><iframe src="https://www.youtube.com/embed/QGE7i0dVs5w?enablejsapi=1&mute=1&rel=0" allowfullscreen></iframe></div>
+            <div class="carousel-item"><iframe src="https://www.youtube.com/embed/eXJf7LGnIk4?enablejsapi=1&mute=1&rel=0" allowfullscreen></iframe></div>
+            <div class="carousel-item"><iframe src="https://www.youtube.com/embed/vlWlgg2Laj8?enablejsapi=1&mute=1&rel=0" allowfullscreen></iframe></div>
+            <div class="carousel-item"><iframe src="https://www.youtube.com/embed/cUngFXNXoeo?enablejsapi=1&mute=1&rel=0" allowfullscreen></iframe></div>
+            <div class="carousel-item"><iframe src="https://www.youtube.com/embed/5LRTlWHOQaE?enablejsapi=1&mute=1&rel=0" allowfullscreen></iframe></div>
+            <div class="carousel-item"><iframe src="https://www.youtube.com/embed/kDdrgZ0C5Gc?enablejsapi=1&mute=1&rel=0" allowfullscreen></iframe></div>
+            <div class="carousel-item"><iframe src="https://www.youtube.com/embed/Zp1cyXXW92I?enablejsapi=1&mute=1&rel=0" allowfullscreen></iframe></div> 
+            <div class="carousel-item"><iframe src="https://www.youtube.com/embed/RutDI0yMFI8?enablejsapi=1&mute=1&rel=0" allowfullscreen></iframe></div>
+            <div class="carousel-item"><iframe src="https://www.youtube.com/embed/ds4wMZ1mgCg?enablejsapi=1&mute=1&rel=0" allowfullscreen></iframe></div>
+            <div class="carousel-item"><iframe src="https://www.youtube.com/embed/WhcMlzhcslA?enablejsapi=1&mute=1&rel=0" allowfullscreen></iframe></div>
+            <div class="carousel-item"><iframe src="https://www.youtube.com/embed/V00KiVl3qPk?enablejsapi=1&mute=1&rel=0" allowfullscreen></iframe></div>
+            <div class="carousel-item"><iframe src="https://www.youtube.com/embed/pW8xFxPDQgk?enablejsapi=1&mute=1&rel=0" allowfullscreen></iframe></div>
+            <div class="carousel-item"><iframe src="https://www.youtube.com/embed/z99KBCAivKs?enablejsapi=1&mute=1&rel=0" allowfullscreen></iframe></div> 
+          </div>
+        </div>
+        <div class="carousel-dots"></div>
+      </div>
+    </section>
+
+    <!-- Thumbnails Showcase Grid Shell -->
+    <section id="thumbnails">
+      <h2>Thumbnail Design</h2>
+      <div class="carousel-container">
+        <div class="carousel-wrapper">
+          <div class="carousel-track">
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/1.jpg?raw=true" alt="t1"></div>
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/2.jpg?raw=true" alt="t2"></div>
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/3.jpg?raw=true" alt="t3"></div>
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/4.jpg?raw=true" alt="t4"></div>
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/mc10new1.png?raw=true" alt="t5"></div>
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/6.jpg?raw=true" alt="t6"></div>
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/7.jpg?raw=true" alt="t7"></div>
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/8.jpg?raw=true" alt="t8"></div>
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/9.jpg?raw=true" alt="t9"></div>
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/10.jpg?raw=true" alt="t10"></div>
+            <div class="carousel-item"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/11.jpg?raw=true" alt="t11"></div>
+          </div>
+        </div>
+        <div class="carousel-dots"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <h2>Let's Make Videos Worth Finishing</h2>
+    <p style="color:var(--text-muted)">Get in touch directly through Email or Discord.</p>
+    <div class="contact-container">
+      <a class="contact-btn btn-prime" href="mailto:jaydeepkumawat4114@gmail.com">Send an Email</a>
+      <a class="contact-btn btn-secondary" href="http://discordapp.com/users/609626785889648642" target="_blank">Message via Discord</a>
+    </div>
+  </footer>
+
+  <script>
+    // Premium Chrome Lettering Trigger Node
+    const brandEl = document.getElementById("brand");
+    const nameStr = "JAYDEEP";
+    [...nameStr].forEach((ch, i) => {
+      const span = document.createElement("span");
+      span.textContent = ch;
+      span.style.animationDelay = (i * 0.05) + "s";
+      brandEl.appendChild(span);
+    });
+
+    // Subtitle Character Assembly Matrix
+    (function(){
+      const subText = "Videos & Thumbnails As You Want";
+      const subEl = document.getElementById("subtitle");
+      [...subText].forEach((ch, i) => {
+        const span = document.createElement("span");
+        if (ch === " ") {
+          span.innerHTML = "&nbsp;";
+          span.style.marginRight = "10px";
+        } else {
+          span.textContent = ch;
+          span.style.marginRight = "4px";
+        }
+        span.style.animationDelay = (300 + (i * 15)) + "ms";
+        subEl.appendChild(span);
+      });
+    })();
+
+    // Initialize Skill Bars Fill Properties
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.bar > i').forEach(bar => {
+        bar.style.width = bar.dataset.target;
+      });
+    });
+
+    // Workflow Swapping Matrices Data
+    const bpData = [
+      { title: "Hook & Retention Strategy", desc: "Cutting the boring bits in the first 30 seconds to lock people in, using smart sound effects and fast cuts to keep viewers from clicking away." },
+      { title: "High-Click Thumbnails", desc: "Designing thumbs that stop the scroll. Bold imagery, clear contrast, and smart layouts so the viewer instantly understands the story." },
+      { title: "Storytelling & Series Progression", desc: "Structuring long-form challenge edits (like 100 Days survival series) into chapters with clean ups and downs so people watch until the very end." }
+    ];
+
+    function switchBlueprint(index, tabEl) {
+      document.querySelectorAll('.b-tab').forEach(t => t.classList.remove('active'));
+      tabEl.classList.add('active');
+      
+      const title = document.getElementById('bp-title');
+      const desc = document.getElementById('bp-desc');
+      
+      title.style.opacity = 0;
+      desc.style.opacity = 0;
+      
+      setTimeout(() => {
+        title.innerText = bpData[index].title;
+        desc.innerText = bpData[index].desc;
+        title.style.opacity = 1;
+        desc.style.opacity = 1;
+      }, 150);
+    }
+
+    /* --- SWIPE, DRAG & SNAP KINETIC ENGINE --- */
+    document.querySelectorAll('.carousel-container').forEach(container => {
+      const wrapper = container.querySelector('.carousel-wrapper');
+      const track = container.querySelector('.carousel-track');
+      const items = [...track.children];
+      const dotsNav = container.querySelector('.carousel-dots');
+      
+      let isDragging = false, startX = 0, currentTranslate = 0, prevTranslate = 0;
+      let animationId = 0, currentIndex = 0;
+
+      // Append Pagination indicators
+      items.forEach((_, i) => {
+        const dot = document.createElement('span');
+        dot.classList.add('dot');
+        if(i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => { snapToSlide(i); });
+        dotsNav.appendChild(dot);
+      });
+      const dots = [...dotsNav.children];
+
+      // Native Event Bindings
+      wrapper.addEventListener('mousedown', dragStart);
+      wrapper.addEventListener('touchstart', dragStart, { passive: true });
+      wrapper.addEventListener('mouseup', dragEnd);
+      wrapper.addEventListener('mouseleave', dragEnd);
+      wrapper.addEventListener('touchend', dragEnd);
+      wrapper.addEventListener('mousemove', dragMove);
+      wrapper.addEventListener('touchmove', dragMove, { passive: true });
+
+      function dragStart(e) {
+        isDragging = true;
+        startX = getPositionX(e);
+        wrapper.style.cursor = 'grabbing';
+        cancelAnimationFrame(animationId);
+      }
+
+      function dragMove(e) {
+        if (!isDragging) return;
+        const currentX = getPositionX(e);
+        const diff = currentX - startX;
+        currentTranslate = prevTranslate + diff;
+        setTrackPosition();
+      }
+
+      function dragEnd() {
+        isDragging = false;
+        wrapper.style.cursor = 'grab';
+        
+        // Find nearest element index to align with dead center configuration
+        const wrapperCenter = wrapper.offsetWidth / 2;
+        let closestIndex = 0;
+        let minDistance = Infinity;
+
+        items.forEach((item, idx) => {
+          const itemRect = item.getBoundingClientRect();
+          const itemCenter = itemRect.left + (itemRect.width / 2);
+          const distance = Math.abs(wrapperCenter - itemCenter);
+          if (distance < minDistance) {
+            minDistance = distance;
+            closestIndex = idx;
+          }
+        });
+
+        snapToSlide(closestIndex);
+      }
+
+      function getPositionX(e) {
+        return e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+      }
+
+      function setTrackPosition() {
+        track.style.transform = `translateX(${currentTranslate}px)`;
+        updateActiveStates();
+      }
+
+      function updateActiveStates() {
+        const wrapperCenter = wrapper.offsetWidth / 2;
+        items.forEach((item, idx) => {
+          const itemRect = item.getBoundingClientRect();
+          const itemCenter = itemRect.left + (itemRect.width / 2);
+          const isNearCenter = Math.abs(wrapperCenter - itemCenter) < (itemRect.width * 0.4);
+          item.classList.toggle('active', isNearCenter);
+          if(isNearCenter) {
+            dots.forEach((d, dIdx) => d.classList.toggle('active', dIdx === idx));
+            currentIndex = idx;
+          }
+        });
+      }
+
+      function snapToSlide(idx) {
+        currentIndex = idx;
+        const wrapperWidth = wrapper.offsetWidth;
+        const targetItem = items[currentIndex];
+        const targetOffset = targetItem.offsetLeft - (wrapperWidth / 2) + (targetItem.offsetWidth / 2);
+        
+        currentTranslate = -targetOffset;
+        prevTranslate = currentTranslate;
+        
+        track.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+        track.style.transform = `translateX(${currentTranslate}px)`;
+        
+        // Update states manually after execution positioning
+        setTimeout(() => {
+          track.style.transition = 'none';
+          items.forEach((item, i) => item.classList.toggle('active', i === currentIndex));
+          dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+        }, 500);
+      }
+
+      window.addEventListener('resize', () => snapToSlide(currentIndex));
+      setTimeout(() => snapToSlide(0), 200);
+    });
+
+    // Premium Scrollspy Implementation Tracker
+    const links = document.querySelectorAll('#nav-spy a');
+    const targetSections = document.querySelectorAll('main > div, section, footer');
+    window.addEventListener('scroll', () => {
+      let activeId = 'home';
+      targetSections.forEach(sec => {
+        const top = window.scrollY;
+        const offset = sec.offsetTop - 220;
+        const height = sec.offsetHeight;
+        if(top >= offset && top < offset + height) {
+          activeId = sec.getAttribute('id');
+        }
+      });
+      links.forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === `#${activeId}`);
+      });
+    });
+  </script>
+</body>
+</html>
