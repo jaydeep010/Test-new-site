@@ -63,7 +63,6 @@
       transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
       z-index: 2;
-      cursor: pointer;
     }
     nav a:hover, nav a.active { 
       color: #fff; 
@@ -170,38 +169,19 @@
       font-size: 0.9rem;
     }
     .skill .title span:last-child { color: #fff; font-weight: 600; }
-    
-    /* Rebuilt Water Filling Liquid Wave Bars */
     .bar {
-      height: 6px;
-      background: rgba(255, 255, 255, 0.03);
+      height: 4px;
+      background: rgba(255, 255, 255, 0.02);
       border-radius: 6px;
       overflow: hidden;
-      position: relative;
     }
     .bar>i {
       display: block;
       height: 100%;
       width: 0%;
-      background: linear-gradient(
-        90deg, 
-        #1e293b 0%, 
-        #64748b 25%, 
-        #e2e8f0 50%, 
-        #64748b 75%, 
-        #1e293b 100%
-      );
-      background-size: 200% 100%;
+      background: linear-gradient(90deg, #334155, #cbd5e1);
       border-radius: 6px;
-      transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    /* Infinite water filling/wave motion triggered post-fill */
-    .bar>i.filled {
-      animation: liquidFlow 2s linear infinite;
-    }
-    @keyframes liquidFlow {
-      0% { background-position: 0% 50%; }
-      100% { background-position: -200% 50%; }
+      transition: width 1.2s cubic-bezier(0.1, 0.8, 0.2, 1);
     }
 
     /* Workflow Blueprint */
@@ -291,7 +271,7 @@
       box-shadow: 0 10px 30px rgba(255,255,255,0.05);
     }
 
-    /* Minimalist Channels Infinite Ticker */
+    /* --- MINIMALIST CHANNELS INFINITE TICKER --- */
     .ticker-section {
       background: #050507;
       padding: 35px 0;
@@ -351,7 +331,7 @@
     section { padding: 100px 0; width: 100%; max-width: 100vw; overflow: hidden; }
     section h2 { text-align: center; color: #fff; font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 35px; }
 
-    /* Carousel Navigation Containers */
+    /* HIGH INTENSITY SMOOTH DRAG SYSTEM WITH FULL BOUNDING ZONE OVERLAYS */
     .carousel-container { 
       position: relative; 
       width: 100%; 
@@ -385,24 +365,26 @@
       position: relative; border-radius: 16px; overflow: hidden; background: #000;
     }
     .carousel-item.active { transform: scale(1); opacity: 1; filter: blur(0px); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6); }
-    
-    /* FIXED: Restrictive cropping parameters, clip-paths, and awkward margin offsets have been purged completely */
-    .yt-wrapper-mask {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-      border-radius: 16px;
-      background: #000;
-    }
-    
-    /* Ensure clean responsive sizing without clipping */
+   
     .carousel-item iframe, .carousel-item img, .yt-player { 
       width: 100%; 
-      aspect-ratio: 16 / 9;
+      height: 465px; 
       border: none; 
       object-fit: cover; 
       display: block; 
       pointer-events: none; 
+    }
+    
+    .carousel-item img {
+      height: 370px;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    #thumbnails .yt-wrapper-mask {
+      clip-path: none;
+      margin-top: 0;
+      margin-bottom: 0;
+      height: 370px;
     }
 
     .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 25px; }
@@ -420,11 +402,19 @@
 
     @media(max-width: 900px) {
       .brand { font-size: 4rem; }
-      .carousel-item { width: 540px; }
+      .carousel-item { width: 480px; }
+      .yt-wrapper-mask { height: 270px; clip-path: inset(40px 0px 45px 0px round 0px); margin-top: -40px; margin-bottom: -45px; }
+      .carousel-item iframe, .yt-player { height: 355px; }
+      .carousel-item img { height: 270px; }
+      #thumbnails .yt-wrapper-mask { height: 270px; clip-path: none; margin-top:0; margin-bottom:0; }
     }
     @media(max-width: 600px) {
       .brand { font-size: 3.2rem; }
-      .carousel-item { width: 320px; margin: 0 6px; }
+      .carousel-item { width: 290px; margin: 0 6px; }
+      .yt-wrapper-mask { height: 175px; clip-path: inset(30px 0px 35px 0px round 0px); margin-top: -30px; margin-bottom: -35px; }
+      .carousel-item iframe, .yt-player { height: 240px; }
+      .carousel-item img { height: 175px; }
+      #thumbnails .yt-wrapper-mask { height: 175px; clip-path: none; margin-top:0; margin-bottom:0; }
       .blueprint-tabs { flex-direction: column; gap: 4px; }
     }
   </style>
@@ -434,10 +424,10 @@
   <header>
     <nav id="nav-spy">
       <div class="nav-indicator" id="nav-indicator"></div>
-      <a data-target="home" class="active">Home</a>
-      <a data-target="videos">Videos</a>
-      <a data-target="thumbnails">Thumbnails</a>
-      <a data-target="contact">Contact</a>
+      <a href="#home" class="active">Home</a>
+      <a href="#videos">Videos</a>
+      <a href="#thumbnails">Thumbnails</a>
+      <a href="#contact">Contact</a>
     </nav>
   </header>
 
@@ -485,13 +475,13 @@
             <div class="flow-node"></div>
           </div>
         </div>
-        <button class="bp-cta" onclick="speedRampScroll(document.getElementById('contact'))">
+        <button class="bp-cta" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
           Let's discuss your next project <span>→</span>
         </button>
       </div>
     </div>
 
-    <!-- Trusted Creators Ticker Track -->
+    <!-- CLEAN HIGH-END TRUSTED TICKER TRACK -->
     <div class="ticker-section">
       <div class="ticker-title">Trusted By Creators</div>
       <div class="ticker-container">
@@ -502,7 +492,7 @@
           <a class="partner-link" href="https://www.youtube.com/@SuzieTaylor" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/SuzieTaylor" alt="SuzieTaylor"></a>
           <a class="partner-link" href="https://www.youtube.com/@inishutiwari" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/inishutiwari" alt="inishutiwari"></a>
           <a class="partner-link" href="https://www.youtube.com/@RimoravVlogs" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/RimoravVlogs" alt="RimoravVlogs"></a>
-          <a class="partner-link" href="https://www.youtube.com/@onroadindian" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/onroadindian" alt="onroadindian"></a>
+          <a class="partner-link" href="https://www.youtube.com/@onroadindian" target="_blank"><img class="partner-avatar" src="https://unroadindian" alt="onroadindian"></a>
         </div>
         <!-- Track 2 -->
         <div class="ticker-track">
@@ -511,7 +501,7 @@
           <a class="partner-link" href="https://www.youtube.com/@SuzieTaylor" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/SuzieTaylor" alt="SuzieTaylor"></a>
           <a class="partner-link" href="https://www.youtube.com/@inishutiwari" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/inishutiwari" alt="inishutiwari"></a>
           <a class="partner-link" href="https://www.youtube.com/@RimoravVlogs" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/RimoravVlogs" alt="RimoravVlogs"></a>
-          <a class="partner-link" href="https://www.youtube.com/@onroadindian" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/onroadindian" alt="onroadindian"></a>
+          <a class="partner-link" href="https://www.youtube.com/@onroadindian" target="_blank"><img class="partner-avatar" src="https://unroadindian" alt="onroadindian"></a>
         </div>
       </div>
     </div>
@@ -582,8 +572,7 @@
   <script>
     const ytPlayers = {};
     window.activeVideoPlayer = null;
-    let isVideoPlayingGlobal = false;
-    let isSpeedRampScrolling = false; // Scroll override tracking lock
+    let isVideoPlayingGlobal = false; // System lock state monitor
 
     function onYouTubeIframeAPIReady() {
       document.querySelectorAll('.yt-player').forEach((el, index) => {
@@ -613,6 +602,7 @@
               }
             },
             'onStateChange': (e) => {
+              // Lock auto carousels if video transitions into a playing state
               if (e.data === YT.PlayerState.PLAYING) {
                 isVideoPlayingGlobal = true;
               } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
@@ -626,54 +616,6 @@
         });
       });
     }
-
-    // High Speed Speedramp Smooth Scroll Interpolation Function
-    function speedRampScroll(targetElement) {
-      if (!targetElement) return;
-      isSpeedRampScrolling = true;
-      
-      const startPosition = window.scrollY;
-      const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - 80; // Offset for header navbar
-      const distance = targetPosition - startPosition;
-      const duration = 750; // High speed responsive timeline limit (ms)
-      let startTime = null;
-
-      // Custom Speedramp Profile: Cubic-Bezier Equivalent (Fast Acceleration -> Sharp deceleration snap)
-      function speedRampEasing(t) {
-        return t < 0.3 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-      }
-
-      function scrollAnimationLoop(currentTime) {
-        if (!startTime) startTime = currentTime;
-        const timeElapsed = currentTime - startTime;
-        const progress = Math.min(timeElapsed / duration, 1);
-        
-        window.scrollTo(0, startPosition + (distance * speedRampEasing(progress)));
-
-        if (progress < 1) {
-          requestAnimationFrame(scrollAnimationLoop);
-        } else {
-          // Relinquish system control back to listeners safely after layout stabilizes
-          setTimeout(() => { isSpeedRampScrolling = false; }, 50);
-        }
-      }
-      requestAnimationFrame(scrollAnimationLoop);
-    }
-
-    // Attach custom event handlers to top bar links
-    document.querySelectorAll('#nav-spy a').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('data-target');
-        const section = document.getElementById(targetId);
-        if (section) {
-          moveIndicator(link);
-          document.querySelectorAll('#nav-spy a').forEach(l => l.classList.remove('active'));
-          link.classList.add('active');
-          speedRampScroll(section);
-        }
-      });
-    });
 
     // Lettering Reveal Trigger
     const brandEl = document.getElementById("brand");
@@ -703,17 +645,12 @@
       });
     })();
 
-    // Initialize Skill Bars via IntersectionObserver with Water Filling Liquid Triggers
+    // Initialize Skill Bars via IntersectionObserver (fast expansion on scroll)
     const observeSkills = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.querySelectorAll('.bar > i').forEach(bar => {
             bar.style.width = bar.dataset.target;
-            // Listen for structural layout transition end, then ignite the liquid flow loops
-            bar.addEventListener('transitionend', function runOnce() {
-              bar.classList.add('filled');
-              bar.removeEventListener('transitionend', runOnce);
-            });
           });
           observeSkills.unobserve(entry.target);
         }
@@ -743,12 +680,13 @@
       }, 150);
     }
 
-    /* --- SWIPE & SEAMLESS INFINITE TRACK ENGINE --- */
+    /* --- HIGH-PERFORMANCE VELOCITY SWIPE & SEAMLESS INFINITE TRACK ENGINE --- */
     document.querySelectorAll('.carousel-container').forEach(container => {
       const wrapper = container.querySelector('.carousel-wrapper');
       const overlay = container.querySelector('.drag-overlay');
       const track = container.querySelector('.carousel-track');
       
+      // Infinite Loop Setup: Clone items to populate boundaries smoothly
       const originalItems = [...track.children];
       originalItems.forEach(item => {
         const cloneBefore = item.cloneNode(true);
@@ -762,9 +700,10 @@
       const totalOriginals = originalItems.length;
       
       let isDragging = false, startX = 0, currentTranslate = 0, prevTranslate = 0;
-      let currentIndex = totalOriginals; 
+      let currentIndex = totalOriginals; // Set default position to start on original track center
       let velocity = 0, lastX = 0, lastTime = 0, rafId = null;
 
+      // Map interactive pagination dots
       originalItems.forEach((_, i) => {
         const dot = document.createElement('span');
         dot.classList.add('dot');
@@ -789,6 +728,7 @@
         velocity = 0;
         if(rafId) cancelAnimationFrame(rafId);
         
+        // Boundaries safety-wrap check before starting new interactions
         checkInfiniteBoundaries();
         track.style.transition = 'none';
         wrapper.style.cursor = 'grabbing';
@@ -935,7 +875,9 @@
         }
       }
 
+      // Auto-sliding layout process loop
       setInterval(() => {
+        // If system detects media playback engine lock status, abort slide intervals completely
         if (container.parentNode.id === 'videos' && isVideoPlayingGlobal) return;
         
         if (!isDragging) {
@@ -950,7 +892,7 @@
       setTimeout(() => snapToSlide(totalOriginals), 500);
     });
 
-    /* --- NAV BAR INDICATOR DIRECTION MATRIX ENGINE --- */
+    /* --- SPEEDRAMP SPEED INDICATOR ENGINE FOR NAV BAR --- */
     const indicator = document.getElementById('nav-indicator');
     const navLinks = document.querySelectorAll('#nav-spy a');
     
@@ -968,11 +910,10 @@
       if (activeLink) moveIndicator(activeLink);
     });
 
-    // Scrollspy Matrix Engine
+    // Scrollspy Implementation
+    const links = document.querySelectorAll('#nav-spy a');
     const targetSections = document.querySelectorAll('main > div, section, footer');
     window.addEventListener('scroll', () => {
-      if (isSpeedRampScrolling) return; // Prevent scroll fighting when custom ramp layout functions lock focus
-      
       let activeId = 'home';
       targetSections.forEach(sec => {
         const top = window.scrollY;
@@ -982,15 +923,16 @@
           activeId = sec.getAttribute('id');
         }
       });
-      navLinks.forEach(l => {
-        const isActive = l.getAttribute('data-target') === activeId;
+      links.forEach(l => {
+        const isActive = l.getAttribute('href') === `#${activeId}`;
         l.classList.toggle('active', isActive);
-        if (isActive) {
+        if (isActive && !isDragging) {
           moveIndicator(l);
         }
       });
     });
 
+    // Initialize position configuration setup on base links
     window.addEventListener('load', () => {
       const activeLink = document.querySelector('#nav-spy a.active');
       if (activeLink) moveIndicator(activeLink);
