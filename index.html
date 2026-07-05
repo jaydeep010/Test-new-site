@@ -7,26 +7,26 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
 
-    /* Global Site-Wide Touch/Zoom Restrictions & Dark Core Reset */
+    /* Global Site-Wide Touch & Core Reset */
     * { 
       margin: 0; 
       padding: 0; 
       box-sizing: border-box; 
-      touch-action: manipulation; /* Eradicates double-tap delay/zoom entirely across all nodes */
+      touch-action: manipulation; /* Total elimination of double-tap delays globally */
       -webkit-tap-highlight-color: transparent;
     }
     
     html, body {
       max-width: 100%;
       overflow-x: hidden;
-      scroll-behavior: auto; /* Managed natively by our custom ramp engine */
+      scroll-behavior: auto;
+      background: #07070a;
     }
 
     :root {
       --bg: #07070a;
       --panel-bg: rgba(15, 15, 23, 0.65);
       --accent: #94a3b8;
-      --accent-glow: rgba(148, 163, 184, 0.08);
       --text-main: #f8fafc;
       --text-muted: #64748b;
       --border-glass: rgba(255, 255, 255, 0.04);
@@ -34,7 +34,6 @@
     
     body {
       font-family: 'Inter', sans-serif;
-      background: var(--bg);
       background-image: 
         radial-gradient(circle at 50% 0%, rgba(30, 41, 59, 0.15) 0%, transparent 60%),
         radial-gradient(circle at 0% 100%, rgba(15, 23, 42, 0.2) 0%, transparent 50%);
@@ -44,7 +43,7 @@
     }
     a { text-decoration: none; color: inherit; }
 
-    /* Fixed Header Navigation with Accelerated Pill Engine */
+    /* Fast Action Header Navigation */
     header {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -73,7 +72,7 @@
       font-size: 0.85rem;
       padding: 8px 20px;
       border-radius: 30px;
-      transition: color 0.2s linear;
+      transition: color 0.15s ease;
       user-select: none;
       -webkit-user-select: none;
       z-index: 2;
@@ -82,7 +81,7 @@
       color: #fff; 
     }
     
-    /* Super High Speed Glass Pill Background */
+    /* Ultra-Fast Reactive Sliding Pill */
     .nav-dynamic-glow {
       position: absolute;
       top: 5px;
@@ -94,11 +93,10 @@
       border-radius: 30px;
       z-index: 1;
       pointer-events: none;
-      /* Boosted velocity via responsive timing profile */
-      transition: all 0.18s cubic-bezier(0.1, 0.9, 0.2, 1);
+      transition: all 0.15s cubic-bezier(0.2, 1, 0.2, 1); /* Faster tracking logic */
     }
 
-    /* Landing Hero Wrapper */
+    /* Landing Core Elements */
     .landing {
       min-height: 100vh;
       display: flex;
@@ -117,13 +115,9 @@
       color: var(--text-muted);
       margin-bottom: 14px;
       opacity: 0;
-      white-space: nowrap;
       animation: fadeUp 1s ease forwards;
     }
 
-    .brand-wrapper {
-      margin-bottom: 4px;
-    }
     .brand {
       font-weight: 900;
       font-size: 6rem;
@@ -154,7 +148,6 @@
       letter-spacing: 4px;
       display: flex;
       justify-content: center;
-      white-space: nowrap;
       margin-top: 16px;
     }
     .subtitle span {
@@ -164,7 +157,7 @@
     }
     @keyframes fadeUp { to { opacity: 1; } }
 
-    /* Cross-Platform Robust CSS Loading Bars Engine */
+    /* Instant-Trigger Mobile Skill Progress Blocks */
     .skills { 
       width: min(660px, 100%); 
       margin-top: 55px; 
@@ -192,7 +185,6 @@
       background: rgba(255, 255, 255, 0.02);
       border-radius: 6px;
       overflow: hidden;
-      position: relative;
     }
     .bar > i {
       display: block;
@@ -201,25 +193,24 @@
       background-size: 200% 100%;
       border-radius: 6px;
       position: relative;
-      overflow: hidden; /* Restricts the fluid water effects exactly inside filled bounds */
-      width: 0;
+      overflow: hidden;
+      width: 0; /* Fallback baseline */
     }
 
-    /* Reliable Cross-Platform Hardware Accelerated Keyframe Animations */
-    .skill:nth-child(1) .bar > i { animation: fillProg1 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-    .skill:nth-child(2) .bar > i { animation: fillProg2 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-    .skill:nth-child(3) .bar > i { animation: fillProg3 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    /* Fixed Immediate Viewport Fill Triggers for Mobile & Desktop */
+    .skill:nth-child(1) .bar > i { animation: fillProg1 1.2s cubic-bezier(0.1, 0.8, 0.2, 1) forwards; }
+    .skill:nth-child(2) .bar > i { animation: fillProg2 1.2s cubic-bezier(0.1, 0.8, 0.2, 1) forwards; }
+    .skill:nth-child(3) .bar > i { animation: fillProg3 1.2s cubic-bezier(0.1, 0.8, 0.2, 1) forwards; }
 
     @keyframes fillProg1 { to { width: 90%; } }
     @keyframes fillProg2 { to { width: 95%; } }
     @keyframes fillProg3 { to { width: 80%; } }
 
-    /* Fluid Moving Water Pulse - Safely Masked */
     .bar > i::after {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.22) 50%, rgba(255,255,255,0) 100%);
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%);
       animation: waterFlow 2s infinite linear;
     }
     @keyframes waterFlow {
@@ -227,7 +218,7 @@
       100% { transform: translateX(100%); }
     }
 
-    /* Workflow Blueprint Section */
+    /* Production Strategy Panel */
     .mid-blueprint-zone {
       width: min(660px, 100%);
       margin-top: 24px;
@@ -255,7 +246,7 @@
       font-weight: 500;
       cursor: pointer;
       color: var(--text-muted);
-      transition: all 0.25s ease;
+      transition: all 0.2s ease;
     }
     .b-tab.active {
       background: #f1f5f9;
@@ -272,49 +263,11 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      border: 1px solid rgba(255,255,255,0.01);
     }
     .bp-title { font-size: 1rem; font-weight: 600; margin-bottom: 6px; color: #fff; }
-    .bp-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px; }
-    
-    .flow-line { display: flex; gap: 6px; align-items: center; }
-    .flow-node { height: 2px; flex: 1; background: rgba(255,255,255,0.06); border-radius: 1px; position: relative; overflow: hidden; }
-    .flow-node::after {
-      content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 100%;
-      background: #fff;
-      transform: scaleX(0); transform-origin: left;
-    }
-    .mid-blueprint-zone:hover .flow-node::after {
-      transform: scaleX(1);
-      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .mid-blueprint-zone:hover .flow-node:nth-child(2)::after { transition-delay: 0.15s; }
-    .mid-blueprint-zone:hover .flow-node:nth-child(3)::after { transition-delay: 0.3s; }
+    .bp-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
 
-    .bp-cta {
-      margin-top: 16px;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255,255,255,0.05);
-      padding: 14px;
-      border-radius: 12px;
-      color: #fff;
-      font-weight: 600;
-      font-size: 0.85rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: all 0.3s;
-    }
-    .bp-cta:hover {
-      background: #fff;
-      color: #000;
-      box-shadow: 0 10px 30px rgba(255,255,255,0.05);
-    }
-
-    /* Infinite Ticker Track */
+    /* Infinite Ribbon Ticker */
     .ticker-section {
       background: #050507;
       padding: 35px 0;
@@ -347,23 +300,12 @@
       align-items: center;
       animation: scrollTicker 25s linear infinite;
     }
-    .partner-link {
-      display: block;
-      transition: transform 0.25s ease, filter 0.25s ease;
-      filter: grayscale(20%) opacity(0.8);
-    }
-    .partner-link:hover {
-      transform: scale(1.1);
-      filter: grayscale(0%) opacity(1);
-    }
     .partner-avatar {
       width: 52px;
       height: 52px;
       border-radius: 50%;
       border: 1px solid rgba(255, 255, 255, 0.1);
       object-fit: cover;
-      background: #111;
-      display: block;
     }
     @keyframes scrollTicker {
       from { transform: translateX(0); }
@@ -374,7 +316,7 @@
     section { padding: 100px 0; width: 100%; max-width: 100vw; overflow: hidden; }
     section h2 { text-align: center; color: #fff; font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 35px; }
 
-    /* High Momentum Drag Layout */
+    /* High-Response Fluid Carousel Layout */
     .carousel-container { 
       position: relative; 
       width: 100%; 
@@ -388,12 +330,7 @@
     }
     .carousel-wrapper:active { cursor: grabbing; }
     
-    .drag-overlay {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 10;
-    }
-    
+    /* Transparent intercept layer removed to bring back the immediate drag movement without finger-lift delays */
     .carousel-track { 
       display: flex; 
       will-change: transform; 
@@ -417,26 +354,25 @@
       overflow: hidden;
     }
     
-    /* Native Clean Video and Artwork Modifiers */
+    /* The Classic Native Clean Pipeline — Zero Containers, Unblocked Initialization Engine */
     .video-container-box video, .video-container-box img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      border: none;
     }
 
     .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 25px; }
     .dot { height: 3px; width: 16px; background: rgba(255, 255, 255, 0.08); border-radius: 1px; cursor: pointer; }
     .dot.active { background: #fff; transition: background 0.3s ease; }
 
-    /* Footer Layout */
+    /* Footer Elements */
     footer { padding: 100px 24px; background: #040406; border-top: 1px solid var(--border-glass); text-align: center; }
     footer h2 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 12px; }
     .contact-container { display: flex; justify-content: center; gap: 14px; margin-top: 30px; flex-wrap: wrap; }
     .contact-btn { display: inline-flex; align-items: center; padding: 14px 28px; border-radius: 40px; font-weight: 600; font-size: 0.85rem; transition: all 0.25s; border: 1px solid var(--border-glass); background: rgba(255, 255, 255, 0.01); }
     .btn-prime { background: #fff; color: #000; border-color: #fff; }
-    .btn-prime:hover { background: #e2e8f0; box-shadow: 0 10px 30px rgba(255,255,255,0.05); }
+    .btn-prime:hover { background: #e2e8f0; }
     .btn-secondary:hover { background: rgba(255, 255, 255, 0.04); color: #fff; border-color: rgba(255, 255, 255, 0.12); }
 
     @media(max-width: 900px) {
@@ -448,7 +384,6 @@
       .carousel-item { width: 310px; margin: 0 8px; }
       .pre-title { font-size: 0.58rem; letter-spacing: 4px; }
       .subtitle { font-size: 0.6rem; letter-spacing: 2.5px; }
-      .blueprint-tabs { flex-direction: column; gap: 4px; }
     }
   </style>
 </head>
@@ -467,12 +402,10 @@
   <main>
     <div class="landing" id="home">
       <div class="pre-title">a professional editor</div>
-      <div class="brand-wrapper">
-        <div class="brand" id="brand"></div>
-      </div>
+      <div class="brand-wrapper"><div class="brand" id="brand"></div></div>
       <div class="subtitle" id="subtitle"></div>
 
-      <!-- Skill System -->
+      <!-- Skills System -->
       <div class="skills" id="skills">
         <div class="skill">
           <div class="title"><span>Video Editing & Retention Strategy</span><span>90%</span></div>
@@ -488,7 +421,7 @@
         </div>
       </div>
 
-      <!-- Production Blocks -->
+      <!-- Blueprint Content Zone -->
       <div class="mid-blueprint-zone">
         <div class="blueprint-header">
           <h4>Production Blueprint</h4>
@@ -501,43 +434,34 @@
         <div class="blueprint-body">
           <div class="bp-title" id="bp-title">Hook & Retention Strategy</div>
           <div class="bp-desc" id="bp-desc">Cutting the boring bits in the first 30 seconds to lock people in, using smart sound effects and fast cuts to keep viewers from clicking away.</div>
-          <div class="flow-line">
-            <div class="flow-node"></div>
-            <div class="flow-node"></div>
-            <div class="flow-node"></div>
-          </div>
         </div>
-        <button class="bp-cta" onclick="smoothRampScroll(document.getElementById('contact'))">
-          Let's discuss your next project <span>→</span>
-        </button>
       </div>
     </div>
 
-    <!-- Creator Ticker -->
+    <!-- Creator Ticker Section -->
     <div class="ticker-section">
       <div class="ticker-title">Trusted By Creators</div>
       <div class="ticker-container">
         <div class="ticker-track">
-          <a class="partner-link" href="https://www.youtube.com/@TheVideoNerd" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/TheVideoNerd" alt="TheVideoNerd"></a>
-          <a class="partner-link" href="https://www.youtube.com/@caitlinerinoneill" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/caitlinerinoneill" alt="caitlinerinoneill"></a>
-          <a class="partner-link" href="https://www.youtube.com/@SuzieTaylor" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/SuzieTaylor" alt="SuzieTaylor"></a>
-          <a class="partner-link" href="https://www.youtube.com/@RimoravVlogs" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/RimoravVlogs" alt="RimoravVlogs"></a>
+          <img class="partner-avatar" src="https://unavatar.io/youtube/TheVideoNerd" alt="TheVideoNerd">
+          <img class="partner-avatar" src="https://unavatar.io/youtube/caitlinerinoneill" alt="caitlinerinoneill">
+          <img class="partner-avatar" src="https://unavatar.io/youtube/SuzieTaylor" alt="SuzieTaylor">
+          <img class="partner-avatar" src="https://unavatar.io/youtube/RimoravVlogs" alt="RimoravVlogs">
         </div>
         <div class="ticker-track">
-          <a class="partner-link" href="https://www.youtube.com/@TheVideoNerd" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/TheVideoNerd" alt="TheVideoNerd"></a>
-          <a class="partner-link" href="https://www.youtube.com/@caitlinerinoneill" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/caitlinerinoneill" alt="caitlinerinoneill"></a>
-          <a class="partner-link" href="https://www.youtube.com/@SuzieTaylor" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/SuzieTaylor" alt="SuzieTaylor"></a>
-          <a class="partner-link" href="https://www.youtube.com/@RimoravVlogs" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/RimoravVlogs" alt="RimoravVlogs"></a>
+          <img class="partner-avatar" src="https://unavatar.io/youtube/TheVideoNerd" alt="TheVideoNerd">
+          <img class="partner-avatar" src="https://unavatar.io/youtube/caitlinerinoneill" alt="caitlinerinoneill">
+          <img class="partner-avatar" src="https://unavatar.io/youtube/SuzieTaylor" alt="SuzieTaylor">
+          <img class="partner-avatar" src="https://unavatar.io/youtube/RimoravVlogs" alt="RimoravVlogs">
         </div>
       </div>
     </div>
 
-    <!-- Videos Showcase (Restored Native Stream Vectors) -->
+    <!-- Videos Showcase (Restored Direct Stream Engine) -->
     <section id="videos">
       <h2>Featured Video Projects</h2>
       <div class="carousel-container">
         <div class="carousel-wrapper">
-          <div class="drag-overlay"></div>
           <div class="carousel-track">
             <div class="carousel-item"><div class="video-container-box"><video src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" playsinline autoplay loop muted></video></div></div>
             <div class="carousel-item"><div class="video-container-box"><video src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" playsinline autoplay loop muted></video></div></div>
@@ -555,7 +479,6 @@
       <h2>Thumbnail Design</h2>
       <div class="carousel-container">
         <div class="carousel-wrapper">
-          <div class="drag-overlay"></div>
           <div class="carousel-track">
             <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/1.jpg?raw=true" alt="t1"></div></div>
             <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/2.jpg?raw=true" alt="t2"></div></div>
@@ -577,7 +500,6 @@
 
   <footer id="contact">
     <h2>Let's Make Videos Worth Finishing</h2>
-    <p style="color:var(--text-muted)">Get in touch directly through Email or Discord.</p>
     <div class="contact-container">
       <a class="contact-btn btn-prime" href="mailto:jaydeepkumawat4114@gmail.com">Send an Email</a>
       <a class="contact-btn btn-secondary" href="http://discordapp.com/users/609626785889648642" target="_blank">Message via Discord</a>
@@ -585,9 +507,9 @@
   </footer>
 
   <script>
-    let isProgrammaticScroll = false; // Prevents Scrollspy event locks on large jumps
+    let isProgrammaticScroll = false;
 
-    // Ultra Zoom Blockades
+    // Strict Device Document Zoom Overrides
     document.addEventListener('touchstart', (e) => {
       if (e.touches.length > 1) e.preventDefault();
     }, { passive: false });
@@ -596,12 +518,12 @@
     document.addEventListener('touchend', (e) => {
       const currentTimestamp = performance.now();
       if (currentTimestamp - lastTapTimestamp <= 300) {
-        e.preventDefault(); // Annihilates standard multi-tap scale hooks across all browsers
+        e.preventDefault(); 
       }
       lastTapTimestamp = currentTimestamp;
     }, { passive: false });
 
-    // Fine-Tuned Speed Ramping Scroll Engine
+    // Smooth Segment Jumper Ramping Vector Engine
     function smoothRampScroll(targetElement) {
       if (!targetElement) return;
       isProgrammaticScroll = true;
@@ -609,31 +531,28 @@
       const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY;
       const startPosition = window.scrollY;
       const distance = targetPosition - startPosition;
-      const duration = 750; // Optimized duration for fast action transitions
+      const duration = 450; // Optimized hyper-fast window calculation speed
       let startTime = null;
 
-      function easeOutQuint(t) {
-        return 1 - Math.pow(1 - t, 5);
-      }
+      function easeOutCubic(t) { return [--t * t * t + 1][0]; }
 
       function scrollStep(currentTime) {
         if (!startTime) startTime = currentTime;
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
         
-        window.scrollTo(0, startPosition + (distance * easeOutQuint(progress)));
+        window.scrollTo(0, startPosition + (distance * easeOutCubic(progress)));
 
         if (progress < 1) {
           requestAnimationFrame(scrollStep);
         } else {
-          // Release scrollspy calculations cleanly post-frame lock
-          setTimeout(() => { isProgrammaticScroll = false; }, 30);
+          setTimeout(() => { isProgrammaticScroll = false; }, 10);
         }
       }
       requestAnimationFrame(scrollStep);
     }
 
-    // Header Navigation Pill Coordinates Motor
+    // Top Header Navigation Coordinates Sync
     const navSpy = document.getElementById('nav-spy');
     const pill = document.getElementById('nav-pill');
     const navLinks = [...navSpy.querySelectorAll('a')];
@@ -659,7 +578,7 @@
       repositionNavPill(document.querySelector('#nav-spy a.active'));
     });
 
-    // Scrollspy Event Tracker
+    // Clean Document Scroll Tracker Integration Matrix
     window.addEventListener('scroll', () => {
       if (isProgrammaticScroll) return; 
       let activeId = 'home';
@@ -667,14 +586,14 @@
         if (window.scrollY >= (sec.offsetTop - 240)) activeId = sec.getAttribute('id');
       });
       const matchLink = navSpy.querySelector(`a[href="#${activeId}"]`);
-      if (matchLink && !navSpy.querySelector('a:active')) {
+      if (matchLink) {
         navLinks.forEach(l => l.classList.remove('active'));
         matchLink.classList.add('active');
         repositionNavPill(matchLink);
       }
     });
 
-    // Dynamic Text Elements Layout Triggers
+    // Intro Kinetic Text String Builder
     const brandEl = document.getElementById("brand");
     const nameStr = "JAYDEEP";
     [...nameStr].forEach((ch, i) => {
@@ -710,25 +629,19 @@
     function switchBlueprint(index, tabEl) {
       document.querySelectorAll('.b-tab').forEach(t => t.classList.remove('active'));
       tabEl.classList.add('active');
-      const title = document.getElementById('bp-title');
-      const desc = document.getElementById('bp-desc');
-      title.style.opacity = 0; desc.style.opacity = 0;
-      setTimeout(() => {
-        title.innerText = bpData[index].title;
-        desc.innerText = bpData[index].desc;
-        title.style.opacity = 1; desc.style.opacity = 1;
-      }, 150);
+      document.getElementById('bp-title').innerText = bpData[index].title;
+      document.getElementById('bp-desc').innerText = bpData[index].desc;
     }
 
-    /* --- High Momentum Carousels Framework --- */
+    /* --- The Classic Infinite Speed-Drag Carousels Framework --- */
     document.querySelectorAll('.carousel-container').forEach(container => {
       const wrapper = container.querySelector('.carousel-wrapper');
-      const overlay = container.querySelector('.drag-overlay');
       const track = container.querySelector('.carousel-track');
       let originalItems = [...track.children];
       const originalCount = originalItems.length;
       const dotsNav = container.querySelector('.carousel-dots');
       
+      // Clone blocks cleanly to construct infinite wrapping matrix
       originalItems.forEach(item => {
         track.insertBefore(item.cloneNode(true), track.firstChild);
         track.appendChild(item.cloneNode(true));
@@ -748,8 +661,9 @@
       });
       const dots = [...dotsNav.children];
 
-      overlay.addEventListener('mousedown', dragStart);
-      overlay.addEventListener('touchstart', dragStart, { passive: true });
+      // Drag events bound straight onto wrapper container (Instant movement framework restored)
+      wrapper.addEventListener('mousedown', dragStart);
+      wrapper.addEventListener('touchstart', dragStart, { passive: true });
       window.addEventListener('mouseup', dragEnd);
       window.addEventListener('touchend', dragEnd);
       window.addEventListener('mousemove', dragMove);
@@ -823,7 +737,7 @@
         updateActiveStates(); 
       }
 
-      // Synchronized Sound / Playback Lifecycle Tracker Engine
+      // Solid Synchronized Mute, Audio & Autoplay Engine Matrix
       function updateActiveStates() {
         const wrapperCenter = wrapper.offsetWidth / 2;
         allItems.forEach((item, idx) => {
@@ -832,11 +746,10 @@
           
           item.classList.toggle('active', isNear);
           
-          // Native Auto Play / Mute Balance Lifecycle
           const video = item.querySelector('video');
           if (video) {
             if (isNear) {
-              video.muted = false; // Restores background track sound immediately when focused
+              video.muted = false; 
               video.play().catch(()=>{});
             } else {
               video.muted = true;
