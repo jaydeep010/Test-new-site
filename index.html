@@ -190,9 +190,10 @@
       background-size: 200% 100%;
       border-radius: 6px;
       position: relative;
+      overflow: hidden; /* Added to keep water flow clipped only to filled boundary */
       transition: width 2s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    /* Dynamic moving water overlay pulse */
+    /* Dynamic moving water overlay pulse - Confined perfectly within filled zone */
     .bar > i::after {
       content: '';
       position: absolute;
@@ -531,7 +532,7 @@
             <div class="flow-node"></div>
           </div>
         </div>
-        <button class="bp-cta" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+        <button class="bp-cta" onclick="smoothRampScroll(document.getElementById('contact'))">
           Let's discuss your next project <span>→</span>
         </button>
       </div>
@@ -621,6 +622,39 @@
   <script>
     const ytPlayers = {};
     let activePlayerId = null;
+    let isAutoScrolling = false; // Prevents nav conflicts during speed ramp jumps
+
+    // Quintic Speed Ramping Smooth Scroll Engine
+    function smoothRampScroll(targetElement) {
+      if (!targetElement) return;
+      isAutoScrolling = true;
+      
+      const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+      const startPosition = window.scrollY;
+      const distance = targetPosition - startPosition;
+      const duration = 950; // Optimized time matrix in ms
+      let startTime = null;
+
+      // Quintic Easing Formula for extreme velocity changes (Fast burst -> Cushioned settling)
+      function easeOutQuint(t) {
+        return 1 - Math.pow(1 - t, 5);
+      }
+
+      function scrollAnimation(currentTime) {
+        if (!startTime) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        
+        window.scrollTo(0, startPosition + (distance * easeOutQuint(progress)));
+
+        if (progress < 1) {
+          requestAnimationFrame(scrollAnimation);
+        } else {
+          setTimeout(() => { isAutoScrolling = false; }, 50);
+        }
+      }
+      requestAnimationFrame(scrollAnimation);
+    }
 
     // Fast facade build for videos to optimize loading speed
     document.querySelectorAll('.yt-mount').forEach((mount, idx) => {
@@ -749,12 +783,10 @@
       const targetEl = document.elementFromPoint(touch.clientX, touch.clientY);
       
       if (targetEl && navLinks.includes(targetEl)) {
-        // Compute stretch velocity factor based on current position differential
         const currentLeft = parseFloat(pill.style.left) || 0;
         const targetLeft = targetEl.offsetLeft;
         const delta = targetLeft - currentLeft;
         
-        // Stretch pill element organically while shifting position coordinates
         pill.style.width = `${targetEl.offsetWidth + Math.min(Math.abs(delta) * 0.3, 35)}px`;
         pill.style.left = `${delta > 0 ? currentLeft + (delta * 0.4) : targetLeft}px`;
         
@@ -768,7 +800,7 @@
       if (activeLink) {
         repositionNavPill(activeLink);
         const targetId = activeLink.getAttribute('href').substring(1);
-        document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
+        smoothRampScroll(document.getElementById(targetId));
       }
     });
 
@@ -779,7 +811,7 @@
         navLinks.forEach(l => l.classList.remove('active'));
         link.classList.add('active');
         repositionNavPill(link);
-        document.getElementById(link.getAttribute('href').substring(1))?.scrollIntoView({ behavior: 'smooth' });
+        smoothRampScroll(document.getElementById(link.getAttribute('href').substring(1)));
       });
     });
 
@@ -907,7 +939,6 @@
         track.style.transform = `translateX(${currentTranslate}px)`;
         updateActiveStates();
 
-        // Pause off-screen video playbacks automatically when cards rotate out
         if (activePlayerId && !targetItem.querySelector(`#${activePlayerId}`)) {
           for (let id in ytPlayers) {
             if (ytPlayers[id] && typeof ytPlayers[id].pauseVideo === 'function') {
@@ -921,8 +952,9 @@
       setTimeout(() => snapToSlide(originalCount), 400);
     });
 
-    // Scrollspy Matrix Connection
+    // Scrollspy Matrix Connection (Only tracking when user manually scrolls)
     window.addEventListener('scroll', () => {
+      if (isAutoScrolling) return; 
       let activeId = 'home';
       document.querySelectorAll('main > div, section, footer').forEach(sec => {
         if(window.scrollY >= (sec.offsetTop - 220)) activeId = sec.getAttribute('id');
