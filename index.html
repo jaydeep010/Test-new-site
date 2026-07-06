@@ -17,10 +17,12 @@
     }
     
     html, body {
+      width: 100%;
       max-width: 100%;
-      overflow-x: hidden;
+      overflow-x: hidden; /* Fixes mobile left/right wobbling */
       scroll-behavior: auto;
       background: #07070a;
+      position: relative;
     }
 
     :root {
@@ -34,24 +36,37 @@
     
     body {
       font-family: 'Inter', sans-serif;
-      background-image: 
-        radial-gradient(circle at 50% 0%, rgba(30, 41, 59, 0.15) 0%, transparent 60%),
-        radial-gradient(circle at 0% 100%, rgba(15, 23, 42, 0.2) 0%, transparent 50%);
-      background-attachment: fixed;
       color: var(--text-main);
       -webkit-font-smoothing: antialiased;
     }
     a { text-decoration: none; color: inherit; }
 
-    /* Cinematic Noise Grain Overlay */
+    /* Layer 1: Background Gradients */
+    #bg-gradients {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100vh;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(30, 41, 59, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 0% 100%, rgba(15, 23, 42, 0.2) 0%, transparent 50%);
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    /* Layer 2: Cinematic Noise Grain (Strictly Behind Content) */
     #noise-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      width: 100vw; height: 100vh;
+      width: 100%; height: 100vh;
       pointer-events: none;
-      z-index: 9999;
+      z-index: -1; 
       opacity: 0.045;
       background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+    }
+
+    /* Layer 3: Content Containers */
+    header, main, footer {
+      position: relative;
+      z-index: 1;
     }
 
     /* Fast Action Header Navigation */
@@ -153,7 +168,7 @@
     .bp-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
 
     /* Infinite Ribbon Ticker */
-    .ticker-section { background: #050507; padding: 35px 0; border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass); width: 100vw; position: relative; }
+    .ticker-section { background: #050507; padding: 35px 0; border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass); width: 100%; position: relative; }
     .ticker-title { text-align: center; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 4px; color: var(--text-muted); margin-bottom: 20px; font-weight: 600; }
     .ticker-container { display: flex; overflow: hidden; user-select: none; gap: 40px; mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent); }
     .ticker-track { display: flex; flex-shrink: 0; gap: 40px; align-items: center; animation: scrollTicker 25s linear infinite; }
@@ -161,7 +176,7 @@
     @keyframes scrollTicker { from { transform: translateX(0); } to { transform: translateX(calc(-100% - 40px)); } }
 
     /* Showcase Sections */
-    section { padding: 100px 0; width: 100%; max-width: 100vw; overflow: hidden; }
+    section { padding: 100px 0; width: 100%; overflow: hidden; }
     section h2 { text-align: center; color: #fff; font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 35px; }
 
     /* Carousel Structure */
@@ -179,12 +194,18 @@
     
     .carousel-item.active { transform: scale(1); opacity: 1; filter: blur(0px); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6); z-index: 5;}
     
-    /* Video Box Strict Ratio */
+    /* Video Box Strict Ratio & Shield */
     .video-container-box { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 16px; overflow: hidden; }
+    
+    .video-shield {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 10; background: transparent; cursor: pointer;
+    }
+    
     .video-container-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
     
     /* Thumbnail uncropped setup */
-    .thumb-img { width: 100%; height: auto; display: block; border-radius: 16px; }
+    .thumb-img { width: 100%; height: auto; display: block; border-radius: 16px; pointer-events: none; }
 
     .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 25px; }
     .dot { height: 3px; width: 16px; background: rgba(255, 255, 255, 0.08); border-radius: 1px; cursor: pointer; }
@@ -210,6 +231,7 @@
 </head>
 <body>
   
+  <div id="bg-gradients"></div>
   <div id="noise-overlay"></div>
 
   <header>
@@ -284,32 +306,33 @@
       </div>
     </div>
 
-    <!-- REVERTED VIDEO SHOWCASE (Pure iFrames) -->
+    <!-- Video Showcase -->
     <section id="videos">
       <h2>Featured Video Projects</h2>
       <div class="carousel-container">
         <div class="carousel-wrapper">
           <div class="carousel-track">
-            <div class="carousel-item"><div class="video-container-box"><iframe src="https://www.youtube.com/embed/QGE7i0dVs5w?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe src="https://www.youtube.com/embed/eXJf7LGnIk4?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe src="https://www.youtube.com/embed/vlWlgg2Laj8?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe src="https://www.youtube.com/embed/cUngFXNXoeo?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe src="https://www.youtube.com/embed/5LRTlWHOQaE?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe src="https://www.youtube.com/embed/kDdrgZ0C5Gc?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe src="https://www.youtube.com/embed/Zp1cyXXW92I?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div> 
-            <div class="carousel-item"><div class="video-container-box"><iframe src="https://www.youtube.com/embed/RutDI0yMFI8?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe src="https://www.youtube.com/embed/ds4wMZ1mgCg?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe src="https://www.youtube.com/embed/WhcMlzhcslA?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe src="https://www.youtube.com/embed/V00KiVl3qPk?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe src="https://www.youtube.com/embed/pW8xFxPDQgk?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="carousel-item"><div class="video-container-box"><iframe src="https://www.youtube.com/embed/z99KBCAivKs?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div> 
+            <!-- Added transparent shields to capture touch/drag -->
+            <div class="carousel-item"><div class="video-container-box"><div class="video-shield"></div><iframe src="https://www.youtube.com/embed/QGE7i0dVs5w?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-shield"></div><iframe src="https://www.youtube.com/embed/eXJf7LGnIk4?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-shield"></div><iframe src="https://www.youtube.com/embed/vlWlgg2Laj8?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-shield"></div><iframe src="https://www.youtube.com/embed/cUngFXNXoeo?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-shield"></div><iframe src="https://www.youtube.com/embed/5LRTlWHOQaE?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-shield"></div><iframe src="https://www.youtube.com/embed/kDdrgZ0C5Gc?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-shield"></div><iframe src="https://www.youtube.com/embed/Zp1cyXXW92I?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div> 
+            <div class="carousel-item"><div class="video-container-box"><div class="video-shield"></div><iframe src="https://www.youtube.com/embed/RutDI0yMFI8?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-shield"></div><iframe src="https://www.youtube.com/embed/ds4wMZ1mgCg?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-shield"></div><iframe src="https://www.youtube.com/embed/WhcMlzhcslA?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-shield"></div><iframe src="https://www.youtube.com/embed/V00KiVl3qPk?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-shield"></div><iframe src="https://www.youtube.com/embed/pW8xFxPDQgk?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="carousel-item"><div class="video-container-box"><div class="video-shield"></div><iframe src="https://www.youtube.com/embed/z99KBCAivKs?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div> 
           </div>
         </div>
         <div class="carousel-dots"></div>
       </div>
     </section>
 
-    <!-- REVERTED Thumbnails Showcase (Uncropped) -->
+    <!-- Thumbnails Showcase -->
     <section id="thumbnails">
       <h2>Thumbnail Design</h2>
       <div class="carousel-container">
@@ -345,7 +368,6 @@
     /* --- Core Interactions --- */
     let isProgrammaticScroll = false;
 
-    // Mobile zoom block
     document.addEventListener('touchstart', (e) => { if (e.touches.length > 1) e.preventDefault(); }, { passive: false });
     let lastTapTimestamp = 0;
     document.addEventListener('touchend', (e) => {
@@ -354,7 +376,6 @@
       lastTapTimestamp = currentTimestamp;
     }, { passive: false });
 
-    // High Speed SpeedRamp Scroll
     function speedRampScroll(targetId) {
       const targetElement = document.getElementById(targetId);
       if (!targetElement) return;
@@ -384,7 +405,6 @@
       requestAnimationFrame(scrollStep);
     }
 
-    // Top Bar Hover tracking and click activation
     const navSpy = document.getElementById('nav-spy');
     const pill = document.getElementById('nav-pill');
     const navLinksArr = [...navSpy.querySelectorAll('a')];
@@ -450,7 +470,6 @@
       }
     });
 
-    // Branding text anims
     const brandEl = document.getElementById("brand");
     [..."JAYDEEP"].forEach((ch, i) => {
       const span = document.createElement("span");
@@ -482,7 +501,7 @@
       document.getElementById('bp-desc').innerText = bpData[index].desc;
     }
 
-    /* --- Infinite Loop Slider --- */
+    /* --- Speed-Ramped Infinite Slider --- */
     document.querySelectorAll('.carousel-container').forEach(container => {
       const wrapper = container.querySelector('.carousel-wrapper');
       const track = container.querySelector('.carousel-track');
@@ -490,7 +509,6 @@
       const originalCount = originalItems.length;
       const dotsNav = container.querySelector('.carousel-dots');
       
-      // Clone for infinite wrap
       originalItems.forEach(item => {
         track.insertBefore(item.cloneNode(true), track.firstChild);
         track.appendChild(item.cloneNode(true));
@@ -499,7 +517,7 @@
       let allItems = [...track.children];
       let itemWidth = originalItems[0].offsetWidth + 28;
       let isDragging = false, startX = 0, currentTranslate = 0, prevTranslate = 0, currentIndex = originalCount;
-      let velocity = 0, lastX = 0, lastTime = 0, rafId = null;
+      let velocity = 0, lastX = 0, lastTime = 0;
 
       originalItems.forEach((_, i) => {
         const dot = document.createElement('span');
@@ -523,7 +541,6 @@
         lastX = startX;
         lastTime = performance.now();
         velocity = 0;
-        if(rafId) cancelAnimationFrame(rafId);
         track.style.transition = 'none';
         checkBoundsAndTeleport();
       }
@@ -536,24 +553,23 @@
         if (now - lastTime > 0) velocity = (currentX - lastX) / (now - lastTime);
         lastX = currentX;
         lastTime = now;
-        setTrackPosition();
+        track.style.transform = `translateX(${currentTranslate}px)`; 
+        updateActiveStates();
       }
 
-      function dragEnd() {
+      function dragEnd(e) {
         if (!isDragging) return;
         isDragging = false;
-        prevTranslate = currentTranslate;
-        runInertiaDeceleration();
-      }
-
-      function runInertiaDeceleration() {
-        if (Math.abs(velocity) > 0.02) {
-          currentTranslate += velocity * 42; 
-          velocity *= 0.94; 
-          setTrackPosition();
-          rafId = requestAnimationFrame(runInertiaDeceleration);
+        
+        const dragDistance = startX - lastX; 
+        
+        // Speedramp slide logic
+        if (dragDistance > 60 || velocity < -0.3) {
+            snapToSlide(currentIndex + 1);
+        } else if (dragDistance < -60 || velocity > 0.3) {
+            snapToSlide(currentIndex - 1);
         } else {
-          snapToClosest();
+            snapToClosest();
         }
       }
 
@@ -561,7 +577,7 @@
         if (currentTranslate > -itemWidth) currentTranslate -= originalCount * itemWidth;
         else if (currentTranslate < -((originalCount * 2) * itemWidth)) currentTranslate += originalCount * itemWidth;
         prevTranslate = currentTranslate;
-        setTrackPosition();
+        track.style.transform = `translateX(${currentTranslate}px)`; 
       }
 
       function snapToClosest() {
@@ -577,11 +593,6 @@
 
       function getPositionX(e) { return e.type.includes('mouse') ? e.clientX : e.touches[0].clientX; }
       
-      function setTrackPosition() { 
-        track.style.transform = `translateX(${currentTranslate}px)`; 
-        updateActiveStates(); 
-      }
-
       function updateActiveStates() {
         const wrapperCenter = wrapper.offsetWidth / 2;
         allItems.forEach((item, idx) => {
@@ -603,20 +614,45 @@
         currentIndex = idx;
         const targetItem = allItems[currentIndex];
         if (!targetItem) return;
+        
         currentTranslate = -(targetItem.offsetLeft - (wrapper.offsetWidth / 2) + (targetItem.offsetWidth / 2));
         prevTranslate = currentTranslate;
-        track.style.transition = 'transform 0.4s cubic-bezier(0.1, 0.8, 0.2, 1)';
+        
+        // The smooth CSS Speedramp curve
+        track.style.transition = 'transform 0.4s cubic-bezier(0.2, 1, 0.3, 1)';
         track.style.transform = `translateX(${currentTranslate}px)`;
         updateActiveStates();
       }
 
-      // Standard Auto Slider Loop
-      setInterval(() => {
+      let autoPlayInterval = setInterval(() => {
         if (!isDragging) {
           checkBoundsAndTeleport();
           setTimeout(() => snapToSlide(currentIndex + 1), 30);
         }
       }, 4000);
+
+      // --- Video Shield & Auto-play Disabler ---
+      const shields = container.querySelectorAll('.video-shield');
+      shields.forEach(shield => {
+         let tapStartX = 0, tapStartY = 0;
+         
+         shield.addEventListener('mousedown', e => { tapStartX = e.clientX; tapStartY = e.clientY; });
+         shield.addEventListener('touchstart', e => { tapStartX = e.touches[0].clientX; tapStartY = e.touches[0].clientY; }, {passive: true});
+
+         function checkClick(e, clientX, clientY) {
+            if (Math.abs(clientX - tapStartX) < 10 && Math.abs(clientY - tapStartY) < 10) {
+                const iframe = shield.nextElementSibling;
+                if(iframe) {
+                   iframe.src += "&autoplay=1";
+                   shield.style.pointerEvents = "none";
+                   clearInterval(autoPlayInterval); // PERMANENTLY stops auto-sliding!
+                }
+            }
+         }
+
+         shield.addEventListener('mouseup', e => checkClick(e, e.clientX, e.clientY));
+         shield.addEventListener('touchend', e => checkClick(e, e.changedTouches[0].clientX, e.changedTouches[0].clientY));
+      });
 
       window.addEventListener('resize', () => { 
         itemWidth = originalItems[0].offsetWidth + 28; 
