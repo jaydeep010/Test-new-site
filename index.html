@@ -53,6 +53,7 @@
       border-radius: 40px;
       box-shadow: 0 20px 50px rgba(0,0,0,0.7);
       position: relative;
+      touch-action: none; /* Prevents default scroll when dragging on nav */
     }
     nav a {
       color: var(--text-muted);
@@ -175,13 +176,21 @@
       border-radius: 6px;
       overflow: hidden;
     }
+    
+    /* INFINITE WATER SHIMMER EFFECT */
     .bar>i {
       display: block;
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #334155, #cbd5e1);
+      background: linear-gradient(90deg, #334155, #94a3b8, #cbd5e1, #94a3b8, #334155);
+      background-size: 300% 100%;
       border-radius: 6px;
       transition: width 1.2s cubic-bezier(0.1, 0.8, 0.2, 1);
+      animation: waterFlow 2s linear infinite;
+    }
+    @keyframes waterFlow {
+      0% { background-position: 100% 0; }
+      100% { background-position: -50% 0; }
     }
 
     /* Workflow Blueprint */
@@ -331,7 +340,7 @@
     section { padding: 100px 0; width: 100%; max-width: 100vw; overflow: hidden; }
     section h2 { text-align: center; color: #fff; font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 35px; }
 
-    /* HIGH INTENSITY SMOOTH DRAG SYSTEM WITH FULL BOUNDING ZONE OVERLAYS */
+    /* HIGH INTENSITY SMOOTH DRAG SYSTEM */
     .carousel-container { 
       position: relative; 
       width: 100%; 
@@ -365,28 +374,25 @@
       position: relative; border-radius: 16px; overflow: hidden; background: #000;
     }
     .carousel-item.active { transform: scale(1); opacity: 1; filter: blur(0px); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6); }
-   
+    
+    /* Uncropped Video Wrappers */
+    .yt-wrapper-mask {
+      position: relative;
+      width: 100%;
+      height: 370px;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+    
     .carousel-item iframe, .carousel-item img, .yt-player { 
       width: 100%; 
-      height: 465px; 
+      height: 370px; 
       border: none; 
       object-fit: cover; 
       display: block; 
       pointer-events: none; 
     }
     
-    .carousel-item img {
-      height: 370px;
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-    #thumbnails .yt-wrapper-mask {
-      clip-path: none;
-      margin-top: 0;
-      margin-bottom: 0;
-      height: 370px;
-    }
-
     .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 25px; }
     .dot { height: 3px; width: 16px; background: rgba(255, 255, 255, 0.08); border-radius: 1px; cursor: pointer; }
     .dot.active { background: #fff; transition: background 0.3s ease; }
@@ -400,21 +406,20 @@
     .btn-prime:hover { background: #e2e8f0; box-shadow: 0 10px 30px rgba(255,255,255,0.05); }
     .btn-secondary:hover { background: rgba(255, 255, 255, 0.04); color: #fff; border-color: rgba(255, 255, 255, 0.12); }
 
+    /* Responsive Adjustments (Maintained aspect scaling) */
     @media(max-width: 900px) {
       .brand { font-size: 4rem; }
       .carousel-item { width: 480px; }
-      .yt-wrapper-mask { height: 270px; clip-path: inset(40px 0px 45px 0px round 0px); margin-top: -40px; margin-bottom: -45px; }
-      .carousel-item iframe, .yt-player { height: 355px; }
+      .yt-wrapper-mask { height: 270px; }
+      .carousel-item iframe, .yt-player { height: 270px; }
       .carousel-item img { height: 270px; }
-      #thumbnails .yt-wrapper-mask { height: 270px; clip-path: none; margin-top:0; margin-bottom:0; }
     }
     @media(max-width: 600px) {
       .brand { font-size: 3.2rem; }
       .carousel-item { width: 290px; margin: 0 6px; }
-      .yt-wrapper-mask { height: 175px; clip-path: inset(30px 0px 35px 0px round 0px); margin-top: -30px; margin-bottom: -35px; }
-      .carousel-item iframe, .yt-player { height: 240px; }
+      .yt-wrapper-mask { height: 175px; }
+      .carousel-item iframe, .yt-player { height: 175px; }
       .carousel-item img { height: 175px; }
-      #thumbnails .yt-wrapper-mask { height: 175px; clip-path: none; margin-top:0; margin-bottom:0; }
       .blueprint-tabs { flex-direction: column; gap: 4px; }
     }
   </style>
@@ -475,7 +480,7 @@
             <div class="flow-node"></div>
           </div>
         </div>
-        <button class="bp-cta" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+        <button class="bp-cta" onclick="speedRampScroll('contact')">
           Let's discuss your next project <span>→</span>
         </button>
       </div>
@@ -572,7 +577,7 @@
   <script>
     const ytPlayers = {};
     window.activeVideoPlayer = null;
-    let isVideoPlayingGlobal = false; // System lock state monitor
+    let isVideoPlayingGlobal = false;
 
     function onYouTubeIframeAPIReady() {
       document.querySelectorAll('.yt-player').forEach((el, index) => {
@@ -602,7 +607,6 @@
               }
             },
             'onStateChange': (e) => {
-              // Lock auto carousels if video transitions into a playing state
               if (e.data === YT.PlayerState.PLAYING) {
                 isVideoPlayingGlobal = true;
               } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
@@ -645,7 +649,7 @@
       });
     })();
 
-    // Initialize Skill Bars via IntersectionObserver (fast expansion on scroll)
+    // Initialize Skill Bars
     const observeSkills = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -681,12 +685,13 @@
     }
 
     /* --- HIGH-PERFORMANCE VELOCITY SWIPE & SEAMLESS INFINITE TRACK ENGINE --- */
+    let globalIsDragging = false; // exported drag state to disable auto-nav highlighting while using carousel
+    
     document.querySelectorAll('.carousel-container').forEach(container => {
       const wrapper = container.querySelector('.carousel-wrapper');
       const overlay = container.querySelector('.drag-overlay');
       const track = container.querySelector('.carousel-track');
       
-      // Infinite Loop Setup: Clone items to populate boundaries smoothly
       const originalItems = [...track.children];
       originalItems.forEach(item => {
         const cloneBefore = item.cloneNode(true);
@@ -700,10 +705,9 @@
       const totalOriginals = originalItems.length;
       
       let isDragging = false, startX = 0, currentTranslate = 0, prevTranslate = 0;
-      let currentIndex = totalOriginals; // Set default position to start on original track center
+      let currentIndex = totalOriginals;
       let velocity = 0, lastX = 0, lastTime = 0, rafId = null;
 
-      // Map interactive pagination dots
       originalItems.forEach((_, i) => {
         const dot = document.createElement('span');
         dot.classList.add('dot');
@@ -722,13 +726,13 @@
 
       function dragStart(e) {
         isDragging = true;
+        globalIsDragging = true;
         startX = getPositionX(e);
         lastX = startX;
         lastTime = performance.now();
         velocity = 0;
         if(rafId) cancelAnimationFrame(rafId);
         
-        // Boundaries safety-wrap check before starting new interactions
         checkInfiniteBoundaries();
         track.style.transition = 'none';
         wrapper.style.cursor = 'grabbing';
@@ -754,6 +758,7 @@
       function dragEnd() {
         if (!isDragging) return;
         isDragging = false;
+        setTimeout(() => { globalIsDragging = false; }, 50);
         wrapper.style.cursor = 'grab';
         
         prevTranslate = currentTranslate;
@@ -875,16 +880,11 @@
         }
       }
 
-      // Auto-sliding layout process loop
       setInterval(() => {
-        // If system detects media playback engine lock status, abort slide intervals completely
         if (container.parentNode.id === 'videos' && isVideoPlayingGlobal) return;
-        
         if (!isDragging) {
           checkInfiniteBoundaries();
-          setTimeout(() => {
-            snapToSlide(currentIndex + 1);
-          }, 30);
+          setTimeout(() => snapToSlide(currentIndex + 1), 30);
         }
       }, 4000);
 
@@ -892,26 +892,100 @@
       setTimeout(() => snapToSlide(totalOriginals), 500);
     });
 
-    /* --- SPEEDRAMP SPEED INDICATOR ENGINE FOR NAV BAR --- */
+
+    /* --- CUSTOM SPEEDRAMP SCROLL ANIMATION SYSTEM --- */
+    function speedRampScroll(targetId) {
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      
+      const targetY = target.getBoundingClientRect().top + window.scrollY - 100;
+      const startY = window.scrollY;
+      const distance = targetY - startY;
+      const duration = 500; // Ultra-fast 500ms duration
+      let start = null;
+
+      function step(timestamp) {
+        if (!start) start = timestamp;
+        const progress = timestamp - start;
+        let timeFrac = progress / duration;
+        if (timeFrac > 1) timeFrac = 1;
+
+        // Custom easeInOutQuart for aggressive speedramp profile
+        let ease = timeFrac < 0.5 ? 8 * timeFrac * timeFrac * timeFrac * timeFrac : 1 - Math.pow(-2 * timeFrac + 2, 4) / 2;
+
+        window.scrollTo(0, startY + (distance * ease));
+        if (progress < duration) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    /* --- IOS GLASS SWIPE NAVIGATION ENGINE --- */
     const indicator = document.getElementById('nav-indicator');
-    const navLinks = document.querySelectorAll('#nav-spy a');
+    const navSpy = document.getElementById('nav-spy');
+    const navLinksArr = Array.from(document.querySelectorAll('#nav-spy a'));
     
     function moveIndicator(element) {
+      if(!element) return;
       indicator.style.width = `${element.offsetWidth}px`;
       indicator.style.left = `${element.offsetLeft}px`;
     }
 
-    navLinks.forEach(link => {
+    // Attach click for desktop
+    navLinksArr.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        speedRampScroll(targetId);
+        navLinksArr.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        moveIndicator(link);
+      });
       link.addEventListener('mouseenter', (e) => moveIndicator(e.target));
     });
 
-    document.getElementById('nav-spy').addEventListener('mouseleave', () => {
+    // Handle hover snapping back on desktop
+    navSpy.addEventListener('mouseleave', () => {
       const activeLink = document.querySelector('#nav-spy a.active');
       if (activeLink) moveIndicator(activeLink);
     });
 
-    // Scrollspy Implementation
-    const links = document.querySelectorAll('#nav-spy a');
+    // Touch Swipe Logic (iOS glass hover tracking)
+    let currentTouchLink = null;
+    navSpy.addEventListener('touchmove', (e) => {
+      e.preventDefault(); // Lock page scrolling while wiping over the nav
+      const touch = e.touches[0];
+      const el = document.elementFromPoint(touch.clientX, touch.clientY);
+      
+      if (el && el.tagName === 'A' && el.parentElement === navSpy) {
+        if (currentTouchLink !== el) {
+          currentTouchLink = el;
+          moveIndicator(el);
+        }
+      }
+    }, { passive: false });
+
+    navSpy.addEventListener('touchend', (e) => {
+      let targetEl = currentTouchLink;
+      
+      // Fallback if they just tapped directly without moving
+      if (!targetEl) {
+        const touch = e.changedTouches[0];
+        const el = document.elementFromPoint(touch.clientX, touch.clientY);
+        if (el && el.tagName === 'A' && el.parentElement === navSpy) targetEl = el;
+      }
+
+      if (targetEl) {
+        const targetId = targetEl.getAttribute('href').substring(1);
+        speedRampScroll(targetId);
+        
+        navLinksArr.forEach(l => l.classList.remove('active'));
+        targetEl.classList.add('active');
+        moveIndicator(targetEl);
+      }
+      currentTouchLink = null;
+    });
+
+    // Scrollspy Implementer
     const targetSections = document.querySelectorAll('main > div, section, footer');
     window.addEventListener('scroll', () => {
       let activeId = 'home';
@@ -923,16 +997,16 @@
           activeId = sec.getAttribute('id');
         }
       });
-      links.forEach(l => {
+      
+      navLinksArr.forEach(l => {
         const isActive = l.getAttribute('href') === `#${activeId}`;
         l.classList.toggle('active', isActive);
-        if (isActive && !isDragging) {
+        if (isActive && !globalIsDragging && !currentTouchLink) {
           moveIndicator(l);
         }
       });
     });
 
-    // Initialize position configuration setup on base links
     window.addEventListener('load', () => {
       const activeLink = document.querySelector('#nav-spy a.active');
       if (activeLink) moveIndicator(activeLink);
