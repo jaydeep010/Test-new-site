@@ -2,18 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>JAYDEEP | Professional Video Editor & Designer</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
 
-    /* Reset & Deep Luxury Dark System */
-    * { margin:0; padding:0; box-sizing:border-box; }
+    /* Global Site-Wide Touch & Core Reset */
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+      scroll-behavior: auto;
+      background: #07070a;
+    }
+
     :root {
       --bg: #07070a;
       --panel-bg: rgba(15, 15, 23, 0.65);
       --accent: #94a3b8;
-      --accent-glow: rgba(148, 163, 184, 0.08);
       --text-main: #f8fafc;
       --text-muted: #64748b;
       --border-glass: rgba(255, 255, 255, 0.04);
@@ -21,18 +34,16 @@
     
     body {
       font-family: 'Inter', sans-serif;
-      background: var(--bg);
       background-image: 
         radial-gradient(circle at 50% 0%, rgba(30, 41, 59, 0.15) 0%, transparent 60%),
         radial-gradient(circle at 0% 100%, rgba(15, 23, 42, 0.2) 0%, transparent 50%);
       background-attachment: fixed;
       color: var(--text-main);
-      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
     a { text-decoration: none; color: inherit; }
 
-    /* Fixed Header Navigation */
+    /* Fast Action Header Navigation */
     header {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -45,354 +56,138 @@
     nav { 
       display: flex; 
       gap: 4px; 
-      background: rgba(10, 10, 14, 0.5);
+      background: rgba(15, 15, 25, 0.4);
       border: 1px solid var(--border-glass);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
       padding: 5px;
       border-radius: 40px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05);
       position: relative;
-      touch-action: none; /* Prevents default scroll when dragging on nav */
     }
     nav a {
+      position: relative;
       color: var(--text-muted);
       font-weight: 500;
       font-size: 0.85rem;
       padding: 8px 20px;
       border-radius: 30px;
-      transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
+      transition: color 0.15s ease;
+      user-select: none;
+      -webkit-user-select: none;
       z-index: 2;
     }
-    nav a:hover, nav a.active { 
-      color: #fff; 
-    }
+    nav a.active { color: #fff; }
     
-    /* Top Bar Speedramp Slider Indicator */
-    .nav-indicator {
+    /* Ultra-Fast Reactive Sliding Pill */
+    .nav-dynamic-glow {
       position: absolute;
-      top: 5px;
-      left: 5px;
+      top: 5px; left: 5px;
       height: calc(100% - 10px);
-      background: rgba(255, 255, 255, 0.07);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.1);
       border-radius: 30px;
       z-index: 1;
       pointer-events: none;
-      transition: all 0.4s cubic-bezier(0.25, 1, 0.2, 1);
+      transition: all 0.15s cubic-bezier(0.2, 1, 0.2, 1);
     }
 
-    /* Landing Hero Wrapper */
+    /* Landing Core Elements */
     .landing {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 160px 24px 80px;
-      text-align: center;
+      min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 140px 24px 60px; text-align: center;
     }
     
-    .pre-title {
-      font-size: 0.75rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 10px;
-      color: var(--text-muted);
-      margin-bottom: 14px;
-      opacity: 0;
-      animation: fadeUp 1s ease forwards;
-    }
+    .pre-title { font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 6px; color: var(--text-muted); margin-bottom: 14px; opacity: 0; animation: fadeUp 1s ease forwards; }
 
-    .brand-wrapper {
-      margin-bottom: 8px;
-    }
-    .brand {
-      font-weight: 900;
-      font-size: 6rem;
-      letter-spacing: -4px;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      line-height: 1;
-    }
-    .brand span {
-      display: inline-block;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: revealLetter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    .brand span:nth-child(n+4) {
-      color: var(--accent);
-    }
-    @keyframes revealLetter {
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .brand { font-weight: 900; font-size: 6rem; letter-spacing: -4px; color: #fff; display: flex; justify-content: center; line-height: 1; }
+    .brand span { display: inline-block; opacity: 0; transform: translateY(20px); animation: revealLetter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .brand span:nth-child(n+4) { color: var(--accent); }
+    @keyframes revealLetter { to { opacity: 1; transform: translateY(0); } }
 
-    .subtitle {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 6px;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-    .subtitle span {
-      display: inline-block;
-      opacity: 0;
-      animation: fadeUp 0.6s ease forwards;
-    }
+    .subtitle { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 4px; display: flex; justify-content: center; margin-top: 16px; }
+    .subtitle span { display: inline-block; opacity: 0; animation: fadeUp 0.6s ease forwards; }
     @keyframes fadeUp { to { opacity: 1; } }
 
-    /* Skills Panel Layout */
-    .skills { 
-      width: min(660px, 100%); 
-      margin-top: 55px; 
-      background: var(--panel-bg);
-      border: 1px solid var(--border-glass);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      padding: 28px;
-      border-radius: 20px;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.5);
-    }
+    /* Instant-Trigger Mobile Skill Progress Blocks */
+    .skills { width: min(660px, 100%); margin-top: 55px; background: var(--panel-bg); border: 1px solid var(--border-glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 28px; border-radius: 20px; box-shadow: 0 40px 80px rgba(0,0,0,0.5); }
     .skill { margin-bottom: 16px; }
     .skill:last-child { margin-bottom: 0; }
-    .skill .title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-      font-weight: 500;
-      font-size: 0.9rem;
-    }
+    .skill .title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; }
     .skill .title span:last-child { color: #fff; font-weight: 600; }
-    .bar {
-      height: 4px;
-      background: rgba(255, 255, 255, 0.02);
-      border-radius: 6px;
-      overflow: hidden;
-    }
-    
-    /* INFINITE WATER SHIMMER EFFECT */
-    .bar>i {
-      display: block;
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #334155, #94a3b8, #cbd5e1, #94a3b8, #334155);
-      background-size: 300% 100%;
-      border-radius: 6px;
-      transition: width 1.2s cubic-bezier(0.1, 0.8, 0.2, 1);
-      animation: waterFlow 2s linear infinite;
-    }
-    @keyframes waterFlow {
-      0% { background-position: 100% 0; }
-      100% { background-position: -50% 0; }
-    }
+    .bar { height: 6px; background: rgba(255, 255, 255, 0.02); border-radius: 6px; overflow: hidden; }
+    .bar > i { display: block; height: 100%; background: linear-gradient(90deg, #1e293b 0%, #94a3b8 50%, #f8fafc 100%); background-size: 200% 100%; border-radius: 6px; position: relative; overflow: hidden; width: 0; }
 
-    /* Workflow Blueprint */
-    .mid-blueprint-zone {
-      width: min(660px, 100%);
-      margin-top: 24px;
-      background: linear-gradient(180deg, rgba(20,25,35,0.2) 0%, rgba(10,10,14,0.4) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      border-radius: 20px;
-      padding: 24px;
-      text-align: left;
-    }
-    .blueprint-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
+    /* Keyframes for flawless load and infinite water pulse */
+    .skill:nth-child(1) .bar > i { animation: fillProg1 1.2s cubic-bezier(0.1, 0.8, 0.2, 1) forwards; }
+    .skill:nth-child(2) .bar > i { animation: fillProg2 1.2s cubic-bezier(0.1, 0.8, 0.2, 1) forwards; }
+    .skill:nth-child(3) .bar > i { animation: fillProg3 1.2s cubic-bezier(0.1, 0.8, 0.2, 1) forwards; }
+
+    @keyframes fillProg1 { to { width: 90%; } }
+    @keyframes fillProg2 { to { width: 95%; } }
+    @keyframes fillProg3 { to { width: 80%; } }
+
+    .bar > i::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%); animation: waterFlow 1.5s infinite linear; }
+    @keyframes waterFlow { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+    /* Production Strategy Panel */
+    .mid-blueprint-zone { width: min(660px, 100%); margin-top: 24px; background: linear-gradient(180deg, rgba(20,25,35,0.2) 0%, rgba(10,10,14,0.4) 100%); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 20px; padding: 24px; text-align: left; }
+    .blueprint-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
     .blueprint-header h4 { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 600; }
     
     .blueprint-tabs { display: flex; gap: 6px; }
-    .b-tab {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--border-glass);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      cursor: pointer;
-      color: var(--text-muted);
-      transition: all 0.25s ease;
-    }
-    .b-tab.active {
-      background: #f1f5f9;
-      color: #0f172a;
-      border-color: #f1f5f9;
-      font-weight: 600;
-    }
+    .b-tab { background: rgba(255,255,255,0.02); border: 1px solid var(--border-glass); padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 500; cursor: pointer; color: var(--text-muted); transition: all 0.2s ease; }
+    .b-tab.active { background: #f1f5f9; color: #0f172a; border-color: #f1f5f9; font-weight: 600; }
 
-    .blueprint-body {
-      background: rgba(0,0,0,0.15);
-      border-radius: 12px;
-      padding: 20px;
-      min-height: 105px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      border: 1px solid rgba(255,255,255,0.01);
-    }
+    .blueprint-body { background: rgba(0,0,0,0.15); border-radius: 12px; padding: 20px; min-height: 105px; display: flex; flex-direction: column; justify-content: center; }
     .bp-title { font-size: 1rem; font-weight: 600; margin-bottom: 6px; color: #fff; }
-    .bp-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px; }
-    
-    .flow-line { display: flex; gap: 6px; align-items: center; }
-    .flow-node { height: 2px; flex: 1; background: rgba(255,255,255,0.06); border-radius: 1px; position: relative; overflow: hidden; }
-    .flow-node::after {
-      content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 100%;
-      background: #fff;
-      transform: scaleX(0); transform-origin: left;
-    }
-    .mid-blueprint-zone:hover .flow-node::after {
-      transform: scaleX(1);
-      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .mid-blueprint-zone:hover .flow-node:nth-child(2)::after { transition-delay: 0.15s; }
-    .mid-blueprint-zone:hover .flow-node:nth-child(3)::after { transition-delay: 0.3s; }
+    .bp-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
 
-    .bp-cta {
-      margin-top: 16px;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255,255,255,0.05);
-      padding: 14px;
-      border-radius: 12px;
-      color: #fff;
-      font-weight: 600;
-      font-size: 0.85rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: all 0.3s;
-    }
-    .bp-cta:hover {
-      background: #fff;
-      color: #000;
-      box-shadow: 0 10px 30px rgba(255,255,255,0.05);
-    }
+    /* Infinite Ribbon Ticker */
+    .ticker-section { background: #050507; padding: 35px 0; border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass); width: 100vw; position: relative; }
+    .ticker-title { text-align: center; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 4px; color: var(--text-muted); margin-bottom: 20px; font-weight: 600; }
+    .ticker-container { display: flex; overflow: hidden; user-select: none; gap: 40px; mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent); }
+    .ticker-track { display: flex; flex-shrink: 0; gap: 40px; align-items: center; animation: scrollTicker 25s linear infinite; }
+    .partner-avatar { width: 52px; height: 52px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.1); object-fit: cover; background:#111; }
+    @keyframes scrollTicker { from { transform: translateX(0); } to { transform: translateX(calc(-100% - 40px)); } }
 
-    /* --- MINIMALIST CHANNELS INFINITE TICKER --- */
-    .ticker-section {
-      background: #050507;
-      padding: 35px 0;
-      border-top: 1px solid var(--border-glass);
-      border-bottom: 1px solid var(--border-glass);
-      width: 100vw;
-      position: relative;
-    }
-    .ticker-title {
-      text-align: center;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      color: var(--text-muted);
-      margin-bottom: 20px;
-      font-weight: 600;
-    }
-    .ticker-container {
-      display: flex;
-      overflow: hidden;
-      user-select: none;
-      gap: 40px;
-      mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
-      -webkit-mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
-    }
-    .ticker-track {
-      display: flex;
-      flex-shrink: 0;
-      gap: 40px;
-      align-items: center;
-      animation: scrollTicker 25s linear infinite;
-    }
-    .partner-link {
-      display: block;
-      transition: transform 0.25s ease, filter 0.25s ease;
-      filter: grayscale(20%) opacity(0.8);
-    }
-    .partner-link:hover {
-      transform: scale(1.1);
-      filter: grayscale(0%) opacity(1);
-    }
-    .partner-avatar {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      object-fit: cover;
-      background: #111;
-      display: block;
-    }
-    @keyframes scrollTicker {
-      from { transform: translateX(0); }
-      to { transform: translateX(calc(-100% - 40px)); }
-    }
-
-    /* Showcase Layouts */
+    /* Showcase Sections */
     section { padding: 100px 0; width: 100%; max-width: 100vw; overflow: hidden; }
     section h2 { text-align: center; color: #fff; font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 35px; }
 
-    /* HIGH INTENSITY SMOOTH DRAG SYSTEM */
-    .carousel-container { 
-      position: relative; 
-      width: 100%; 
-      touch-action: pan-y;
-    }
-    .carousel-wrapper { 
-      width: 100%; 
-      overflow: hidden; 
-      padding: 15px 0; 
-      cursor: grab;
-      position: relative;
-    }
+    /* Carousel Structure */
+    .carousel-container { position: relative; width: 100%; }
+    .carousel-wrapper { width: 100%; overflow: hidden; padding: 15px 0; position: relative; cursor: grab; }
     .carousel-wrapper:active { cursor: grabbing; }
-    
-    .drag-overlay {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 5;
-    }
-    
-    .carousel-track { 
-      display: flex; 
-      will-change: transform; 
-      user-select: none;
-    }
+    .carousel-track { display: flex; will-change: transform; user-select: none; }
     
     .carousel-item {
       width: 660px; max-width: 80vw; flex-shrink: 0; margin: 0 14px;
-      transform: scale(0.93); opacity: 0.2; filter: blur(4px);
-      transition: transform 0.45s cubic-bezier(0.2, 0.85, 0.25, 1), opacity 0.45s, filter 0.45s;
+      transform: scale(0.95); opacity: 0.3; filter: blur(2px);
+      transition: transform 0.4s cubic-bezier(0.1, 0.8, 0.2, 1), opacity 0.4s, filter 0.4s;
       position: relative; border-radius: 16px; overflow: hidden; background: #000;
     }
-    .carousel-item.active { transform: scale(1); opacity: 1; filter: blur(0px); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6); }
     
-    /* Uncropped Video Wrappers */
-    .yt-wrapper-mask {
-      position: relative;
-      width: 100%;
-      height: 370px;
-      overflow: hidden;
-      border-radius: 16px;
+    .carousel-item.active { transform: scale(1); opacity: 1; filter: blur(0px); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6); z-index: 5;}
+    
+    .video-container-box { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 16px; overflow: hidden; cursor: pointer;}
+    
+    /* High Performance Facade Elements */
+    .facade-img { width: 100%; height: 100%; object-fit: cover; display: block; border: none; pointer-events: none; transition: opacity 0.3s; }
+    .video-container-box iframe { width: 100%; height: 100%; border: none; }
+    
+    .play-btn {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 65px; height: 65px; background: rgba(0,0,0,0.6); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid rgba(255,255,255,0.8); transition: transform 0.2s, background 0.2s;
+      pointer-events: none;
     }
-    
-    .carousel-item iframe, .carousel-item img, .yt-player { 
-      width: 100%; 
-      height: 370px; 
-      border: none; 
-      object-fit: cover; 
-      display: block; 
-      pointer-events: none; 
+    .play-btn::after {
+      content: ''; border-top: 12px solid transparent; border-bottom: 12px solid transparent; border-left: 18px solid white; margin-left: 6px;
     }
-    
+    .video-container-box:hover .play-btn { transform: translate(-50%, -50%) scale(1.1); background: var(--accent); border-color: transparent;}
+
     .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 25px; }
     .dot { height: 3px; width: 16px; background: rgba(255, 255, 255, 0.08); border-radius: 1px; cursor: pointer; }
     .dot.active { background: #fff; transition: background 0.3s ease; }
@@ -403,24 +198,15 @@
     .contact-container { display: flex; justify-content: center; gap: 14px; margin-top: 30px; flex-wrap: wrap; }
     .contact-btn { display: inline-flex; align-items: center; padding: 14px 28px; border-radius: 40px; font-weight: 600; font-size: 0.85rem; transition: all 0.25s; border: 1px solid var(--border-glass); background: rgba(255, 255, 255, 0.01); }
     .btn-prime { background: #fff; color: #000; border-color: #fff; }
-    .btn-prime:hover { background: #e2e8f0; box-shadow: 0 10px 30px rgba(255,255,255,0.05); }
+    .btn-prime:hover { background: #e2e8f0; color: #000;}
     .btn-secondary:hover { background: rgba(255, 255, 255, 0.04); color: #fff; border-color: rgba(255, 255, 255, 0.12); }
 
-    /* Responsive Adjustments (Maintained aspect scaling) */
-    @media(max-width: 900px) {
-      .brand { font-size: 4rem; }
-      .carousel-item { width: 480px; }
-      .yt-wrapper-mask { height: 270px; }
-      .carousel-item iframe, .yt-player { height: 270px; }
-      .carousel-item img { height: 270px; }
-    }
+    @media(max-width: 900px) { .brand { font-size: 4rem; } .carousel-item { width: 480px; } }
     @media(max-width: 600px) {
       .brand { font-size: 3.2rem; }
-      .carousel-item { width: 290px; margin: 0 6px; }
-      .yt-wrapper-mask { height: 175px; }
-      .carousel-item iframe, .yt-player { height: 175px; }
-      .carousel-item img { height: 175px; }
-      .blueprint-tabs { flex-direction: column; gap: 4px; }
+      .carousel-item { width: 310px; margin: 0 8px; }
+      .pre-title { font-size: 0.58rem; letter-spacing: 4px; }
+      .subtitle { font-size: 0.6rem; letter-spacing: 2.5px; }
     }
   </style>
 </head>
@@ -428,7 +214,7 @@
 
   <header>
     <nav id="nav-spy">
-      <div class="nav-indicator" id="nav-indicator"></div>
+      <div class="nav-dynamic-glow" id="nav-pill"></div>
       <a href="#home" class="active">Home</a>
       <a href="#videos">Videos</a>
       <a href="#thumbnails">Thumbnails</a>
@@ -437,31 +223,26 @@
   </header>
 
   <main>
-    <!-- Landing Shell Frame -->
     <div class="landing" id="home">
       <div class="pre-title">a professional editor</div>
-      <div class="brand-wrapper">
-        <div class="brand" id="brand"></div>
-      </div>
+      <div class="brand-wrapper"><div class="brand" id="brand"></div></div>
       <div class="subtitle" id="subtitle"></div>
 
-      <!-- Skills Section -->
       <div class="skills" id="skills">
         <div class="skill">
           <div class="title"><span>Video Editing & Retention Strategy</span><span>90%</span></div>
-          <div class="bar"><i data-target="90%"></i></div>
+          <div class="bar"><i></i></div>
         </div>
         <div class="skill">
           <div class="title"><span>Thumbnail Design & Spatial Contrast</span><span>95%</span></div>
-          <div class="bar"><i data-target="95%"></i></div>
+          <div class="bar"><i></i></div>
         </div>
         <div class="skill">
           <div class="title"><span>Motion Graphics & Custom FX Sequences</span><span>80%</span></div>
-          <div class="bar"><i data-target="80%"></i></div>
+          <div class="bar"><i></i></div>
         </div>
       </div>
 
-      <!-- Workflow Block -->
       <div class="mid-blueprint-zone">
         <div class="blueprint-header">
           <h4>Production Blueprint</h4>
@@ -474,87 +255,72 @@
         <div class="blueprint-body">
           <div class="bp-title" id="bp-title">Hook & Retention Strategy</div>
           <div class="bp-desc" id="bp-desc">Cutting the boring bits in the first 30 seconds to lock people in, using smart sound effects and fast cuts to keep viewers from clicking away.</div>
-          <div class="flow-line">
-            <div class="flow-node"></div>
-            <div class="flow-node"></div>
-            <div class="flow-node"></div>
-          </div>
         </div>
-        <button class="bp-cta" onclick="speedRampScroll('contact')">
-          Let's discuss your next project <span>→</span>
-        </button>
       </div>
     </div>
 
-    <!-- CLEAN HIGH-END TRUSTED TICKER TRACK -->
     <div class="ticker-section">
       <div class="ticker-title">Trusted By Creators</div>
       <div class="ticker-container">
-        <!-- Track 1 -->
         <div class="ticker-track">
-          <a class="partner-link" href="https://www.youtube.com/@TheVideoNerd" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/TheVideoNerd" alt="TheVideoNerd"></a>
-          <a class="partner-link" href="https://www.youtube.com/@caitlinerinoneill" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/caitlinerinoneill" alt="caitlinerinoneill"></a>
-          <a class="partner-link" href="https://www.youtube.com/@SuzieTaylor" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/SuzieTaylor" alt="SuzieTaylor"></a>
-          <a class="partner-link" href="https://www.youtube.com/@inishutiwari" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/inishutiwari" alt="inishutiwari"></a>
-          <a class="partner-link" href="https://www.youtube.com/@RimoravVlogs" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/RimoravVlogs" alt="RimoravVlogs"></a>
-          <a class="partner-link" href="https://www.youtube.com/@onroadindian" target="_blank"><img class="partner-avatar" src="https://unroadindian" alt="onroadindian"></a>
+          <a href="https://www.youtube.com/@TheVideoNerd" target="_blank" class="partner-link"><img class="partner-avatar" src="https://unavatar.io/youtube/TheVideoNerd" onerror="this.src='https://ui-avatars.com/api/?name=TVN&background=1e293b&color=fff'" alt="TheVideoNerd"></a>
+          <a href="https://www.youtube.com/@caitlinerinoneill" target="_blank" class="partner-link"><img class="partner-avatar" src="https://unavatar.io/youtube/caitlinerinoneill" onerror="this.src='https://ui-avatars.com/api/?name=CO&background=1e293b&color=fff'" alt="caitlinerinoneill"></a>
+          <a href="https://www.youtube.com/@SuzieTaylor" target="_blank" class="partner-link"><img class="partner-avatar" src="https://unavatar.io/youtube/SuzieTaylor" onerror="this.src='https://ui-avatars.com/api/?name=ST&background=1e293b&color=fff'" alt="SuzieTaylor"></a>
+          <a href="https://www.youtube.com/@inishutiwari" target="_blank" class="partner-link"><img class="partner-avatar" src="https://unavatar.io/youtube/inishutiwari" onerror="this.src='https://ui-avatars.com/api/?name=IT&background=1e293b&color=fff'" alt="inishutiwari"></a>
+          <a href="https://www.youtube.com/@RimoravVlogs" target="_blank" class="partner-link"><img class="partner-avatar" src="https://unavatar.io/youtube/RimoravVlogs" onerror="this.src='https://ui-avatars.com/api/?name=RV&background=1e293b&color=fff'" alt="RimoravVlogs"></a>
+          <a href="https://www.youtube.com/@onroadindian" target="_blank" class="partner-link"><img class="partner-avatar" src="https://unavatar.io/youtube/onroadindian" onerror="this.src='https://ui-avatars.com/api/?name=OI&background=1e293b&color=fff'" alt="onroadindian"></a>
         </div>
-        <!-- Track 2 -->
         <div class="ticker-track">
-          <a class="partner-link" href="https://www.youtube.com/@TheVideoNerd" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/TheVideoNerd" alt="TheVideoNerd"></a>
-          <a class="partner-link" href="https://www.youtube.com/@caitlinerinoneill" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/caitlinerinoneill" alt="caitlinerinoneill"></a>
-          <a class="partner-link" href="https://www.youtube.com/@SuzieTaylor" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/SuzieTaylor" alt="SuzieTaylor"></a>
-          <a class="partner-link" href="https://www.youtube.com/@inishutiwari" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/inishutiwari" alt="inishutiwari"></a>
-          <a class="partner-link" href="https://www.youtube.com/@RimoravVlogs" target="_blank"><img class="partner-avatar" src="https://unavatar.io/youtube/RimoravVlogs" alt="RimoravVlogs"></a>
-          <a class="partner-link" href="https://www.youtube.com/@onroadindian" target="_blank"><img class="partner-avatar" src="https://unroadindian" alt="onroadindian"></a>
+          <a href="https://www.youtube.com/@TheVideoNerd" target="_blank" class="partner-link"><img class="partner-avatar" src="https://unavatar.io/youtube/TheVideoNerd" onerror="this.src='https://ui-avatars.com/api/?name=TVN&background=1e293b&color=fff'" alt="TheVideoNerd"></a>
+          <a href="https://www.youtube.com/@caitlinerinoneill" target="_blank" class="partner-link"><img class="partner-avatar" src="https://unavatar.io/youtube/caitlinerinoneill" onerror="this.src='https://ui-avatars.com/api/?name=CO&background=1e293b&color=fff'" alt="caitlinerinoneill"></a>
+          <a href="https://www.youtube.com/@SuzieTaylor" target="_blank" class="partner-link"><img class="partner-avatar" src="https://unavatar.io/youtube/SuzieTaylor" onerror="this.src='https://ui-avatars.com/api/?name=ST&background=1e293b&color=fff'" alt="SuzieTaylor"></a>
+          <a href="https://www.youtube.com/@inishutiwari" target="_blank" class="partner-link"><img class="partner-avatar" src="https://unavatar.io/youtube/inishutiwari" onerror="this.src='https://ui-avatars.com/api/?name=IT&background=1e293b&color=fff'" alt="inishutiwari"></a>
+          <a href="https://www.youtube.com/@RimoravVlogs" target="_blank" class="partner-link"><img class="partner-avatar" src="https://unavatar.io/youtube/RimoravVlogs" onerror="this.src='https://ui-avatars.com/api/?name=RV&background=1e293b&color=fff'" alt="RimoravVlogs"></a>
+          <a href="https://www.youtube.com/@onroadindian" target="_blank" class="partner-link"><img class="partner-avatar" src="https://unavatar.io/youtube/onroadindian" onerror="this.src='https://ui-avatars.com/api/?name=OI&background=1e293b&color=fff'" alt="onroadindian"></a>
         </div>
       </div>
     </div>
 
-    <!-- Videos Showcase -->
     <section id="videos">
       <h2>Featured Video Projects</h2>
       <div class="carousel-container">
         <div class="carousel-wrapper">
-          <div class="drag-overlay"></div>
           <div class="carousel-track">
-            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="QGE7i0dVs5w"></div></div></div>
-            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="eXJf7LGnIk4"></div></div></div>
-            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="vlWlgg2Laj8"></div></div></div>
-            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="cUngFXNXoeo"></div></div></div>
-            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="5LRTlWHOQaE"></div></div></div>
-            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="kDdrgZ0C5Gc"></div></div></div>
-            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="Zp1cyXXW92I"></div></div></div> 
-            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="RutDI0yMFI8"></div></div></div>
-            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="ds4wMZ1mgCg"></div></div></div>
-            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="WhcMlzhcslA"></div></div></div>
-            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="V00KiVl3qPk"></div></div></div>
-            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="pW8xFxPDQgk"></div></div></div>
-            <div class="carousel-item"><div class="yt-wrapper-mask"><div class="yt-player" data-video-id="z99KBCAivKs"></div></div></div> 
+            <div class="carousel-item"><div class="video-container-box" onclick="playVid(this, 'QGE7i0dVs5w')"><img class="facade-img" src="https://img.youtube.com/vi/QGE7i0dVs5w/maxresdefault.jpg" loading="lazy"><div class="play-btn"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box" onclick="playVid(this, 'eXJf7LGnIk4')"><img class="facade-img" src="https://img.youtube.com/vi/eXJf7LGnIk4/maxresdefault.jpg" loading="lazy"><div class="play-btn"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box" onclick="playVid(this, 'vlWlgg2Laj8')"><img class="facade-img" src="https://img.youtube.com/vi/vlWlgg2Laj8/maxresdefault.jpg" loading="lazy"><div class="play-btn"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box" onclick="playVid(this, 'cUngFXNXoeo')"><img class="facade-img" src="https://img.youtube.com/vi/cUngFXNXoeo/maxresdefault.jpg" loading="lazy"><div class="play-btn"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box" onclick="playVid(this, '5LRTlWHOQaE')"><img class="facade-img" src="https://img.youtube.com/vi/5LRTlWHOQaE/maxresdefault.jpg" loading="lazy"><div class="play-btn"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box" onclick="playVid(this, 'kDdrgZ0C5Gc')"><img class="facade-img" src="https://img.youtube.com/vi/kDdrgZ0C5Gc/maxresdefault.jpg" loading="lazy"><div class="play-btn"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box" onclick="playVid(this, 'Zp1cyXXW92I')"><img class="facade-img" src="https://img.youtube.com/vi/Zp1cyXXW92I/maxresdefault.jpg" loading="lazy"><div class="play-btn"></div></div></div> 
+            <div class="carousel-item"><div class="video-container-box" onclick="playVid(this, 'RutDI0yMFI8')"><img class="facade-img" src="https://img.youtube.com/vi/RutDI0yMFI8/maxresdefault.jpg" loading="lazy"><div class="play-btn"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box" onclick="playVid(this, 'ds4wMZ1mgCg')"><img class="facade-img" src="https://img.youtube.com/vi/ds4wMZ1mgCg/maxresdefault.jpg" loading="lazy"><div class="play-btn"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box" onclick="playVid(this, 'WhcMlzhcslA')"><img class="facade-img" src="https://img.youtube.com/vi/WhcMlzhcslA/maxresdefault.jpg" loading="lazy"><div class="play-btn"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box" onclick="playVid(this, 'V00KiVl3qPk')"><img class="facade-img" src="https://img.youtube.com/vi/V00KiVl3qPk/maxresdefault.jpg" loading="lazy"><div class="play-btn"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box" onclick="playVid(this, 'pW8xFxPDQgk')"><img class="facade-img" src="https://img.youtube.com/vi/pW8xFxPDQgk/maxresdefault.jpg" loading="lazy"><div class="play-btn"></div></div></div>
+            <div class="carousel-item"><div class="video-container-box" onclick="playVid(this, 'z99KBCAivKs')"><img class="facade-img" src="https://img.youtube.com/vi/z99KBCAivKs/maxresdefault.jpg" loading="lazy"><div class="play-btn"></div></div></div> 
           </div>
         </div>
         <div class="carousel-dots"></div>
       </div>
     </section>
 
-    <!-- Thumbnails Showcase -->
     <section id="thumbnails">
       <h2>Thumbnail Design</h2>
       <div class="carousel-container">
         <div class="carousel-wrapper">
-          <div class="drag-overlay"></div>
           <div class="carousel-track">
-            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/1.jpg?raw=true" alt="t1"></div></div>
-            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/2.jpg?raw=true" alt="t2"></div></div>
-            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/3.jpg?raw=true" alt="t3"></div></div>
-            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/4.jpg?raw=true" alt="t4"></div></div>
-            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/mc10new1.png?raw=true" alt="t5"></div></div>
-            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/6.jpg?raw=true" alt="t6"></div></div>
-            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/7.jpg?raw=true" alt="t7"></div></div>
-            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/8.jpg?raw=true" alt="t8"></div></div>
-            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/9.jpg?raw=true" alt="t9"></div></div>
-            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/10.jpg?raw=true" alt="t10"></div></div>
-            <div class="carousel-item"><div class="yt-wrapper-mask"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/11.jpg?raw=true" alt="t11"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/1.jpg?raw=true" alt="t1"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/2.jpg?raw=true" alt="t2"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/3.jpg?raw=true" alt="t3"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/4.jpg?raw=true" alt="t4"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/mc10new1.png?raw=true" alt="t5"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/6.jpg?raw=true" alt="t6"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/7.jpg?raw=true" alt="t7"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/8.jpg?raw=true" alt="t8"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/9.jpg?raw=true" alt="t9"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/10.jpg?raw=true" alt="t10"></div></div>
+            <div class="carousel-item"><div class="video-container-box"><img src="https://github.com/jaydeep010/Portfolio/blob/main/Thumbnails/11.jpg?raw=true" alt="t11"></div></div>
           </div>
         </div>
         <div class="carousel-dots"></div>
@@ -564,399 +330,91 @@
 
   <footer id="contact">
     <h2>Let's Make Videos Worth Finishing</h2>
-    <p style="color:var(--text-muted)">Get in touch directly through Email or Discord.</p>
     <div class="contact-container">
       <a class="contact-btn btn-prime" href="mailto:jaydeepkumawat4114@gmail.com">Send an Email</a>
       <a class="contact-btn btn-secondary" href="http://discordapp.com/users/609626785889648642" target="_blank">Message via Discord</a>
     </div>
   </footer>
 
-  <!-- YouTube Iframe Player API Loader -->
-  <script src="https://www.youtube.com/iframe_api"></script>
-
   <script>
-    const ytPlayers = {};
-    window.activeVideoPlayer = null;
-    let isVideoPlayingGlobal = false;
+    /* --- Core Interactions --- */
+    let isProgrammaticScroll = false;
+    let currentPlayingContainer = null; // Tracks which video is playing to pause auto-scroll
 
-    function onYouTubeIframeAPIReady() {
-      document.querySelectorAll('.yt-player').forEach((el, index) => {
-        const vidId = el.dataset.videoId;
-        const playerDomId = `player_${index}`;
-        el.id = playerDomId;
+    // Mobile zoom block
+    document.addEventListener('touchstart', (e) => { if (e.touches.length > 1) e.preventDefault(); }, { passive: false });
+    let lastTapTimestamp = 0;
+    document.addEventListener('touchend', (e) => {
+      const currentTimestamp = performance.now();
+      if (currentTimestamp - lastTapTimestamp <= 300) e.preventDefault(); 
+      lastTapTimestamp = currentTimestamp;
+    }, { passive: false });
 
-        ytPlayers[playerDomId] = new YT.Player(playerDomId, {
-          videoId: vidId,
-          playerVars: {
-            'autoplay': 1,
-            'mute': 1,
-            'controls': 0, 
-            'rel': 0,
-            'playsinline': 1,
-            'showinfo': 0,
-            'modestbranding': 1,
-            'iv_load_policy': 3,
-            'enablejsapi': 1
-          },
-          events: {
-            'onReady': (e) => {
-              e.target.mute(); 
-              if (index === 0) {
-                window.activeVideoPlayer = playerDomId;
-                e.target.playVideo();
-              }
-            },
-            'onStateChange': (e) => {
-              if (e.data === YT.PlayerState.PLAYING) {
-                isVideoPlayingGlobal = true;
-              } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
-                isVideoPlayingGlobal = false;
-              }
-              if (e.data === YT.PlayerState.PAUSED && window.activeVideoPlayer === playerDomId) {
-                e.target.playVideo();
-              }
-            }
-          }
-        });
-      });
-    }
-
-    // Lettering Reveal Trigger
-    const brandEl = document.getElementById("brand");
-    const nameStr = "JAYDEEP";
-    [...nameStr].forEach((ch, i) => {
-      const span = document.createElement("span");
-      span.textContent = ch;
-      span.style.animationDelay = (i * 0.05) + "s";
-      brandEl.appendChild(span);
-    });
-
-    // Subtitle Character Builder
-    (function(){
-      const subText = "Videos & Thumbnails As You Want";
-      const subEl = document.getElementById("subtitle");
-      [...subText].forEach((ch, i) => {
-        const span = document.createElement("span");
-        if (ch === " ") {
-          span.innerHTML = "&nbsp;";
-          span.style.marginRight = "10px";
-        } else {
-          span.textContent = ch;
-          span.style.marginRight = "4px";
-        }
-        span.style.animationDelay = (300 + (i * 15)) + "ms";
-        subEl.appendChild(span);
-      });
-    })();
-
-    // Initialize Skill Bars
-    const observeSkills = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.querySelectorAll('.bar > i').forEach(bar => {
-            bar.style.width = bar.dataset.target;
-          });
-          observeSkills.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    observeSkills.observe(document.getElementById('skills'));
-
-    // Workflow Swapping Matrices Data
-    const bpData = [
-      { title: "Hook & Retention Strategy", desc: "Cutting the boring bits in the first 30 seconds to lock people in, using smart sound effects and fast cuts to keep viewers from clicking away." },
-      { title: "High-Click Thumbnails", desc: "Designing thumbs that stop the scroll. Bold imagery, clear contrast, and smart layouts so the viewer instantly understands the story." },
-      { title: "Storytelling & Series Progression", desc: "Structuring long-form challenge edits (like 100 Days survival series) into chapters with clean ups and downs so people watch until the very end." }
-    ];
-
-    function switchBlueprint(index, tabEl) {
-      document.querySelectorAll('.b-tab').forEach(t => t.classList.remove('active'));
-      tabEl.classList.add('active');
-      const title = document.getElementById('bp-title');
-      const desc = document.getElementById('bp-desc');
-      title.style.opacity = 0;
-      desc.style.opacity = 0;
-      setTimeout(() => {
-        title.innerText = bpData[index].title;
-        desc.innerText = bpData[index].desc;
-        title.style.opacity = 1;
-        desc.style.opacity = 1;
-      }, 150);
-    }
-
-    /* --- HIGH-PERFORMANCE VELOCITY SWIPE & SEAMLESS INFINITE TRACK ENGINE --- */
-    let globalIsDragging = false; // exported drag state to disable auto-nav highlighting while using carousel
-    
-    document.querySelectorAll('.carousel-container').forEach(container => {
-      const wrapper = container.querySelector('.carousel-wrapper');
-      const overlay = container.querySelector('.drag-overlay');
-      const track = container.querySelector('.carousel-track');
-      
-      const originalItems = [...track.children];
-      originalItems.forEach(item => {
-        const cloneBefore = item.cloneNode(true);
-        const cloneAfter = item.cloneNode(true);
-        track.insertBefore(cloneBefore, track.firstChild);
-        track.appendChild(cloneAfter);
-      });
-
-      const items = [...track.children];
-      const dotsNav = container.querySelector('.carousel-dots');
-      const totalOriginals = originalItems.length;
-      
-      let isDragging = false, startX = 0, currentTranslate = 0, prevTranslate = 0;
-      let currentIndex = totalOriginals;
-      let velocity = 0, lastX = 0, lastTime = 0, rafId = null;
-
-      originalItems.forEach((_, i) => {
-        const dot = document.createElement('span');
-        dot.classList.add('dot');
-        if(i === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => { snapToSlide(i + totalOriginals); });
-        dotsNav.appendChild(dot);
-      });
-      const dots = [...dotsNav.children];
-
-      overlay.addEventListener('mousedown', dragStart);
-      overlay.addEventListener('touchstart', dragStart, { passive: true });
-      window.addEventListener('mouseup', dragEnd);
-      window.addEventListener('touchend', dragEnd);
-      window.addEventListener('mousemove', dragMove);
-      window.addEventListener('touchmove', dragMove, { passive: true });
-
-      function dragStart(e) {
-        isDragging = true;
-        globalIsDragging = true;
-        startX = getPositionX(e);
-        lastX = startX;
-        lastTime = performance.now();
-        velocity = 0;
-        if(rafId) cancelAnimationFrame(rafId);
-        
-        checkInfiniteBoundaries();
-        track.style.transition = 'none';
-        wrapper.style.cursor = 'grabbing';
-      }
-
-      function dragMove(e) {
-        if (!isDragging) return;
-        const currentX = getPositionX(e);
-        const diff = currentX - startX;
-        currentTranslate = prevTranslate + diff;
-        
-        const now = performance.now();
-        const deltaTime = now - lastTime;
-        if (deltaTime > 0) {
-          velocity = (currentX - lastX) / deltaTime;
-        }
-        
-        lastX = currentX;
-        lastTime = now;
-        setTrackPosition();
-      }
-
-      function dragEnd() {
-        if (!isDragging) return;
-        isDragging = false;
-        setTimeout(() => { globalIsDragging = false; }, 50);
-        wrapper.style.cursor = 'grab';
-        
-        prevTranslate = currentTranslate;
-        runInertiaDeceleration();
-      }
-
-      function runInertiaDeceleration() {
-        if (Math.abs(velocity) > 0.05) {
-          currentTranslate += velocity * 18; 
-          velocity *= 0.92; 
-          setTrackPosition();
-          rafId = requestAnimationFrame(runInertiaDeceleration);
-        } else {
-          prevTranslate = currentTranslate;
-          snapToClosest();
-        }
-      }
-
-      function snapToClosest() {
-        const wrapperCenter = wrapper.offsetWidth / 2;
-        let closestIndex = 0;
-        let minDistance = Infinity;
-
-        items.forEach((item, idx) => {
-          const itemRect = item.getBoundingClientRect();
-          const itemCenter = itemRect.left + (itemRect.width / 2);
-          const distance = Math.abs(wrapperCenter - itemCenter);
-          if (distance < minDistance) {
-            minDistance = distance;
-            closestIndex = idx;
-          }
-        });
-        snapToSlide(closestIndex);
-      }
-
-      function getPositionX(e) {
-        return e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-      }
-
-      function setTrackPosition() {
-        track.style.transform = `translateX(${currentTranslate}px)`;
-        updateActiveStates();
-      }
-
-      function updateActiveStates() {
-        const wrapperCenter = wrapper.offsetWidth / 2;
-        items.forEach((item, idx) => {
-          const itemRect = item.getBoundingClientRect();
-          const itemCenter = itemRect.left + (itemRect.width / 2);
-          const isNearCenter = Math.abs(wrapperCenter - itemCenter) < (itemRect.width * 0.45);
-          item.classList.toggle('active', isNearCenter);
-          if(isNearCenter && currentIndex !== idx) {
-            currentIndex = idx;
-            const normalizedIndex = (idx - totalOriginals + totalOriginals) % totalOriginals;
-            if(normalizedIndex >= 0 && normalizedIndex < dots.length) {
-              dots.forEach((d, dIdx) => d.classList.toggle('active', dIdx === normalizedIndex));
-            }
-          }
-        });
-      }
-
-      function checkInfiniteBoundaries() {
-        const wrapperWidth = wrapper.offsetWidth;
-        if (currentIndex < totalOriginals) {
-          currentIndex += totalOriginals;
-          const targetItem = items[currentIndex];
-          currentTranslate = -(targetItem.offsetLeft - (wrapperWidth / 2) + (targetItem.offsetWidth / 2));
-          prevTranslate = currentTranslate;
-          track.style.transition = 'none';
-          track.style.transform = `translateX(${currentTranslate}px)`;
-        } else if (currentIndex >= totalOriginals * 2) {
-          currentIndex -= totalOriginals;
-          const targetItem = items[currentIndex];
-          currentTranslate = -(targetItem.offsetLeft - (wrapperWidth / 2) + (targetItem.offsetWidth / 2));
-          prevTranslate = currentTranslate;
-          track.style.transition = 'none';
-          track.style.transform = `translateX(${currentTranslate}px)`;
-        }
-      }
-
-      function snapToSlide(idx) {
-        currentIndex = idx;
-        const wrapperWidth = wrapper.offsetWidth;
-        const targetItem = items[currentIndex];
-        const targetOffset = targetItem.offsetLeft - (wrapperWidth / 2) + (targetItem.offsetWidth / 2);
-        
-        currentTranslate = -targetOffset;
-        prevTranslate = currentTranslate;
-        
-        track.style.transition = 'transform 0.5s cubic-bezier(0.15, 0.85, 0.2, 1)';
-        track.style.transform = `translateX(${currentTranslate}px)`;
-        
-        items.forEach((item, i) => item.classList.toggle('active', i === currentIndex));
-        
-        const normalizedIndex = (currentIndex - totalOriginals + totalOriginals) % totalOriginals;
-        dots.forEach((d, i) => d.classList.toggle('active', i === normalizedIndex));
-
-        handleVideoPlaybackControl(container, targetItem);
-      }
-
-      function handleVideoPlaybackControl(carouselContainer, activeItem) {
-        if (carouselContainer.parentNode.id !== 'videos') return;
-        
-        const videoContainer = activeItem.querySelector('.yt-player');
-        if (!videoContainer) return;
-        
-        const activePlayerId = videoContainer.id;
-        window.activeVideoPlayer = activePlayerId;
-
-        for (let id in ytPlayers) {
-          try {
-            if (id === activePlayerId) {
-              ytPlayers[id].mute(); 
-              ytPlayers[id].playVideo();
-            } else {
-              ytPlayers[id].pauseVideo();
-            }
-          } catch(err) {}
-        }
-      }
-
-      setInterval(() => {
-        if (container.parentNode.id === 'videos' && isVideoPlayingGlobal) return;
-        if (!isDragging) {
-          checkInfiniteBoundaries();
-          setTimeout(() => snapToSlide(currentIndex + 1), 30);
-        }
-      }, 4000);
-
-      window.addEventListener('resize', () => snapToSlide(currentIndex));
-      setTimeout(() => snapToSlide(totalOriginals), 500);
-    });
-
-
-    /* --- CUSTOM SPEEDRAMP SCROLL ANIMATION SYSTEM --- */
+    // High Speed SpeedRamp Scroll
     function speedRampScroll(targetId) {
-      const target = document.getElementById(targetId);
-      if (!target) return;
+      const targetElement = document.getElementById(targetId);
+      if (!targetElement) return;
+      isProgrammaticScroll = true;
       
-      const targetY = target.getBoundingClientRect().top + window.scrollY - 100;
-      const startY = window.scrollY;
-      const distance = targetY - startY;
-      const duration = 500; // Ultra-fast 500ms duration
-      let start = null;
+      const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - 80;
+      const startPosition = window.scrollY;
+      const distance = targetPosition - startPosition;
+      const duration = 500; // Ultra fast snap
+      let startTime = null;
 
-      function step(timestamp) {
-        if (!start) start = timestamp;
-        const progress = timestamp - start;
-        let timeFrac = progress / duration;
-        if (timeFrac > 1) timeFrac = 1;
+      // Aggressive ease function for snap effect
+      function easeOutQuart(t) { return 1 - (--t) * t * t * t; }
 
-        // Custom easeInOutQuart for aggressive speedramp profile
-        let ease = timeFrac < 0.5 ? 8 * timeFrac * timeFrac * timeFrac * timeFrac : 1 - Math.pow(-2 * timeFrac + 2, 4) / 2;
-
-        window.scrollTo(0, startY + (distance * ease));
-        if (progress < duration) requestAnimationFrame(step);
+      function scrollStep(currentTime) {
+        if (!startTime) startTime = currentTime;
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        window.scrollTo(0, startPosition + (distance * easeOutQuart(progress)));
+        
+        if (progress < 1) {
+          requestAnimationFrame(scrollStep);
+        } else {
+          setTimeout(() => { isProgrammaticScroll = false; }, 30);
+        }
       }
-      requestAnimationFrame(step);
+      requestAnimationFrame(scrollStep);
     }
 
-    /* --- IOS GLASS SWIPE NAVIGATION ENGINE --- */
-    const indicator = document.getElementById('nav-indicator');
+    // Top Bar Hover tracking and click activation
     const navSpy = document.getElementById('nav-spy');
-    const navLinksArr = Array.from(document.querySelectorAll('#nav-spy a'));
-    
+    const pill = document.getElementById('nav-pill');
+    const navLinksArr = [...navSpy.querySelectorAll('a')];
+
     function moveIndicator(element) {
-      if(!element) return;
-      indicator.style.width = `${element.offsetWidth}px`;
-      indicator.style.left = `${element.offsetLeft}px`;
+      if (!element) return;
+      pill.style.left = `${element.offsetLeft}px`;
+      pill.style.width = `${element.offsetWidth}px`;
     }
 
-    // Attach click for desktop
     navLinksArr.forEach(link => {
+      link.addEventListener('mouseenter', () => moveIndicator(link));
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        const targetId = link.getAttribute('href').substring(1);
-        speedRampScroll(targetId);
         navLinksArr.forEach(l => l.classList.remove('active'));
         link.classList.add('active');
         moveIndicator(link);
+        speedRampScroll(link.getAttribute('href').substring(1));
       });
-      link.addEventListener('mouseenter', (e) => moveIndicator(e.target));
     });
 
-    // Handle hover snapping back on desktop
     navSpy.addEventListener('mouseleave', () => {
       const activeLink = document.querySelector('#nav-spy a.active');
       if (activeLink) moveIndicator(activeLink);
     });
 
-    // Touch Swipe Logic (iOS glass hover tracking)
+    // iOS style Touch-Drag Nav Bar Logic
     let currentTouchLink = null;
     navSpy.addEventListener('touchmove', (e) => {
-      e.preventDefault(); // Lock page scrolling while wiping over the nav
+      e.preventDefault(); // Lock scroll while dragging nav
       const touch = e.touches[0];
       const el = document.elementFromPoint(touch.clientX, touch.clientY);
-      
-      if (el && el.tagName === 'A' && el.parentElement === navSpy) {
+      if (el && navLinksArr.includes(el)) {
         if (currentTouchLink !== el) {
           currentTouchLink = el;
           moveIndicator(el);
@@ -965,51 +423,230 @@
     }, { passive: false });
 
     navSpy.addEventListener('touchend', (e) => {
-      let targetEl = currentTouchLink;
-      
-      // Fallback if they just tapped directly without moving
-      if (!targetEl) {
-        const touch = e.changedTouches[0];
-        const el = document.elementFromPoint(touch.clientX, touch.clientY);
-        if (el && el.tagName === 'A' && el.parentElement === navSpy) targetEl = el;
-      }
-
-      if (targetEl) {
-        const targetId = targetEl.getAttribute('href').substring(1);
-        speedRampScroll(targetId);
-        
+      if (currentTouchLink) {
         navLinksArr.forEach(l => l.classList.remove('active'));
-        targetEl.classList.add('active');
-        moveIndicator(targetEl);
+        currentTouchLink.classList.add('active');
+        moveIndicator(currentTouchLink);
+        speedRampScroll(currentTouchLink.getAttribute('href').substring(1));
+        currentTouchLink = null;
       }
-      currentTouchLink = null;
     });
 
-    // Scrollspy Implementer
-    const targetSections = document.querySelectorAll('main > div, section, footer');
+    window.addEventListener('load', () => moveIndicator(document.querySelector('#nav-spy a.active')));
+
     window.addEventListener('scroll', () => {
+      if (isProgrammaticScroll) return; 
       let activeId = 'home';
-      targetSections.forEach(sec => {
-        const top = window.scrollY;
-        const offset = sec.offsetTop - 220;
-        const height = sec.offsetHeight;
-        if(top >= offset && top < offset + height) {
-          activeId = sec.getAttribute('id');
+      document.querySelectorAll('main > div, section, footer').forEach(sec => {
+        if (window.scrollY >= (sec.offsetTop - 240)) activeId = sec.getAttribute('id');
+      });
+      const matchLink = navSpy.querySelector(`a[href="#${activeId}"]`);
+      if (matchLink) {
+        navLinksArr.forEach(l => l.classList.remove('active'));
+        matchLink.classList.add('active');
+        moveIndicator(matchLink);
+      }
+    });
+
+    // Branding text anims
+    const brandEl = document.getElementById("brand");
+    [..."JAYDEEP"].forEach((ch, i) => {
+      const span = document.createElement("span");
+      span.textContent = ch;
+      span.style.animationDelay = (i * 0.05) + "s";
+      brandEl.appendChild(span);
+    });
+
+    (function(){
+      const subEl = document.getElementById("subtitle");
+      [..."Videos & Thumbnails As You Want"].forEach((ch, i) => {
+        const span = document.createElement("span");
+        if (ch === " ") { span.innerHTML = "&nbsp;"; span.style.marginRight = "6px"; } 
+        else { span.textContent = ch; span.style.marginRight = "2px"; }
+        span.style.animationDelay = (300 + (i * 12)) + "ms";
+        subEl.appendChild(span);
+      });
+    })();
+
+    const bpData = [
+      { title: "Hook & Retention Strategy", desc: "Cutting the boring bits in the first 30 seconds to lock people in, using smart sound effects and fast cuts to keep viewers from clicking away." },
+      { title: "High-Click Thumbnails", desc: "Designing thumbs that stop the scroll. Bold imagery, clear contrast, and smart layouts so the viewer instantly understands the story." },
+      { title: "Storytelling & Series Progression", desc: "Structuring long-form challenge edits (like 100 Days survival series) into chapters with clean ups and downs so people watch until the very end." }
+    ];
+    function switchBlueprint(index, tabEl) {
+      document.querySelectorAll('.b-tab').forEach(t => t.classList.remove('active'));
+      tabEl.classList.add('active');
+      document.getElementById('bp-title').innerText = bpData[index].title;
+      document.getElementById('bp-desc').innerText = bpData[index].desc;
+    }
+
+    // Instant Facade Video Loader
+    function playVid(container, vidId) {
+      if (!container.closest('.carousel-item').classList.contains('active')) return; // Only play if centered
+
+      // Reset previous video if any
+      if (currentPlayingContainer && currentPlayingContainer !== container) {
+        const oldId = currentPlayingContainer.dataset.vidId;
+        currentPlayingContainer.innerHTML = `<img class="facade-img" src="https://img.youtube.com/vi/${oldId}/maxresdefault.jpg" loading="lazy"><div class="play-btn"></div>`;
+      }
+      
+      container.dataset.vidId = vidId;
+      container.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${vidId}?autoplay=1&mute=0&rel=0&playsinline=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+      currentPlayingContainer = container;
+    }
+
+    /* --- Infinite Loop Slider --- */
+    document.querySelectorAll('.carousel-container').forEach(container => {
+      const wrapper = container.querySelector('.carousel-wrapper');
+      const track = container.querySelector('.carousel-track');
+      let originalItems = [...track.children];
+      const originalCount = originalItems.length;
+      const dotsNav = container.querySelector('.carousel-dots');
+      
+      // Clone for infinite wrap
+      originalItems.forEach(item => {
+        track.insertBefore(item.cloneNode(true), track.firstChild);
+        track.appendChild(item.cloneNode(true));
+      });
+
+      let allItems = [...track.children];
+      let itemWidth = originalItems[0].offsetWidth + 28;
+      let isDragging = false, startX = 0, currentTranslate = 0, prevTranslate = 0, currentIndex = originalCount;
+      let velocity = 0, lastX = 0, lastTime = 0, rafId = null;
+
+      originalItems.forEach((_, i) => {
+        const dot = document.createElement('span');
+        dot.classList.add('dot');
+        if(i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => { snapToSlide(originalCount + i); });
+        dotsNav.appendChild(dot);
+      });
+      const dots = [...dotsNav.children];
+
+      wrapper.addEventListener('mousedown', dragStart);
+      wrapper.addEventListener('touchstart', dragStart, { passive: true });
+      window.addEventListener('mouseup', dragEnd);
+      window.addEventListener('touchend', dragEnd);
+      window.addEventListener('mousemove', dragMove);
+      window.addEventListener('touchmove', dragMove, { passive: true });
+
+      function dragStart(e) {
+        isDragging = true;
+        startX = getPositionX(e);
+        lastX = startX;
+        lastTime = performance.now();
+        velocity = 0;
+        if(rafId) cancelAnimationFrame(rafId);
+        track.style.transition = 'none';
+        checkBoundsAndTeleport();
+      }
+
+      function dragMove(e) {
+        if (!isDragging) return;
+        const currentX = getPositionX(e);
+        currentTranslate = prevTranslate + (currentX - startX);
+        const now = performance.now();
+        if (now - lastTime > 0) velocity = (currentX - lastX) / (now - lastTime);
+        lastX = currentX;
+        lastTime = now;
+        setTrackPosition();
+      }
+
+      function dragEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        prevTranslate = currentTranslate;
+        runInertiaDeceleration();
+      }
+
+      function runInertiaDeceleration() {
+        if (Math.abs(velocity) > 0.02) {
+          currentTranslate += velocity * 42; 
+          velocity *= 0.94; 
+          setTrackPosition();
+          rafId = requestAnimationFrame(runInertiaDeceleration);
+        } else {
+          snapToClosest();
         }
+      }
+
+      function checkBoundsAndTeleport() {
+        if (currentTranslate > -itemWidth) currentTranslate -= originalCount * itemWidth;
+        else if (currentTranslate < -((originalCount * 2) * itemWidth)) currentTranslate += originalCount * itemWidth;
+        prevTranslate = currentTranslate;
+        setTrackPosition();
+      }
+
+      function snapToClosest() {
+        const wrapperCenter = wrapper.offsetWidth / 2;
+        let closestIndex = originalCount, minDistance = Infinity;
+        allItems.forEach((item, idx) => {
+          const itemCenter = item.getBoundingClientRect().left + (item.offsetWidth / 2);
+          const dist = Math.abs(wrapperCenter - itemCenter);
+          if (dist < minDistance) { minDistance = dist; closestIndex = idx; }
+        });
+        snapToSlide(closestIndex);
+      }
+
+      function getPositionX(e) { return e.type.includes('mouse') ? e.clientX : e.touches[0].clientX; }
+      
+      function setTrackPosition() { 
+        track.style.transform = `translateX(${currentTranslate}px)`; 
+        updateActiveStates(); 
+      }
+
+      function updateActiveStates() {
+        const wrapperCenter = wrapper.offsetWidth / 2;
+        allItems.forEach((item, idx) => {
+          const itemCenter = item.getBoundingClientRect().left + (item.offsetWidth / 2);
+          const isNear = Math.abs(wrapperCenter - itemCenter) < (item.offsetWidth * 0.5);
+          
+          item.classList.toggle('active', isNear);
+
+          if (isNear) {
+            let rel = (idx - originalCount) % originalCount;
+            if (rel < 0) rel += originalCount;
+            currentIndex = idx;
+            dots.forEach((d, dIdx) => d.classList.toggle('active', dIdx === rel));
+          }
+        });
+      }
+
+      function snapToSlide(idx) {
+        currentIndex = idx;
+        const targetItem = allItems[currentIndex];
+        if (!targetItem) return;
+        currentTranslate = -(targetItem.offsetLeft - (wrapper.offsetWidth / 2) + (targetItem.offsetWidth / 2));
+        prevTranslate = currentTranslate;
+        track.style.transition = 'transform 0.4s cubic-bezier(0.1, 0.8, 0.2, 1)';
+        track.style.transform = `translateX(${currentTranslate}px)`;
+        updateActiveStates();
+
+        // If slider moved away from playing video, reset it to Facade
+        if (currentPlayingContainer && !targetItem.contains(currentPlayingContainer)) {
+            const oldId = currentPlayingContainer.dataset.vidId;
+            currentPlayingContainer.innerHTML = `<img class="facade-img" src="https://img.youtube.com/vi/${oldId}/maxresdefault.jpg" loading="lazy"><div class="play-btn"></div>`;
+            currentPlayingContainer = null;
+        }
+      }
+
+      // Auto Slider Loop
+      setInterval(() => {
+        // If user is watching a video, lock the auto slide!
+        if (currentPlayingContainer) return; 
+
+        if (!isDragging) {
+          checkBoundsAndTeleport();
+          setTimeout(() => snapToSlide(currentIndex + 1), 30);
+        }
+      }, 4000);
+
+      window.addEventListener('resize', () => { 
+        itemWidth = originalItems[0].offsetWidth + 28; 
+        snapToSlide(currentIndex); 
       });
       
-      navLinksArr.forEach(l => {
-        const isActive = l.getAttribute('href') === `#${activeId}`;
-        l.classList.toggle('active', isActive);
-        if (isActive && !globalIsDragging && !currentTouchLink) {
-          moveIndicator(l);
-        }
-      });
-    });
-
-    window.addEventListener('load', () => {
-      const activeLink = document.querySelector('#nav-spy a.active');
-      if (activeLink) moveIndicator(activeLink);
+      setTimeout(() => snapToSlide(originalCount), 400);
     });
   </script>
 </body>
